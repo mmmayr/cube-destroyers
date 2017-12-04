@@ -5,7 +5,8 @@
 * http://www.rubiks.com
 *
 */
-
+var scrambleBool=false;
+var counter=0;
 YUI.add('rubik-queue', function (Y) {
 
     Queue = function (config) {
@@ -16,7 +17,7 @@ YUI.add('rubik-queue', function (Y) {
     };
 
     Queue.prototype = {
-
+        // ex of m : {face: "R", slice: "M", rotate: "left"}
         add: function (m) {
             if(++this.current == this.size){
                 this._queue.push(m);
@@ -28,6 +29,8 @@ YUI.add('rubik-queue', function (Y) {
             }
         },
         undo: function () {
+          // basically has a counter that starts at the end of the queue and just undo-s from there
+          // and if you click the solve button, it just solves in reverse order i clicked
             var m;
             if(this.current >= 0){
                 m = this._queue[this.current];
@@ -134,13 +137,13 @@ YUI.add('rubik', function (Y) {
             "ubl":"rtl","ubc":"rcl","ubr":"rbl","lbr":"ubl","lcr":"ubc","ltr":"ubr","dtl":"ltr",
             "dtc":"lcr","dtr":"lbr","rbl":"dtl","rcl":"dtc","rtl":"dtr","ftl":"ftr","fcl":"ftc",
             "fbl":"ftl","ftc":"fcr","fbc":"fcl","ftr":"fbr","fcr":"fbc","fbr":"fbl","fcc":"fcc"
-            
+
         },
         'CS-left':{
             "ucl":"lbc","ucc":"lcc","ucr":"ltc","ltc":"dcl",
             "lcc":"dcc","lbc":"dcr","dcl":"rbc","dcc":"rcc",
             "dcr":"rtc","rbc":"ucr","rcc":"ucc","rtc":"ucl"
-        
+
         },
         'CS-right':{
             "lbc":"ucl","lcc":"ucc","ltc":"ucr","dcl":"ltc",
@@ -158,17 +161,16 @@ YUI.add('rubik', function (Y) {
             "bbl":"btl","btc":"bcr","bbc":"bcl","btr":"bbr","bcr":"bbc","bbr":"bbl","bcc":"bcc"
         }
     };
-      
-    //Match the sides with css .class
+
     var INIT_CONFIG = {
         "front":"blue",
         "back":"green",
-        "up":"red",
+        "up":"yellow",
         "down":"white",
         "left":"orange",
-        "right":"yellow"
+        "right":"red"
     };
-    
+
     function Rubik (cfg) {
         this._init(cfg || {});
         this._bind();
@@ -186,6 +188,7 @@ YUI.add('rubik', function (Y) {
             this._solve = Y.one(cfg.solve || '.solve');
             this._undo = Y.one(cfg.undo || '.undo');
             this._redo = Y.one(cfg.redo || '.redo');
+            this._scramble = Y.one(cfg.scramble || '.scramble');
             this._queue = new Y.Queue();
             this._cube.append(this._plane);
             this._expectingTransition = false;
@@ -199,11 +202,11 @@ YUI.add('rubik', function (Y) {
             //TODO: Fix YUI bug to abstract transitionEnd
            this._cube.on('transitionend',this._endTransition,this);
            this._cube.on('webkitTransitionEnd',this._endTransition,this);
-           
+
            this._container.on('gesturemovestart',this._onTouchCube,{preventDefault:true},this);
            this._container.on('gesturemove',this._onMoveCube,{preventDefault:true},this);
            this._container.on('gesturemoveend',this._onEndCube,{preventDefault:true},this);
-           
+
            this._container.on('gesturestart',this._multiTouchStart,this);
            this._container.on('gesturechange',this._multiTouchMove,this);
            this._container.on('gestureend',this._multiTouchEnd,this);
@@ -211,6 +214,7 @@ YUI.add('rubik', function (Y) {
            this._solve.on('gesturemovestart',this._solveFake,{preventDefault:true},this);
            this._undo.on('gesturemovestart',this._undoMove,{preventDefault:true},this);
            this._redo.on('gesturemovestart',this._redoMove,{preventDefault:true},this);
+           this._scramble.on('gesturemovestart',this._scrambleCube,{preventDefault:true},this);
 
            if (Y.UA.mobile) {
                 //this._rotation.on('gesturestart',this._onRotationFocus,this);
@@ -234,11 +238,37 @@ YUI.add('rubik', function (Y) {
             return;
         },
         _undoMove: function (e) {
-            if (this._moving)return;
-            var movement = this._queue.undo();
-            this._expectingTransition = true;
-            movement && this._doMovement(movement, true);
-            return movement;
+            if(scrambleBool == false){
+              if (this._moving)return;
+              var movement = this._queue.undo();
+              console.log("queue: ", this._queue["_queue"]);
+              this._expectingTransition = true;
+              movement && this._doMovement(movement, true);
+              return movement;
+            }
+            else if (scrambleBool == true){
+              // window.alert("In undomove");
+              if(this.moving) return;
+              var moveList = [{face: "L", slice: "M", rotate: "right"},
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "D", slice: "S", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "U", slice: "E", rotate: "left"}];
+              var move = moveList[counter];
+              this._expectingTransition = true;
+              move && this._doMovement(move, false);
+              return move;
+            }
         },
         _redoMove: function (e) {
             if (this._moving)return;
@@ -250,6 +280,17 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 if(!m){
+                    this._solving.cancel();
+                }
+            },null,true);
+        },
+        _scrambleCube: function() {
+            scrambleBool = true;
+            this._solving = Y.later(350,this,function (){
+                var m = this._undoMove();
+                counter++;
+                if(!m || counter==15){
+                    scrambleBool=false;
                     this._solving.cancel();
                 }
             },null,true);
@@ -320,7 +361,7 @@ YUI.add('rubik', function (Y) {
             this._startY = evt.clientY;
             this._deltaX = 0;
             this._deltaY = 0;
-            
+
         },
         /*
         * Getting a mouse/double-finger moving. We need to update the rotation(XY) of the cube
@@ -328,6 +369,7 @@ YUI.add('rubik', function (Y) {
         * This function gets triggered if a gesture/click is present
         */
         _onMoveCube:function (evt) {
+            // not sure what this does but it looks like it checks where i'm clicking
             evt.halt();
             //TODO set rate move as a constant.
             var deltaX = this._deltaX = ((evt.clientX - this._startX)/1.2),
@@ -377,63 +419,76 @@ YUI.add('rubik', function (Y) {
                 //Front, left, right, back in E (left or right) direction
                 case parts[2] != "up" && parts[2] != "down" && mHorizontal:
                     movement = {face: parts[4].charAt(0),slice: parts[4].charAt(1),rotate: rotateX};
+                    console.log("onEndCube1: movement: ", movement);
                     break;
                 //up and down in E ( we have to adjust the 3D rotation tu a 2D plane:
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= -45 &&  deg<45:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateX};
+                    console.log("onEndCube2: movement: ", movement);
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 45 &&  deg< 135:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: this._tempXY.x < 0 ? rotateXInverted: rotateX};
+                    console.log("onEndCube3: movement: ", movement);
                     break;
-                
+
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 135 && deg < 225:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateXInverted};
+                    console.log("onEndCube4: movement: ", movement);
                     break;
-                    
+
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 225 && deg < 315:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: this._tempXY.x < 0 ?rotateX: rotateXInverted};
+                    console.log("onEndCube5: movement: ", movement);
                     break;
-                    
+
                 //M movements:
-                
+
                 //front and back
                 case (parts[2] == "front" || parts[2] == "back") && !mHorizontal:
                     if (parts[2] == "back"){swap = rotateY; rotateY = rotateYInverted; rotateYInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateY};
+                    console.log("onEndCube6: movement: ", movement);
                     break;
                 //right and left
                 case (parts[2] == "right" || parts[2] == "left") && !mHorizontal:
                     if (parts[2] == "left"){swap = rotateY; rotateY = rotateYInverted; rotateYInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateY};
+                    console.log("onEndCube7: movement: ", movement);
                     break;
                 //up & down:
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= -45 &&  deg<45:
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateY};
+                    console.log("onEndCube8: movement: ", movement);
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 45 &&  deg<135:
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateYInverted};
+                    console.log("onEndCube9: movement: ", movement);
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 135 &&  deg<225:
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateYInverted};
+                    console.log("onEndCube10: movement: ", movement);
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 225 &&  deg<315:
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateY};
+                    console.log("onEndCube11: movement: ", movement);
                     break;
-                   
+
                 default: break;
              }
              //this._gesture = false;//finish all touching
             if (movement)
+                console.log("standalone: movement: ", movement);
                 this._doMovement(movement);
         },
+
         _multiTouchStart:function (evt) {
             evt.halt();
             this._startX = evt.clientX || evt.pageX;
@@ -453,8 +508,12 @@ YUI.add('rubik', function (Y) {
             this._cubeXY.x = this._tempXY.x;
             this._cubeXY.y = this._tempXY.y;
         },
-        
+
         _doMovement:function (m,fromQueue) {
+            console.log("domovement m: ", m);
+            // fromQueue is true when I press undo and redo
+            // -> meaning it is undefined when i click on the cube
+            console.log("fromQueue: ", fromQueue);
             if (this._moving)return;//we cancel if there is some movement going on
             //save the movement if doesnt came from the queue.
             if(!fromQueue){
@@ -474,11 +533,11 @@ YUI.add('rubik', function (Y) {
                 default : origin = '';
             }
 
-            plane.setStyle('-webkit-transform-origin', origin); 
+            plane.setStyle('-webkit-transform-origin', origin);
             plane.get('offsetHeight');
             plane.addClass('moving');
             plane.addClass(m.slice +'-'+ m.rotate);
-            
+
         },
         _attachToPlane:function (list) {
             this._plane.setContent(list);
@@ -499,14 +558,14 @@ YUI.add('rubik', function (Y) {
                         cubePos = (originCubeClass.split(' ',1))[0];
                     //we keep te original position and class
                     tempCubies[cubePos] = originCubeClass;
-                    
+
                     //we try to find the cube to swap position
                     var destCube = Y.one('.' + changes[cubePos]);
-                    
+
                     // if we dont find it, we already swap that cubie, we have to find the original css class in temp.
                     var destCubeClass = destCube? destCube.get('className'): tempCubies[changes[cubePos]],
                         cubePosDes = destCubeClass.split(' ',1)[0];
-                        
+
                    //swap position of the cubie acording to the movement.
                     originCube.set('className', cubePosDes + destCubeClass.substr(3));
                 });
@@ -523,6 +582,7 @@ YUI.add('rubik', function (Y) {
         },
         //Reorient the content inside the cubics
         _reorientCubies:function () {
+            console.log("reorientCubies");
             var plane = this._plane,
                 cubies = plane.get('children'),
                 m = this._movement;
@@ -534,7 +594,7 @@ YUI.add('rubik', function (Y) {
                         this._changeTextOrientation(e.one('*'),m.rotate);
                     },this);
                     break;
-                                        
+
                 case m.face == "B" && m.slice == "S":
                     cubies.filter('.back').each(function (e) {
                         this._changeTextOrientation(e.one('*'),m.rotate == "left"? "right":"left" );
@@ -543,19 +603,19 @@ YUI.add('rubik', function (Y) {
                         this._changeTextOrientation(e.one('*'),m.rotate);
                     },this);
                     break;
-                                                     
+
                 case m.face == "L" && m.slice == "M":
                     cubies.filter('.left').each(function (e) {
                         this._changeTextOrientation(e.one('*'),m.rotate);
                     },this);
                     break;
-                                                     
+
                 case m.face == "R" && m.slice == "M":
                     cubies.filter('.right').each(function (e) {
                         this._changeTextOrientation(e.one('*'),m.rotate =="left"? "right":"left");
                     },this);
                     break;
-                                                     
+
                 case m.face =="C" && m.slice == "E" && m.rotate =="left":
                 case m.face =="U" && m.slice == "E" && m.rotate =="left":
                     cubies.filter('.up').each(function (e) {
@@ -570,7 +630,7 @@ YUI.add('rubik', function (Y) {
                         this._changeTextOrientation(e.one('*'),m.rotate);
                         },this);
                     break;
-                                                     
+
                 case m.face =="C" && m.slice == "E" && m.rotate =="right":
                 case m.face =="U" && m.slice == "E" && m.rotate =="right":
                     cubies.filter(function (i) {
@@ -591,7 +651,7 @@ YUI.add('rubik', function (Y) {
                         this._changeTextOrientation(e.one('*'),m.rotate);
                     },this);
                     break;
-                
+
                 case m.face =="D" && m.slice == "E" && m.rotate =="right":
                     cubies.filter('.down').each(function (e) {
                         this._changeTextOrientation(e.one('*'),m.rotate);
@@ -605,7 +665,7 @@ YUI.add('rubik', function (Y) {
                         this._changeTextOrientation(e.one('*'),m.rotate);
                     },this);
                     break;
-                                                     
+
                 case m.face =="D" && m.slice == "E" && m.rotate == "left":
                     cubies.filter('.down').each(function (e) {
                         this._changeTextOrientation(e.one('*'),m.rotate);

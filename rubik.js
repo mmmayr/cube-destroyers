@@ -283,6 +283,11 @@ YUI.add('rubik', function (Y) {
                     this._solving.cancel();
                 }
             },null,true);
+
+            //list = Y.all('.' + move.face + move.plane)
+            //classname?
+ 
+
         },
         _scrambleCube: function() {
             scrambleBool = true;

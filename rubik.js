@@ -165,8 +165,8 @@ YUI.add('rubik', function (Y) {
     var INIT_CONFIG = {
         "front":"blue",
         "back":"green",
-        "up":"yellow",
-        "down":"white",
+        "up":"white",
+        "down":"yellow",
         "left":"orange",
         "right":"red"
     };
@@ -263,7 +263,40 @@ YUI.add('rubik', function (Y) {
                               {face: "D", slice: "S", rotate: "left"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
-                              {face: "U", slice: "E", rotate: "left"}];
+                              {face: "U", slice: "E", rotate: "left"}, // count = 15
+
+                              // white cross
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "U", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"}, // count = 24
+
+                              // corners
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"} // count = 38
+
+
+                            ];
               var move = moveList[counter];
               this._expectingTransition = true;
               move && this._doMovement(move, false);
@@ -289,7 +322,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==15){
+                if(!m || counter==38){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
@@ -510,6 +543,7 @@ YUI.add('rubik', function (Y) {
         },
 
         _doMovement:function (m,fromQueue) {
+            console.log("doMovement: m: ", m);
             // fromQueue is true when I press undo and redo
             // -> meaning it is undefined when i click on the cube
             if (this._moving)return;//we cancel if there is some movement going on

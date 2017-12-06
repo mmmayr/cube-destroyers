@@ -7,7 +7,7 @@
     -webkit-perspective: 800px;
     -moz-perspective: 800px;
     -o-perspective: 800px;
-    
+
     -webkit-perspective-origin: 50% 200px;
     -moz-perspective-origin: 50% 200px;
     -o-perspective-origin: 800px;
@@ -24,7 +24,7 @@
 #cube-controls{
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-   
+
 #cube .cubie{
     position:absolute;
     margin: 1px;
@@ -36,7 +36,7 @@
     opacity: 1;
     z-index: -1;
     text-align: center;
-    font-size:30px;    
+    font-size:30px;
 }
 
 #cube .cubie > div{

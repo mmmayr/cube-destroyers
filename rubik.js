@@ -7,6 +7,15 @@
 */
 var scrambleBool=false;
 var counter=0;
+function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
 YUI.add('rubik-queue', function (Y) {
 
     Queue = function (config) {
@@ -162,6 +171,15 @@ YUI.add('rubik', function (Y) {
         }
     };
 
+    var plane_list = {
+        U1: "yellow", U2: "yellow", U3: "yellow", U4: "yellow", U5: "yellow", U6: "yellow", U7: "yellow", U8: "yellow", U9: "yellow", 
+        F1: "blue", F2: "blue", F3: "blue", F4: "blue", F5: "blue", F6: "blue", F7: "blue", F8: "blue", F9: "blue", 
+        D1: "white", D2: "white", D3: "white", D4: "white", D5: "white", D6: "white", D7: "white", D8: "white", D9: "white",
+        B1: "green", B2: "green", B3: "green", B4: "green", B5: "green", B6: "green", B7: "green", B8: "green", B9: "green",
+        L1: "orange", L2: "orange", L3: "orange", L4: "orange", L5: "orange", L6: "orange", L7: "orange", L8: "orange", L9: "orange", 
+        R1: "red", R2: "red", R3: "red", R4: "red", R5: "red", R6: "red", R7: "red", R8: "red", R9: "red",
+    };
+
     var INIT_CONFIG = {
         "front":"blue",
         "back":"green",
@@ -226,7 +244,6 @@ YUI.add('rubik', function (Y) {
                 Y.on('keypress',Y.bind(this._keyPress,this));
             }
 
-
            Y.on('orientationchange',Y.bind(this._changeOrientation,this));
            Y.one('body').on('gesturemovestart',this._checkScroll,{},this);
         },
@@ -241,7 +258,10 @@ YUI.add('rubik', function (Y) {
             if(scrambleBool == false){
               if (this._moving)return;
               var movement = this._queue.undo();
+<<<<<<< HEAD
+=======
               // console.log("queue: ", this._queue["_queue"]);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
               this._expectingTransition = true;
               movement && this._doMovement(movement, true);
               return movement;
@@ -370,7 +390,7 @@ YUI.add('rubik', function (Y) {
         },
         _setInitialColors: function (){
             for(var face in INIT_CONFIG){
-                Y.all('.' +face + ' > div').addClass(INIT_CONFIG[face]);
+                Y.all('.' + face + ' > div').addClass(INIT_CONFIG[face]);
             }
         },
         _endTransition: function (evt) {
@@ -379,6 +399,7 @@ YUI.add('rubik', function (Y) {
                 this._plane.set('className',"");
                 this._reorganizeCubies();
                 this._reorientCubies();
+                this._cubeCheck();
                 this._detachToPlane();
                 this._moving = false;
                 this._expectingTransition = false;
@@ -389,6 +410,7 @@ YUI.add('rubik', function (Y) {
         * Save the position.
         */
         _onTouchCube:function (evt) {
+            
             evt.halt();
             this._tempCubie = evt.target.ancestor('.cubie');
             this._startX = evt.clientX;
@@ -452,31 +474,46 @@ YUI.add('rubik', function (Y) {
                 //Front, left, right, back in E (left or right) direction
                 case parts[2] != "up" && parts[2] != "down" && mHorizontal:
                     movement = {face: parts[4].charAt(0),slice: parts[4].charAt(1),rotate: rotateX};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube1: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //up and down in E ( we have to adjust the 3D rotation tu a 2D plane:
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= -45 &&  deg<45:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateX};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube2: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 45 &&  deg< 135:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: this._tempXY.x < 0 ? rotateXInverted: rotateX};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube3: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 135 && deg < 225:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateXInverted};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube4: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 225 && deg < 315:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: this._tempXY.x < 0 ?rotateX: rotateXInverted};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube5: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 //M movements:
@@ -485,40 +522,61 @@ YUI.add('rubik', function (Y) {
                 case (parts[2] == "front" || parts[2] == "back") && !mHorizontal:
                     if (parts[2] == "back"){swap = rotateY; rotateY = rotateYInverted; rotateYInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateY};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube6: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //right and left
                 case (parts[2] == "right" || parts[2] == "left") && !mHorizontal:
                     if (parts[2] == "left"){swap = rotateY; rotateY = rotateYInverted; rotateYInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateY};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube7: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //up & down:
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= -45 &&  deg<45:
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateY};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube8: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 45 &&  deg<135:
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateYInverted};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube9: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 135 &&  deg<225:
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateYInverted};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube10: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 225 &&  deg<315:
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateY};
+<<<<<<< HEAD
+=======
                     // console.log("onEndCube11: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 default: break;
              }
              //this._gesture = false;//finish all touching
             if (movement)
+<<<<<<< HEAD
+=======
                 // console.log("standalone: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                 this._doMovement(movement);
         },
 
@@ -711,6 +769,31 @@ YUI.add('rubik', function (Y) {
                     break;
                 default: break;
             }
+        },
+        _cubeCheck: function () {
+            console.log("we're checking")
+            changed_cubes = this._cube.get('children');
+            planes = changed_cubes.get("innerHTML");
+            console.log(planes)
+            new_list = {};
+            for (i=0; i<planes.length; i++) {
+                classes = planes[i].split("\"><span>");
+                //if you're that one funky line that lists all the changed planes
+                if (classes.length > 2) {
+                    changes = planes[i].split("<div class=\"")
+                    for (j=2; j<changes.length; j+=2) {
+                        changed_plane = changes[j].split("\"><span>");
+                        color = changed_plane[0]
+                        side = changed_plane[1].replace("</span></div></div>", "")
+                        new_list[side]= color
+                    }    
+                // }else{
+                //     color = classes[0].replace("<div class=\"", "")
+                //     side = classes[1].replace("</span></div>", "")
+                //     new_list[side] = color
+                }
+            }
+            console.log(new_list)
         },
         _startRotationMode: function () {
             if (window.DeviceOrientationEvent) {

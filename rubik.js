@@ -749,7 +749,7 @@ YUI.add('rubik', function (Y) {
         _cubeCheck: function () {
             changed_cubes = this._cube.get('children');
             planes = changed_cubes.get("innerHTML");
-            console.log(planes)
+            //console.log(planes)
             new_list = plane_list;
             for (i=0; i<planes.length; i++) {
                 classes = planes[i].split("\"><span>");
@@ -764,10 +764,10 @@ YUI.add('rubik', function (Y) {
                         }else{
                             color = changed_plane[3]
                         }
-                        console.log(changed_plane);
+                        //console.log(changed_plane);
                         //init_position = changed_plane[6].replace("</span>", ")
                         temp_position = this._getKeyByValue(side_key, side);
-                        console.log(temp_position)
+                        //console.log(temp_position)
                         new_list[temp_position] = color;
                     }
                 // }else{

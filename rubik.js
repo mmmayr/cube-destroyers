@@ -7,6 +7,15 @@
 */
 var scrambleBool=false;
 var counter=0;
+function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
 YUI.add('rubik-queue', function (Y) {
 
     Queue = function (config) {
@@ -249,6 +258,10 @@ YUI.add('rubik', function (Y) {
             if(scrambleBool == false){
               if (this._moving)return;
               var movement = this._queue.undo();
+<<<<<<< HEAD
+=======
+              // console.log("queue: ", this._queue["_queue"]);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
               this._expectingTransition = true;
               movement && this._doMovement(movement, true);
               return movement;
@@ -299,6 +312,7 @@ YUI.add('rubik', function (Y) {
                 if(!m || counter==15){
                     scrambleBool=false;
                     this._solving.cancel();
+                    counter=0;
                 }
             },null,true);
         },
@@ -427,26 +441,46 @@ YUI.add('rubik', function (Y) {
                 //Front, left, right, back in E (left or right) direction
                 case parts[2] != "up" && parts[2] != "down" && mHorizontal:
                     movement = {face: parts[4].charAt(0),slice: parts[4].charAt(1),rotate: rotateX};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube1: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //up and down in E ( we have to adjust the 3D rotation tu a 2D plane:
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= -45 &&  deg<45:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateX};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube2: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 45 &&  deg< 135:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: this._tempXY.x < 0 ? rotateXInverted: rotateX};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube3: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 135 && deg < 225:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateXInverted};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube4: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 225 && deg < 315:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: this._tempXY.x < 0 ?rotateX: rotateXInverted};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube5: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 //M movements:
@@ -455,33 +489,61 @@ YUI.add('rubik', function (Y) {
                 case (parts[2] == "front" || parts[2] == "back") && !mHorizontal:
                     if (parts[2] == "back"){swap = rotateY; rotateY = rotateYInverted; rotateYInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateY};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube6: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //right and left
                 case (parts[2] == "right" || parts[2] == "left") && !mHorizontal:
                     if (parts[2] == "left"){swap = rotateY; rotateY = rotateYInverted; rotateYInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateY};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube7: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //up & down:
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= -45 &&  deg<45:
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateY};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube8: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 45 &&  deg<135:
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateYInverted};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube9: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 135 &&  deg<225:
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateYInverted};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube10: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 225 &&  deg<315:
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateY};
+<<<<<<< HEAD
+=======
+                    // console.log("onEndCube11: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 default: break;
              }
              //this._gesture = false;//finish all touching
             if (movement)
+<<<<<<< HEAD
+=======
+                // console.log("standalone: movement: ", movement);
+>>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                 this._doMovement(movement);
         },
 

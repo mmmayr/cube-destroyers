@@ -74,15 +74,6 @@ header h2{
     font-size: 200%;
     text-align:center;
 }
-#tutorial span{
-    color:white;
-    font-weight:bold;
-    text-decoration:underline;
-}
-#tutorial span.green{
-    color:green;
-    text-decoration:none;
-}
 
 #messages{
     position: absolute;

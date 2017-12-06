@@ -130,7 +130,7 @@ background-image: -webkit-gradient(
 );
 }
 #cube .cubie > div.white {
-    background-image: linear-gradient(top, rgb(143,143,143) 11%, rgb(255,255,255) 56%, rgb(255,255,255) 78%);
+background-image: linear-gradient(top, rgb(143,143,143) 11%, rgb(255,255,255) 56%, rgb(255,255,255) 78%);
 background-image: -o-linear-gradient(top, rgb(143,143,143) 11%, rgb(255,255,255) 56%, rgb(255,255,255) 78%);
 background-image: -moz-linear-gradient(top, rgb(143,143,143) 11%, rgb(255,255,255) 56%, rgb(255,255,255) 78%);
 background-image: -webkit-linear-gradient(top, rgb(143,143,143) 11%, rgb(255,255,255) 56%, rgb(255,255,255) 78%);

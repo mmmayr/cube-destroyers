@@ -180,6 +180,68 @@ YUI.add('rubik', function (Y) {
         R1: "red", R2: "red", R3: "red", R4: "red", R5: "red", R6: "red", R7: "red", R8: "red", R9: "red",
     };
 
+    var side_key = {
+        U1: "utl cubie up LM UE BS",
+        U2: "ucl cubie up LM UE CS",
+        U3: "ubl cubie up LM UE FS",
+        U4: "utc cubie up CM UE BS",
+        U5: "ucc cubie up CM UE CS",
+        U6: "ubc cubie up CM UE FS",
+        U7: "utr cubie up RM UE BS",
+        U8: "ucr cubie up RM UE CS",
+        U9: "ubr cubie up RM UE FS",
+
+        F1: "ftl cubie front LM UE FS",
+        F2: "fcl cubie front LM CE FS",
+        F3: "fbl cubie front LM DE FS",
+        F4: "ftc cubie front CM UE FS",
+        F5: "fcc cubie front CM CE FS",
+        F6: "fbc cubie front CM DE FS",
+        F7: "ftr cubie front RM UE FS",
+        F8: "fcr cubie front RM CE FS",
+        F9: "fbr cubie front RM DE FS",
+
+        D1: "dtl cubie down LM DE FS",
+        D2: "dcl cubie down LM DE CS",
+        D3: "dbl cubie down LM DE BS",
+        D4: "dtc cubie down CM DE FS",
+        D5: "dcc cubie down CM DE CS",
+        D6: "dbc cubie down CM DE BS",
+        D7: "dtr cubie down RM DE FS",
+        D8: "dcr cubie down RM DE CS",
+        D9: "dbr cubie down RM DE BS",
+
+        B1: "btl cubie back LM DE BS",
+        B2: "bcl cubie back LM CE BS",
+        B3: "bbl cubie back LM UE BS",
+        B4: "btc cubie back CM DE BS",
+        B5: "bcc cubie back CM CE BS",
+        B6: "bbc cubie back CM UE BS",
+        B7: "btr cubie back RM DE BS",
+        B8: "bcr cubie back RM CE BS",
+        B9: "bbr cubie back RM UE BS",
+
+        L1: "ltl cubie left LM UE BS",
+        L2: "lcl cubie left LM CE BS",
+        L3: "lbl cubie left LM DE BS",
+        L4: "ltc cubie left LM UE CS",
+        L5: "lcc cubie left LM CE CS",
+        L6: "lbc cubie left LM DE CS",
+        L7: "ltr cubie left LM UE FS",
+        L8: "lcr cubie left LM CE FS",
+        L9: "lbr cubie left LM DE FS",
+
+        R1: "rtl cubie right RM UE FS",
+        R2: "rcl cubie right RM CE FS",
+        R3: "rbl cubie right RM DE FS",
+        R4: "rtc cubie right RM UE CS",
+        R5: "rcc cubie right RM CE CS",
+        R6: "rbc cubie right RM DE CS",
+        R7: "rtr cubie right RM UE BS",
+        R8: "rcr cubie right RM CE BS",
+        R9: "rbr cubie right RM DE BS"           
+    }
+
     var INIT_CONFIG = {
         "front":"blue",
         "back":"green",
@@ -258,10 +320,6 @@ YUI.add('rubik', function (Y) {
             if(scrambleBool == false){
               if (this._moving)return;
               var movement = this._queue.undo();
-<<<<<<< HEAD
-=======
-              // console.log("queue: ", this._queue["_queue"]);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
               this._expectingTransition = true;
               movement && this._doMovement(movement, true);
               return movement;
@@ -474,46 +532,26 @@ YUI.add('rubik', function (Y) {
                 //Front, left, right, back in E (left or right) direction
                 case parts[2] != "up" && parts[2] != "down" && mHorizontal:
                     movement = {face: parts[4].charAt(0),slice: parts[4].charAt(1),rotate: rotateX};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube1: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //up and down in E ( we have to adjust the 3D rotation tu a 2D plane:
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= -45 &&  deg<45:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateX};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube2: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 45 &&  deg< 135:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: this._tempXY.x < 0 ? rotateXInverted: rotateX};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube3: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 135 && deg < 225:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateXInverted};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube4: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && mHorizontal && deg>= 225 && deg < 315:
                     if (parts[2] == "down"){swap = rotateX; rotateX = rotateXInverted; rotateXInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: this._tempXY.x < 0 ?rotateX: rotateXInverted};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube5: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 //M movements:
@@ -522,61 +560,33 @@ YUI.add('rubik', function (Y) {
                 case (parts[2] == "front" || parts[2] == "back") && !mHorizontal:
                     if (parts[2] == "back"){swap = rotateY; rotateY = rotateYInverted; rotateYInverted = swap;}
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateY};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube6: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //right and left
                 case (parts[2] == "right" || parts[2] == "left") && !mHorizontal:
                     if (parts[2] == "left"){swap = rotateY; rotateY = rotateYInverted; rotateYInverted = swap;}
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateY};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube7: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
                 //up & down:
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= -45 &&  deg<45:
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateY};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube8: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 45 &&  deg<135:
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateYInverted};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube9: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 135 &&  deg<225:
                     movement = {face: parts[3].charAt(0),slice: parts[3].charAt(1),rotate: rotateYInverted};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube10: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 case (parts[2] == "up" || parts[2] == "down") && !mHorizontal && deg>= 225 &&  deg<315:
                     movement = {face: parts[5].charAt(0),slice: parts[5].charAt(1),rotate: rotateY};
-<<<<<<< HEAD
-=======
-                    // console.log("onEndCube11: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                     break;
 
                 default: break;
              }
              //this._gesture = false;//finish all touching
             if (movement)
-<<<<<<< HEAD
-=======
-                // console.log("standalone: movement: ", movement);
->>>>>>> 5d4103206b30baeaa4dd5b2865661c7b3f70f561
                 this._doMovement(movement);
         },
 
@@ -771,29 +781,39 @@ YUI.add('rubik', function (Y) {
             }
         },
         _cubeCheck: function () {
-            console.log("we're checking")
             changed_cubes = this._cube.get('children');
             planes = changed_cubes.get("innerHTML");
             console.log(planes)
-            new_list = {};
+            new_list = plane_list;
             for (i=0; i<planes.length; i++) {
                 classes = planes[i].split("\"><span>");
                 //if you're that one funky line that lists all the changed planes
                 if (classes.length > 2) {
-                    changes = planes[i].split("<div class=\"")
-                    for (j=2; j<changes.length; j+=2) {
-                        changed_plane = changes[j].split("\"><span>");
-                        color = changed_plane[0]
-                        side = changed_plane[1].replace("</span></div></div>", "")
-                        new_list[side]= color
-                    }    
+                    changes = planes[i].split("</div></div>")
+                    for (j=0; j<changes.length; j++) {
+                        changed_plane = changes[j].split("\"");
+                        side = changed_plane[1]
+                        if (changed_plane[5] != undefined){
+                            color = changed_plane[5]
+                        }else{
+                            color = changed_plane[3]
+                        }
+                        console.log(changed_plane);
+                        //init_position = changed_plane[6].replace("</span>", ")
+                        temp_position = this._getKeyByValue(side_key, side);
+                        console.log(temp_position)
+                        new_list[temp_position] = color;
+                    }
                 // }else{
-                //     color = classes[0].replace("<div class=\"", "")
-                //     side = classes[1].replace("</span></div>", "")
-                //     new_list[side] = color
+                //      color = classes[0].replace("<div class=\"", "")
+                //      side = classes[1].replace("</span></div>", "")
+                //      new_list[side] = color
                 }
             }
             console.log(new_list)
+        },
+        _getKeyByValue: function(object, value) {
+            return Object.keys(object).find(key => object[key] === value);
         },
         _startRotationMode: function () {
             if (window.DeviceOrientationEvent) {

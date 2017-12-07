@@ -176,7 +176,7 @@ YUI.add('rubik', function (Y) {
         F1: "blue", F2: "blue", F3: "blue", F4: "blue", F5: "blue", F6: "blue", F7: "blue", F8: "blue", F9: "blue", 
         D1: "yellow", D2: "yellow", D3: "yellow", D4: "yellow", D5: "yellow", D6: "yellow", D7: "yellow", D8: "yellow", D9: "yellow",
         B1: "green", B2: "green", B3: "green", B4: "green", B5: "green", B6: "green", B7: "green", B8: "green", B9: "green",
-        L1: "orange", L2: "orange", L3: "orange", L4: "orange", L5: "orange", L6: "orange", L7: "orange", L8: "orange", L9: "orange", 
+        L1: "orange", L2: "orange", L3: "orange", L4: "orange", L5: "orange", L6: "orange", L7: "orange", L8: "orange", L9: "orange",
         R1: "red", R2: "red", R3: "red", R4: "red", R5: "red", R6: "red", R7: "red", R8: "red", R9: "red",
     };
 
@@ -244,7 +244,7 @@ YUI.add('rubik', function (Y) {
         R6: "rbc cubie right RM DE CS",
         R7: "rtr cubie right RM UE BS",
         R8: "rcr cubie right RM CE BS",
-        R9: "rbr cubie right RM DE BS"           
+        R9: "rbr cubie right RM DE BS"
     }
 
     var INIT_CONFIG = {
@@ -363,7 +363,7 @@ YUI.add('rubik', function (Y) {
                               {face: "L", slice: "M", rotate: "left"},
                               {face: "D", slice: "E", rotate: "left"},
                               {face: "L", slice: "M", rotate: "right"},
-                              
+
                               {face: "D", slice: "E", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "D", slice: "E", rotate: "left"},
@@ -471,14 +471,75 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
+/*
 
+make sure it's scrambled
+all of these are set false
+  whiteCrossFlag
+  whiteCornersFlag
+  whiteFaceFlag
+
+if whiteFaceFlag is false {
+  if whiteCrossFlag = false {
+    check where the white edges are on the cube
+    then align the edges to make a white cross with the corresponding color edge on the other (there's no real alg, just get them in place)
+    check if the white edges have been placed properly by matching with the other edge's color to that face's middle tile
+    if all white edges in place *check white edge positions and color* {
+      whiteCrossFlag = true
+    }
+  }
+
+
+  if whiteCornersFlag = false && whiteCross = true {
+    do while whiteCornersFlag = false {
+      pick a white corner piece
+      if corner piece is already in bottom layer {
+        text: ask player to turn cube so the face is visible if necessary
+        check the colors to see where the corner piece has to go under and then rotate cube layer accordingly
+        text : always hold piece you want to move on bottom right
+        do this until that specific corner piece is in the right place * might need multiple checks on position and color * {
+          right inverted (down)
+          down inverted (left)
+          right (up)
+          down (right)
+        }
+      }
+      if corner piece is on top layer {
+        text: ask player to turn cube so the face is visible if necessary
+        right inverted (down)
+        down inverted (left)
+        right (up)
+        rotate bottom layer until it's in correct place under the corner of its final position
+        text : always hold piece you want to move on bottom right
+        do this until that specific corner piece is in the right place * might need multiple checks on position and color * {
+          right inverted (down)
+          down inverted (left)
+          right (up)
+          down (right)
+        }
+      }
+      check if all white corners are in position, need to check colors here
+      if they are {
+        whiteFaceFlag = true
+      }
+    }
+  }
+
+
+
+
+}
+
+
+
+*/
         },
         /*
         * We got the first finger/click on the cube
         * Save the position.
         */
         _onTouchCube:function (evt) {
-            
+
             evt.halt();
             this._tempCubie = evt.target.ancestor('.cubie');
             this._startX = evt.clientX;
@@ -946,3 +1007,13 @@ Y.Rubik = Rubik;
 },"0.0.1",{
     requires:['rubik-queue','yui-later','node','transition','event','event-delegate','event-gestures']
 });
+
+
+/*
+
+
+
+
+
+
+*/

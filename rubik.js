@@ -463,6 +463,9 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._cubeCheck();
+                // this._crossCheck();
+                this._cornerCheck();
+                //this._faceCheck();
                 this._solveCheck();
                 this._detachToPlane();
                 this._moving = false;
@@ -682,7 +685,7 @@ if whiteFaceFlag is false {
         },
 
         _doMovement:function (m,fromQueue) {
-            console.log("doMovement: m: ", m);
+            //console.log("doMovement: m: ", m);
             // fromQueue is true when I press undo and redo
             // -> meaning it is undefined when i click on the cube
             if (this._moving)return;//we cancel if there is some movement going on
@@ -881,30 +884,104 @@ if whiteFaceFlag is false {
                 //      new_list[side] = color
                 }
             }
-            console.log(new_list);
+            //console.log(new_list);
             //return new_list;
         },
         _getKeyByValue: function(object, value) {
             return Object.keys(object).find(key => object[key] === value);
         },
+        //returns true if there is a cross in the Rubik's cube
         _crossCheck: function() {
-            for (side in plane_list) {
-
+            int_list = [2, 4, 5, 6, 8];
+            for (side in side_list) {
+                temp_side = side_list[side];
+                temp_color = plane_list[temp_side + int_list[0]];
+                // function that checks if one side has a cross of all the same colors, returns with the first one found
+                function crosses(plane) {
+                    // return (plane_list[temp_side + plane] == temp_color);
+                    // for now, we can just set it to return if only a WHITE cross is found
+                    return (plane_list[temp_side + plane] == "white");
+                } 
+                if (int_list.every(crosses)){
+                    console.log("there is a " + temp_color + " cross!");
+                    return true;
+                }
             }
+            return false;
+        },
+        _getAdjacentSides: function(main_side) {
+            // returns a list of adjacent sides in the order of above of, below of, left of, right of and planes left to right, top to bottom
+            if (main_side == "F") adjacent_list = ["U", "D", "L", "R", "U3", "U6", "U9","D1", "D4", "D7", "L7", "L8", "L9", "R1", "R2", "R3"]
+            else if (main_side == "B") adjacent_list = ["D", "U", "L", "R", "D3", "D6", "D9", "U1", "U4", "U7", "L3", "L2", "L1", "R9", "R8", "R7"]
+            else if (main_side == "U") adjacent_list = ["B", "F", "L", "R", "B3", "B6", "B9", "F1", "F4", "F7", "L1", "L2", "L3", "R1", "R4", "R7"]
+            else if (main_side == "D") adjacent_list = ["F", "B", "L", "R", "F3", "F6", "F9", "B1", "B4", "B7", "L9", "L6", "L3", "R3", "R6", "R9"]
+            else if (main_side == "L") adjacent_list = ["U", "D", "B", "F", "U1", "U2", "U3", "D3", "D2", "D1", "B3", "B2", "B1", "F1", "F2", "F3"]
+            else if (main_side == "R") adjacent_list = ["U", "D", "F", "B", "U9", "U8", "U7", "D9", "D6", "D3", "F7","F8", "F9", "B9", "B8", "B7"]
+            return adjacent_list
+        },
+        //crossCheck ideally will take in a face color but for now it's set as "white", we're solving white first
+        _cornerCheck: function() {
+            temp_color = "white";
+            for (i=0; i<color_list.length; i++){
+                if (color_list[i] == temp_color) {
+                    temp_side = side_list[i];
+                }
+            }
+            adj_list = this._getAdjacentSides(temp_side)
+            // top-left corner + above of + left of
+            if (plane_list[temp_side + "1"] != plane_list[temp_side + "5"] ||
+                plane_list[adj_list[4]] != plane_list[adj_list[0] + "5"] ||
+                plane_list[adj_list[10]] != plane_list[adj_list[2] + "5"]) {
+                    console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
+                    return false
+            }
+            console.log("top-left")
+            // top-right corner + above of + right of
+            if (plane_list[temp_side + "7"] != plane_list[temp_side + "5"] ||
+                plane_list[adj_list[6]] != plane_list[adj_list[0] + "5"] ||
+                plane_list[adj_list[13]] != plane_list[adj_list[3] + "5"]) {
+                    console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
+                    return false
+            }
+            console.log("top-right")
+            // bottom-left corner + below of + left of
+            if (plane_list[temp_side + "3"] != plane_list[temp_side + "5"] ||
+                plane_list[adj_list[7]] != plane_list[adj_list[1] + "5"] ||
+                plane_list[adj_list[12]] != plane_list[adj_list[2] + "5"]) {
+                    //console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
+                    return false
+            }
+            console.log("bottom-left")
+            // bottom-right corner + below of + right of
+            if (plane_list[temp_side + "9"] != plane_list[temp_side + "5"] ||
+                plane_list[adj_list[9]] != plane_list[adj_list[1] + "5"] ||
+                plane_list[adj_list[15]] != plane_list[adj_list[3] + "5"]) {
+                    //console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
+                    return false
+            }
+            console.log("all " + temp_color + " corners are in place!")
+            return true
+        },
+        _faceCheck: function() {
+            if (this._crossCheck() && this._cornerCheck()) {
+                console.log("white face is solved!")
+                return true
+            }
+            return false
         },
         _solveCheck: function() {
-            for (side in side_list){
-                temp_color = plane_list[side];
+            for (side in side_list) {
+                temp_side = side_list[side];
+                temp_color = plane_list[temp_side + "1"];
                 for (i=1; i<=9; i++) {
-                    if (plane_list[side + i] != temp_color) {
-                        break
+                    //console.log(temp_side, temp_color);
+                    if (plane_list[temp_side + i] != temp_color) {
+                        //console.log("not solved")
+                        return false
                     }
                 }
-                if (plane_list[side] != init_list[side]){
-                    return false
-                }
             }
-            console.log("solved!")
+            console.log("solved!");
             return true
         },
         _startRotationMode: function () {

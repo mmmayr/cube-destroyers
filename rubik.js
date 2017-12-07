@@ -172,13 +172,18 @@ YUI.add('rubik', function (Y) {
     };
 
     var plane_list = {
-        U1: "yellow", U2: "yellow", U3: "yellow", U4: "yellow", U5: "yellow", U6: "yellow", U7: "yellow", U8: "yellow", U9: "yellow", 
+        U1: "white", U2: "white", U3: "white", U4: "white", U5: "white", U6: "white", U7: "white", U8: "white", U9: "white", 
         F1: "blue", F2: "blue", F3: "blue", F4: "blue", F5: "blue", F6: "blue", F7: "blue", F8: "blue", F9: "blue", 
-        D1: "white", D2: "white", D3: "white", D4: "white", D5: "white", D6: "white", D7: "white", D8: "white", D9: "white",
+        D1: "yellow", D2: "yellow", D3: "yellow", D4: "yellow", D5: "yellow", D6: "yellow", D7: "yellow", D8: "yellow", D9: "yellow",
         B1: "green", B2: "green", B3: "green", B4: "green", B5: "green", B6: "green", B7: "green", B8: "green", B9: "green",
         L1: "orange", L2: "orange", L3: "orange", L4: "orange", L5: "orange", L6: "orange", L7: "orange", L8: "orange", L9: "orange", 
         R1: "red", R2: "red", R3: "red", R4: "red", R5: "red", R6: "red", R7: "red", R8: "red", R9: "red",
     };
+
+    var init_list = Object.assign({}, plane_list);
+
+    var side_list = ["F", "B", "U", "D", "L", "R"];
+    var color_list = ["blue", "green", "white", "yellow", "orange", "red"];
 
     var side_key = {
         U1: "utl cubie up LM UE BS",
@@ -458,6 +463,7 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._cubeCheck();
+                this._solveCheck();
                 this._detachToPlane();
                 this._moving = false;
                 this._expectingTransition = false;
@@ -465,7 +471,7 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-            
+
         },
         /*
         * We got the first finger/click on the cube
@@ -806,7 +812,7 @@ YUI.add('rubik', function (Y) {
                         //init_position = changed_plane[6].replace("</span>", ")
                         temp_position = this._getKeyByValue(side_key, side);
                         //console.log(temp_position)
-                        new_list[temp_position] = color;
+                        new_list[temp_position] = (color);
                     }
                 // }else{
                 //      color = classes[0].replace("<div class=\"", "")
@@ -814,10 +820,31 @@ YUI.add('rubik', function (Y) {
                 //      new_list[side] = color
                 }
             }
-            console.log(new_list)
+            console.log(new_list);
+            //return new_list;
         },
         _getKeyByValue: function(object, value) {
             return Object.keys(object).find(key => object[key] === value);
+        },
+        _crossCheck: function() {
+            for (side in plane_list) {
+
+            }
+        },
+        _solveCheck: function() {
+            for (side in side_list){
+                temp_color = plane_list[side];
+                for (i=1; i<=9; i++) {
+                    if (plane_list[side + i] != temp_color) {
+                        break
+                    }
+                }
+                if (plane_list[side] != init_list[side]){
+                    return false
+                }
+            }
+            console.log("solved!")
+            return true
         },
         _startRotationMode: function () {
             if (window.DeviceOrientationEvent) {

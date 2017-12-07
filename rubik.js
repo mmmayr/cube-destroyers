@@ -172,11 +172,11 @@ YUI.add('rubik', function (Y) {
     };
 
     var plane_list = {
-        U1: "yellow", U2: "yellow", U3: "yellow", U4: "yellow", U5: "yellow", U6: "yellow", U7: "yellow", U8: "yellow", U9: "yellow", 
-        F1: "blue", F2: "blue", F3: "blue", F4: "blue", F5: "blue", F6: "blue", F7: "blue", F8: "blue", F9: "blue", 
+        U1: "yellow", U2: "yellow", U3: "yellow", U4: "yellow", U5: "yellow", U6: "yellow", U7: "yellow", U8: "yellow", U9: "yellow",
+        F1: "blue", F2: "blue", F3: "blue", F4: "blue", F5: "blue", F6: "blue", F7: "blue", F8: "blue", F9: "blue",
         D1: "white", D2: "white", D3: "white", D4: "white", D5: "white", D6: "white", D7: "white", D8: "white", D9: "white",
         B1: "green", B2: "green", B3: "green", B4: "green", B5: "green", B6: "green", B7: "green", B8: "green", B9: "green",
-        L1: "orange", L2: "orange", L3: "orange", L4: "orange", L5: "orange", L6: "orange", L7: "orange", L8: "orange", L9: "orange", 
+        L1: "orange", L2: "orange", L3: "orange", L4: "orange", L5: "orange", L6: "orange", L7: "orange", L8: "orange", L9: "orange",
         R1: "red", R2: "red", R3: "red", R4: "red", R5: "red", R6: "red", R7: "red", R8: "red", R9: "red",
     };
 
@@ -239,7 +239,7 @@ YUI.add('rubik', function (Y) {
         R6: "rbc cubie right RM DE CS",
         R7: "rtr cubie right RM UE BS",
         R8: "rcr cubie right RM CE BS",
-        R9: "rbr cubie right RM DE BS"           
+        R9: "rbr cubie right RM DE BS"
     }
 
     var INIT_CONFIG = {
@@ -358,7 +358,7 @@ YUI.add('rubik', function (Y) {
                               {face: "L", slice: "M", rotate: "left"},
                               {face: "D", slice: "E", rotate: "left"},
                               {face: "L", slice: "M", rotate: "right"},
-                              
+
                               {face: "D", slice: "E", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "D", slice: "E", rotate: "left"},
@@ -468,7 +468,7 @@ YUI.add('rubik', function (Y) {
         * Save the position.
         */
         _onTouchCube:function (evt) {
-            
+
             evt.halt();
             this._tempCubie = evt.target.ancestor('.cubie');
             this._startX = evt.clientX;
@@ -915,3 +915,13 @@ Y.Rubik = Rubik;
 },"0.0.1",{
     requires:['rubik-queue','yui-later','node','transition','event','event-delegate','event-gestures']
 });
+
+
+/*
+
+
+
+
+
+
+*/

@@ -464,8 +464,8 @@ YUI.add('rubik', function (Y) {
                 this._reorientCubies();
                 this._cubeCheck();
                 // this._crossCheck();
-                this._cornerCheck();
-                //this._faceCheck();
+                // this._cornerCheck();
+                this._faceCheck();
                 this._solveCheck();
                 this._detachToPlane();
                 this._moving = false;
@@ -746,12 +746,13 @@ if whiteFaceFlag is false {
         _changeTextOrientation:function (elm,rotation) {
             var state = elm.get('className'),txt = state.split(' ',2),color = txt[0] + " ";
             txt= txt[1] || txt[0];
-            switch(txt){
-                case "textLeft": elm.replaceClass(txt, rotation == "left" ? 'textDown' : '');break;
-                case "textRight":elm.replaceClass(txt, rotation == "left" ? '' : 'textDown');break;
-                case "textDown": elm.replaceClass(txt, rotation == "left" ? 'textRight' : 'textLeft');break;
-                default: elm.set('className',color + (rotation == "left" ? 'textLeft' : 'textRight') );break;
-            }
+            // commenting this out because it's just too unneccessary, we don't care about orientation
+            // switch(txt){
+            //     case "textLeft": elm.replaceClass(txt, rotation == "left" ? 'textDown' : '');break;
+            //     case "textRight":elm.replaceClass(txt, rotation == "left" ? '' : 'textDown');break;
+            //     case "textDown": elm.replaceClass(txt, rotation == "left" ? 'textRight' : 'textLeft');break;
+            //     default: elm.set('className',color + (rotation == "left" ? 'textLeft' : 'textRight') );break;
+            // }
         },
         //Reorient the content inside the cubics
         _reorientCubies:function () {
@@ -913,7 +914,7 @@ if whiteFaceFlag is false {
             // returns a list of adjacent sides in the order of above of, below of, left of, right of and planes left to right, top to bottom
             if (main_side == "F") adjacent_list = ["U", "D", "L", "R", "U3", "U6", "U9","D1", "D4", "D7", "L7", "L8", "L9", "R1", "R2", "R3"]
             else if (main_side == "B") adjacent_list = ["D", "U", "L", "R", "D3", "D6", "D9", "U1", "U4", "U7", "L3", "L2", "L1", "R9", "R8", "R7"]
-            else if (main_side == "U") adjacent_list = ["B", "F", "L", "R", "B3", "B6", "B9", "F1", "F4", "F7", "L1", "L2", "L3", "R1", "R4", "R7"]
+            else if (main_side == "U") adjacent_list = ["B", "F", "L", "R", "B3", "B6", "B9", "F1", "F4", "F7", "L1", "L4", "L7", "R7", "R4", "R1"]
             else if (main_side == "D") adjacent_list = ["F", "B", "L", "R", "F3", "F6", "F9", "B1", "B4", "B7", "L9", "L6", "L3", "R3", "R6", "R9"]
             else if (main_side == "L") adjacent_list = ["U", "D", "B", "F", "U1", "U2", "U3", "D3", "D2", "D1", "B3", "B2", "B1", "F1", "F2", "F3"]
             else if (main_side == "R") adjacent_list = ["U", "D", "F", "B", "U9", "U8", "U7", "D9", "D6", "D3", "F7","F8", "F9", "B9", "B8", "B7"]
@@ -927,35 +928,36 @@ if whiteFaceFlag is false {
                     temp_side = side_list[i];
                 }
             }
+            console.log(plane_list)
             adj_list = this._getAdjacentSides(temp_side)
             // top-left corner + above of + left of
-            if (plane_list[temp_side + "1"] != plane_list[temp_side + "5"] ||
-                plane_list[adj_list[4]] != plane_list[adj_list[0] + "5"] ||
-                plane_list[adj_list[10]] != plane_list[adj_list[2] + "5"]) {
+            if ( plane_list[temp_side + "1"] != (plane_list[temp_side + "5"]) ||
+                plane_list[adj_list[4]] != (plane_list[adj_list[0] + "5"]) ||
+                plane_list[adj_list[10]] != (plane_list[adj_list[2] + "5"]) ) {
                     console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
                     return false
             }
             console.log("top-left")
             // top-right corner + above of + right of
-            if (plane_list[temp_side + "7"] != plane_list[temp_side + "5"] ||
-                plane_list[adj_list[6]] != plane_list[adj_list[0] + "5"] ||
-                plane_list[adj_list[13]] != plane_list[adj_list[3] + "5"]) {
+            if ( plane_list[temp_side + "7"] != (plane_list[temp_side + "5"]) ||
+                plane_list[adj_list[6]] != (plane_list[adj_list[0] + "5"]) ||
+                plane_list[adj_list[13]] != (plane_list[adj_list[3] + "5"]) ) {
                     console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
                     return false
             }
             console.log("top-right")
             // bottom-left corner + below of + left of
-            if (plane_list[temp_side + "3"] != plane_list[temp_side + "5"] ||
-                plane_list[adj_list[7]] != plane_list[adj_list[1] + "5"] ||
-                plane_list[adj_list[12]] != plane_list[adj_list[2] + "5"]) {
+            if ( plane_list[temp_side + "3"] != (plane_list[temp_side + "5"]) ||
+                plane_list[adj_list[7]] != (plane_list[adj_list[1] + "5"]) ||
+                plane_list[adj_list[12]] != (plane_list[adj_list[2] + "5"]) ) {
                     //console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
                     return false
             }
             console.log("bottom-left")
             // bottom-right corner + below of + right of
-            if (plane_list[temp_side + "9"] != plane_list[temp_side + "5"] ||
-                plane_list[adj_list[9]] != plane_list[adj_list[1] + "5"] ||
-                plane_list[adj_list[15]] != plane_list[adj_list[3] + "5"]) {
+            if ( plane_list[temp_side + "9"] != (plane_list[temp_side + "5"]) ||
+                plane_list[adj_list[9]] != (plane_list[adj_list[1] + "5"]) ||
+                plane_list[adj_list[15]] != (plane_list[adj_list[3] + "5"]) ) {
                     //console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
                     return false
             }

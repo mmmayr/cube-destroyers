@@ -466,6 +466,7 @@ YUI.add('rubik', function (Y) {
                 // this._crossCheck();
                 // this._cornerCheck();
                 this._faceCheck();
+                this._middleCheck();
                 this._solveCheck();
                 this._detachToPlane();
                 this._moving = false;
@@ -910,17 +911,17 @@ if whiteFaceFlag is false {
             }
             return false;
         },
+        // returns a list of adjacent sides in the order of above, below, left, right and planes left to right, top to bottom
         _getAdjacentSides: function(main_side) {
-            // returns a list of adjacent sides in the order of above of, below of, left of, right of and planes left to right, top to bottom
             if (main_side == "F") adjacent_list = ["U", "D", "L", "R", "U3", "U6", "U9","D1", "D4", "D7", "L7", "L8", "L9", "R1", "R2", "R3"]
             else if (main_side == "B") adjacent_list = ["D", "U", "L", "R", "D3", "D6", "D9", "U1", "U4", "U7", "L3", "L2", "L1", "R9", "R8", "R7"]
             else if (main_side == "U") adjacent_list = ["B", "F", "L", "R", "B3", "B6", "B9", "F1", "F4", "F7", "L1", "L4", "L7", "R7", "R4", "R1"]
             else if (main_side == "D") adjacent_list = ["F", "B", "L", "R", "F3", "F6", "F9", "B1", "B4", "B7", "L9", "L6", "L3", "R3", "R6", "R9"]
             else if (main_side == "L") adjacent_list = ["U", "D", "B", "F", "U1", "U2", "U3", "D3", "D2", "D1", "B3", "B2", "B1", "F1", "F2", "F3"]
-            else if (main_side == "R") adjacent_list = ["U", "D", "F", "B", "U9", "U8", "U7", "D9", "D6", "D3", "F7","F8", "F9", "B9", "B8", "B7"]
+            else if (main_side == "R") adjacent_list = ["U", "D", "F", "B", "U9", "U8", "U7", "D9", "D6", "D3", "F7", "F8", "F9", "B9", "B8", "B7"]
             return adjacent_list
         },
-        //crossCheck ideally will take in a face color but for now it's set as "white", we're solving white first
+        //cornerCheck ideally will take in a face color but for now it's set as "white", we're solving white corners first
         _cornerCheck: function() {
             temp_color = "white";
             for (i=0; i<color_list.length; i++){
@@ -928,34 +929,34 @@ if whiteFaceFlag is false {
                     temp_side = side_list[i];
                 }
             }
-            console.log(plane_list)
+            //console.log(plane_list)
             adj_list = this._getAdjacentSides(temp_side)
-            // top-left corner + above of + left of
-            if ( plane_list[temp_side + "1"] != (plane_list[temp_side + "5"]) ||
+            // top-left corner + above + left
+            if (plane_list[temp_side + "1"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[4]] != (plane_list[adj_list[0] + "5"]) ||
                 plane_list[adj_list[10]] != (plane_list[adj_list[2] + "5"]) ) {
-                    console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
+                    //console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
                     return false
             }
-            console.log("top-left")
-            // top-right corner + above of + right of
-            if ( plane_list[temp_side + "7"] != (plane_list[temp_side + "5"]) ||
+            //console.log("top-left")
+            // top-right corner + above + right
+            if (plane_list[temp_side + "7"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[6]] != (plane_list[adj_list[0] + "5"]) ||
                 plane_list[adj_list[13]] != (plane_list[adj_list[3] + "5"]) ) {
-                    console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
+                    //console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
                     return false
             }
-            console.log("top-right")
-            // bottom-left corner + below of + left of
-            if ( plane_list[temp_side + "3"] != (plane_list[temp_side + "5"]) ||
+            //console.log("top-right")
+            // bottom-left corner + below + left
+            if (plane_list[temp_side + "3"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[7]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[12]] != (plane_list[adj_list[2] + "5"]) ) {
                     //console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
                     return false
             }
-            console.log("bottom-left")
-            // bottom-right corner + below of + right of
-            if ( plane_list[temp_side + "9"] != (plane_list[temp_side + "5"]) ||
+            //console.log("bottom-left")
+            // bottom-right corner + below + right
+            if (plane_list[temp_side + "9"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[9]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[15]] != (plane_list[adj_list[3] + "5"]) ) {
                     //console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
@@ -970,6 +971,59 @@ if whiteFaceFlag is false {
                 return true
             }
             return false
+        },
+        //returns a list of the "middle" layer in the order of above, below, left, right and the LM and RM planes
+        _getMiddleEdges: function(main_side) {
+            // returns a list of adjacent sides in the order of above, below, left, right and planes left to right, top to bottom
+            if (main_side == "F") adjacent_list = ["U", "D", "L", "R", "U8", "U2", "D2", "D8", "L4", "L6", "R6", "R4"]
+            else if (main_side == "B") adjacent_list = ["D", "U", "L", "R", "D6", "D2", "U2", "U6", "L6", "L4", "R4", "R6"]
+            else if (main_side == "U") adjacent_list = ["B", "F", "L", "R", "B8", "B2", "F2", "F8", "L2", "L8", "R8", "R2"]
+            else if (main_side == "D") adjacent_list = ["F", "B", "L", "R", "F8", "F2", "B2", "B8", "L8", "L2", "R2", "R8"]
+            else if (main_side == "L") adjacent_list = ["U", "D", "B", "F", "U6", "U4", "D6", "D4", "B6", "B4", "F6", "F4"]
+            else if (main_side == "R") adjacent_list = ["U", "D", "F", "B", "U4", "U6", "D4", "D6", "F4", "F6", "B4", "B6"]
+            return adjacent_list
+        },
+        //middleCheck checks if all the cubes in the middle layer is in the right position
+        _middleCheck: function() {
+            // white is still assumed to be the first side to be finished but you can change this
+            temp_color = "white";
+            for (i=0; i<color_list.length; i++){
+                if (color_list[i] == temp_color) {
+                    temp_side = side_list[i];
+                }
+            }
+            //console.log(plane_list)
+            middle_list = this._getMiddleEdges(temp_side)
+            // side above: left edge + right edge
+            if (plane_list[middle_list [4]] != (plane_list[middle_list [0] + "5"]) ||
+                plane_list[middle_list [5]] != (plane_list[middle_list [0] + "5"]) ) {
+                    //console.log(middle_list [4], middle_list [5]);
+                    //console.log(plane_list[middle_list [4]], plane_list[middle_list [5]]);
+                    return false
+            }
+            //console.log("side above")
+            // side below: left edge + right edge
+            if (plane_list[middle_list [6]] != (plane_list[middle_list [1] + "5"]) ||
+                plane_list[middle_list [7]] != (plane_list[middle_list [1] + "5"]) ) {
+                    console.log(plane_list[middle_list [6]], plane_list[middle_list [7]]);
+                    return false
+            }
+            //console.log("side below")
+            // side left left edge + right edge
+            if (plane_list[middle_list [8]] != (plane_list[middle_list [2] + "5"]) ||
+                plane_list[middle_list [9]] != (plane_list[middle_list [2] + "5"]) ) {
+                    console.log(plane_list[middle_list [8]], plane_list[middle_list [9]]);
+                    return false
+            }
+            //console.log("side left")
+            // side right: left edge + right edge
+            if (plane_list[middle_list [10]] != (plane_list[middle_list [3] + "5"]) ||
+                plane_list[middle_list [11]] != (plane_list[middle_list [3] + "5"]) ) {
+                    console.log(plane_list[middle_list [10]], plane_list[middle_list [11]]);
+                    return false
+            }
+            console.log("middle layer is complete!");
+            return true
         },
         _solveCheck: function() {
             for (side in side_list) {

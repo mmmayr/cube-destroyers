@@ -463,6 +463,10 @@ YUI.add('rubik', function (Y) {
                 this._expectingTransition = false;
             }
         },
+        // AI portion, we do checks and call functions here
+        _behaviorTree: function() {
+            
+        },
         /*
         * We got the first finger/click on the cube
         * Save the position.

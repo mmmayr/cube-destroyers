@@ -465,7 +465,70 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-            
+
+/*
+
+make sure it's scrambled
+all of these are set false
+  whiteCrossFlag
+  whiteCornersFlag
+  whiteFaceFlag
+
+if whiteFaceFlag is false {
+  if whiteCrossFlag = false {
+    check where the white edges are on the cube
+    then align the edges to make a white cross with the corresponding color edge on the other (there's no real alg, just get them in place)
+    check if the white edges have been placed properly by matching with the other edge's color to that face's middle tile
+    if all white edges in place *check white edge positions and color* {
+      whiteCrossFlag = true
+    }
+  }
+
+
+  if whiteCornersFlag = false && whiteCross = true {
+    do while whiteCornersFlag = false {
+      pick a white corner piece
+      if corner piece is already in bottom layer {
+        text: ask player to turn cube so the face is visible if necessary
+        check the colors to see where the corner piece has to go under and then rotate cube layer accordingly
+        text : always hold piece you want to move on bottom right
+        do this until that specific corner piece is in the right place * might need multiple checks on position and color * {
+          right inverted (down)
+          down inverted (left)
+          right (up)
+          down (right)
+        }
+      }
+      if corner piece is on top layer {
+        text: ask player to turn cube so the face is visible if necessary
+        right inverted (down)
+        down inverted (left)
+        right (up)
+        rotate bottom layer until it's in correct place under the corner of its final position
+        text : always hold piece you want to move on bottom right
+        do this until that specific corner piece is in the right place * might need multiple checks on position and color * {
+          right inverted (down)
+          down inverted (left)
+          right (up)
+          down (right)
+        }
+      }
+      check if all white corners are in position, need to check colors here
+      if they are {
+        whiteFaceFlag = true
+      }
+    }
+  }
+
+
+
+
+}
+
+
+
+*/
+
         },
         /*
         * We got the first finger/click on the cube

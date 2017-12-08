@@ -351,36 +351,6 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
-
-                              // white cross
-                              {face: "U", slice: "E", rotate: "left"},
-                              {face: "B", slice: "S", rotate: "right"},
-                              {face: "R", slice: "M", rotate: "right"},
-                              {face: "U", slice: "E", rotate: "right"},
-                              {face: "F", slice: "S", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "right"},
-                              {face: "F", slice: "S", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "left"}, // count = 24
-
-                              // corners
-                              {face: "L", slice: "M", rotate: "left"},
-                              {face: "D", slice: "E", rotate: "left"},
-                              {face: "L", slice: "M", rotate: "right"},
-
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "B", slice: "S", rotate: "right"},
-                              {face: "D", slice: "E", rotate: "left"},
-                              {face: "B", slice: "S", rotate: "left"},
-
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "L", slice: "M", rotate: "right"},
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "L", slice: "M", rotate: "left"},
-
-                              {face: "B", slice: "S", rotate: "left"},
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "B", slice: "S", rotate: "right"} // count = 38
                             ];
               var move = moveList[counter];
               this._expectingTransition = true;

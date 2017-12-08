@@ -351,38 +351,6 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
-
-                              // white cross
-                              // {face: "U", slice: "E", rotate: "left"},
-                              // {face: "B", slice: "S", rotate: "right"},
-                              // {face: "R", slice: "M", rotate: "right"},
-                              // {face: "U", slice: "E", rotate: "right"},
-                              // {face: "F", slice: "S", rotate: "left"},
-                              // {face: "U", slice: "E", rotate: "right"},
-                              // {face: "F", slice: "S", rotate: "left"},
-                              // {face: "U", slice: "E", rotate: "left"},
-                              // {face: "U", slice: "E", rotate: "left"}, // count = 24
-                              //
-                              // // corners
-                              // {face: "L", slice: "M", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "L", slice: "M", rotate: "right"},
-                              //
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "B", slice: "S", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "B", slice: "S", rotate: "left"},
-                              //
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "L", slice: "M", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "L", slice: "M", rotate: "left"},
-                              //
-                              // {face: "B", slice: "S", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "B", slice: "S", rotate: "right"} // count = 38
-
-
                             ];
               var move = moveList[counter];
               this._expectingTransition = true;
@@ -404,12 +372,7 @@ YUI.add('rubik', function (Y) {
         },
 
         _solveFake: function (){
-            this._solving = Y.later(350,this,function (){
-                var m = this._undoMove();
-                if(!m){
-                    this._solving.cancel();
-                }
-            },null,true);
+          this.behaviorTree();
         },
         _scrambleCube: function() {
             scrambleBool = true;
@@ -473,12 +436,13 @@ YUI.add('rubik', function (Y) {
                 this._plane.set('className',"");
                 this._reorganizeCubies();
                 this._reorientCubies();
-                this._cubeCheck();
+                this._behaviorTree();
+                // this._cubeCheck();
                 // this._crossCheck();
                 // this._cornerCheck();
-                this._faceCheck();
-                this._middleCheck();
-                this._solveCheck();
+                // this._faceCheck();
+                // this._middleCheck();
+                // this._solveCheck();
                 this._detachToPlane();
                 this._moving = false;
                 this._expectingTransition = false;
@@ -486,63 +450,20 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-/*
+          if(this._crossCheck()) {
+            // change text
+          }
+          if(this._cornerCheck() {
+            // change text
+          }
+          if(this._crossCheck() && this._cornerCheck()) {
+            this._faceCheck() = true;
+            // change text
+          }
+          if(this._middleCheck()) {
+            // change text
+          }
 
-make sure it's scrambled
-all of these are set false
-  whiteCrossFlag
-  whiteCornersFlag
-  whiteFaceFlag
-
-if whiteFaceFlag is false {
-  if whiteCrossFlag = false {
-    check where the white edges are on the cube
-    then align the edges to make a white cross with the corresponding color edge on the other (there's no real alg, just get them in place)
-    check if the white edges have been placed properly by matching with the other edge's color to that face's middle tile
-    if all white edges in place *check white edge positions and color* {
-      whiteCrossFlag = true
-    }
-  }
-
-
-  if whiteCornersFlag = false && whiteCross = true {
-    do while whiteCornersFlag = false {
-      pick a white corner piece
-      if corner piece is already in bottom layer {
-        text: ask player to turn cube so the face is visible if necessary
-        check the colors to see where the corner piece has to go under and then rotate cube layer accordingly
-        text : always hold piece you want to move on bottom right
-        do this until that specific corner piece is in the right place * might need multiple checks on position and color * {
-          right inverted (down)
-          down inverted (left)
-          right (up)
-          down (right)
-        }
-      }
-      if corner piece is on top layer {
-        text: ask player to turn cube so the face is visible if necessary
-        right inverted (down)
-        down inverted (left)
-        right (up)
-        rotate bottom layer until it's in correct place under the corner of its final position
-        text : always hold piece you want to move on bottom right
-        do this until that specific corner piece is in the right place * might need multiple checks on position and color * {
-          right inverted (down)
-          down inverted (left)
-          right (up)
-          down (right)
-        }
-      }
-      check if all white corners are in position, need to check colors here
-      if they are {
-        whiteFaceFlag = true
-      }
-    }
-  }
-
-}
-
-*/
         },
         /*
         * We got the first finger/click on the cube
@@ -869,6 +790,8 @@ if whiteFaceFlag is false {
                 default: break;
             }
         },
+        // updates positions of all the planes
+        // function that makes a list of all the planes and attaches color to them
         _cubeCheck: function () {
             changed_cubes = this._cube.get('children');
             planes = changed_cubes.get("innerHTML");

@@ -353,34 +353,34 @@ YUI.add('rubik', function (Y) {
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
 
                               // white cross
-                              {face: "U", slice: "E", rotate: "left"},
-                              {face: "B", slice: "S", rotate: "right"},
-                              {face: "R", slice: "M", rotate: "right"},
-                              {face: "U", slice: "E", rotate: "right"},
-                              {face: "F", slice: "S", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "right"},
-                              {face: "F", slice: "S", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "left"}, // count = 24
-
-                              // corners
-                              {face: "L", slice: "M", rotate: "left"},
-                              {face: "D", slice: "E", rotate: "left"},
-                              {face: "L", slice: "M", rotate: "right"},
-
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "B", slice: "S", rotate: "right"},
-                              {face: "D", slice: "E", rotate: "left"},
-                              {face: "B", slice: "S", rotate: "left"},
-
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "L", slice: "M", rotate: "right"},
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "L", slice: "M", rotate: "left"},
-
-                              {face: "B", slice: "S", rotate: "left"},
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "B", slice: "S", rotate: "right"} // count = 38
+                              // {face: "U", slice: "E", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "right"},
+                              // {face: "U", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "left"},
+                              // {face: "U", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "left"},
+                              // {face: "U", slice: "E", rotate: "left"},
+                              // {face: "U", slice: "E", rotate: "left"}, // count = 24
+                              //
+                              // // corners
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              //
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              //
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              //
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"} // count = 38
 
 
                             ];
@@ -411,17 +411,12 @@ YUI.add('rubik', function (Y) {
                 }
             },null,true);
         },
-        _testingfunction: function() {
-          console.log("ribbit");
-          var number = "123";
-          document.getElementById("myText").innerHTML = number;
-        },
         _scrambleCube: function() {
             scrambleBool = true;
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==38){
+                if(!m || counter==15){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
@@ -545,12 +540,7 @@ if whiteFaceFlag is false {
     }
   }
 
-
-
-
 }
-
-
 
 */
         },
@@ -708,10 +698,7 @@ if whiteFaceFlag is false {
         _doMovement:function (m,fromQueue) {
       this.movementcount++;
       counterformovement = counterformovement +1  ;
-      myFunction();
-          console.log("testing");
-          console.log(counterformovement);
-          console.log("look for me");
+      myFunction(); // this function updates counterformovement in html
             //console.log("doMovement: m: ", m);
             // fromQueue is true when I press undo and redo
             // -> meaning it is undefined when i click on the cube

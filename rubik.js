@@ -5,16 +5,17 @@
 * http://www.rubiks.com
 *
 */
+var myText = 0;
 var scrambleBool=false;
 var counter=0;
+var counterformovement = 0;
+
 function myFunction() {
-    var x = document.getElementById("myDIV");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
+  //counterformovement++;
+    document.getElementById("myText").innerHTML = counterformovement;
 }
+
+
 
 YUI.add('rubik-queue', function (Y) {
 
@@ -22,7 +23,9 @@ YUI.add('rubik-queue', function (Y) {
         config = config || {};
         this.size = 0;
         this.current = -1;
+    //    this.movementcount = 0;
         this._queue = [];
+
     };
 
     Queue.prototype = {
@@ -172,8 +175,8 @@ YUI.add('rubik', function (Y) {
     };
 
     var plane_list = {
-        U1: "white", U2: "white", U3: "white", U4: "white", U5: "white", U6: "white", U7: "white", U8: "white", U9: "white", 
-        F1: "blue", F2: "blue", F3: "blue", F4: "blue", F5: "blue", F6: "blue", F7: "blue", F8: "blue", F9: "blue", 
+        U1: "white", U2: "white", U3: "white", U4: "white", U5: "white", U6: "white", U7: "white", U8: "white", U9: "white",
+        F1: "blue", F2: "blue", F3: "blue", F4: "blue", F5: "blue", F6: "blue", F7: "blue", F8: "blue", F9: "blue",
         D1: "yellow", D2: "yellow", D3: "yellow", D4: "yellow", D5: "yellow", D6: "yellow", D7: "yellow", D8: "yellow", D9: "yellow",
         B1: "green", B2: "green", B3: "green", B4: "green", B5: "green", B6: "green", B7: "green", B8: "green", B9: "green",
         L1: "orange", L2: "orange", L3: "orange", L4: "orange", L5: "orange", L6: "orange", L7: "orange", L8: "orange", L9: "orange",
@@ -264,6 +267,7 @@ YUI.add('rubik', function (Y) {
     Rubik.prototype = {
         _init: function (cfg) {
             this._container = Y.one(cfg.container || '#cube-container');
+            this.movementcount = 0;
             this._cube = Y.one(cfg.src || '#cube');
             this._plane = Y.Node.create('<div id="plane"></div>');
             this._controls = Y.one(cfg.controls || '#cube-controls');
@@ -386,12 +390,19 @@ YUI.add('rubik', function (Y) {
               return move;
             }
         },
+
+
+      //  function myFunction() {
+      //      var number = 77;
+        //    document.getElementById("myText").innerHTML = number;
+      //  }
         _redoMove: function (e) {
             if (this._moving)return;
             var movement = this._queue.redo();
             this._expectingTransition = true;
             movement && this._doMovement(movement, true);
         },
+
         _solveFake: function (){
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
@@ -399,6 +410,11 @@ YUI.add('rubik', function (Y) {
                     this._solving.cancel();
                 }
             },null,true);
+        },
+        _testingfunction: function() {
+          console.log("ribbit");
+          var number = "123";
+          document.getElementById("myText").innerHTML = number;
         },
         _scrambleCube: function() {
             scrambleBool = true;
@@ -683,9 +699,19 @@ if whiteFaceFlag is false {
             evt.halt();
             this._cubeXY.x = this._tempXY.x;
             this._cubeXY.y = this._tempXY.y;
-        },
+        } ,
 
+        _testconsoloelog:function () {
+            console.log("fdfew");
+        },
+        //  var movmentcount =parseInt("10");
         _doMovement:function (m,fromQueue) {
+      this.movementcount++;
+      counterformovement = counterformovement +1  ;
+      myFunction();
+          console.log("testing");
+          console.log(counterformovement);
+          console.log("look for me");
             //console.log("doMovement: m: ", m);
             // fromQueue is true when I press undo and redo
             // -> meaning it is undefined when i click on the cube
@@ -903,7 +929,7 @@ if whiteFaceFlag is false {
                     // return (plane_list[temp_side + plane] == temp_color);
                     // for now, we can just set it to return if only a WHITE cross is found
                     return (plane_list[temp_side + plane] == "white");
-                } 
+                }
                 if (int_list.every(crosses)){
                     console.log("there is a " + temp_color + " cross!");
                     return true;

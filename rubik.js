@@ -371,7 +371,7 @@ YUI.add('rubik', function (Y) {
             else if (scrambleBool == true){
               // window.alert("In undomove");
               if(this.moving) return;
-              var moveList = [{face: "L", slice: "M", rotate: "right"},
+            var moveList = [{face: "L", slice: "M", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"},
                               {face: "R", slice: "M", rotate: "left"},
                               {face: "F", slice: "S", rotate: "right"},
@@ -386,6 +386,7 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
+
                               // white cross
                               {face: "U", slice: "E", rotate: "left"},
                               {face: "B", slice: "S", rotate: "right"},
@@ -395,7 +396,27 @@ YUI.add('rubik', function (Y) {
                               {face: "U", slice: "E", rotate: "right"},
                               {face: "F", slice: "S", rotate: "left"},
                               {face: "U", slice: "E", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "left"} // count = 24
+                              {face: "U", slice: "E", rotate: "left"}, // count = 24
+
+                              // corners
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "right"},
+
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"} // count = 38
+
                             ];
               var move = moveList[counter];
               this._expectingTransition = true;
@@ -429,7 +450,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==24){
+                if(!m || counter==38){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
@@ -506,17 +527,12 @@ YUI.add('rubik', function (Y) {
             console.log("testing crosscheck");
             setdivonetobetrue();
           }
-<<<<<<< HEAD
           if(this._cornerCheck("white", 4)) {
-=======
-          if(this._cornerCheck("white",4)) {
->>>>>>> refs/remotes/origin/master
             // change text
              console.log("corner check complete");
              setdivtwotobetrue();
           }
-          if(this._crossCheck() && this._cornerCheck()) {
-            this._faceCheck() = true;
+          if(this._crossCheck("white") && this._cornerCheck("white",4)) {
             // change text
              console.log("testing facecheck");
              setdivthreetobetrue();
@@ -535,7 +551,7 @@ YUI.add('rubik', function (Y) {
               if(this._VCheck("white") == true) {
 
               }
-              else if (this._straightCheck("white") is true) {
+              else if (this._straightCheck("white") == true) {
 
               }
               else { // no yellow edge pieces
@@ -560,7 +576,7 @@ YUI.add('rubik', function (Y) {
 
         },
 
-        
+
         /*
         * We got the first finger/click on the cube
         * Save the position.
@@ -1180,7 +1196,7 @@ YUI.add('rubik', function (Y) {
                 plane_list[adj_list[14]] != (plane_list[adj_list[3] + "5"]) ) {
                     //console.log(plane_list[temp_side + "8"], plane_list[adj_list[14]])
             } else edges++
-            
+
             return edges >= edge_req
         },
         _solveCheck: function() {

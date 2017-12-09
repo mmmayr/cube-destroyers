@@ -462,17 +462,17 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-          if(4 == 4){
-              console.log("4 works. dummy test");
-              setfourtobetrue();
-          }
+          // if(4 == 4){
+          //     console.log("4 works. dummy test");
+          //     setfourtobetrue();
+          // }
           if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
           }
           if(this._cornerCheck("white",4)) {
             // change text
-             console.log("testing cornercheck");
+             console.log("corner check complete");
           }
           if(this._crossCheck() && this._cornerCheck()) {
             this._faceCheck() = true;
@@ -1060,7 +1060,7 @@ YUI.add('rubik', function (Y) {
                     //console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
                     corners++
             }
-            return corners >= corner_req 
+            return corners >= corner_req
         },
         _solveCheck: function() {
             for (side in side_list) {

@@ -395,26 +395,7 @@ YUI.add('rubik', function (Y) {
                               {face: "U", slice: "E", rotate: "right"},
                               {face: "F", slice: "S", rotate: "left"},
                               {face: "U", slice: "E", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "left"}, // count = 24
-
-                              // corners
-                              {face: "L", slice: "M", rotate: "left"},
-                              {face: "D", slice: "E", rotate: "left"},
-                              {face: "L", slice: "M", rotate: "right"},
-
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "B", slice: "S", rotate: "right"},
-                              {face: "D", slice: "E", rotate: "left"},
-                              {face: "B", slice: "S", rotate: "left"},
-
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "L", slice: "M", rotate: "right"},
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "L", slice: "M", rotate: "left"},
-
-                              {face: "B", slice: "S", rotate: "left"},
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "B", slice: "S", rotate: "right"} // count = 38
+                              {face: "U", slice: "E", rotate: "left"} // count = 24
                             ];
               var move = moveList[counter];
               this._expectingTransition = true;
@@ -448,7 +429,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==15){
+                if(!m || counter==24){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
@@ -516,10 +497,10 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-          if(4 == 4){
-              console.log("4 works. dummy test");
-              setfourtobetrue();
-           }
+          // if(4 == 4){
+          //     console.log("4 works. dummy test");
+          //     setfourtobetrue();
+          //  }
           if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
@@ -530,7 +511,6 @@ YUI.add('rubik', function (Y) {
              console.log("corner check complete");
              setdivtwotobetrue();
           }
-
           if(this._crossCheck() && this._cornerCheck()) {
             this._faceCheck() = true;
             // change text
@@ -539,13 +519,44 @@ YUI.add('rubik', function (Y) {
           }
 
 
-
           if(this._middleCheck()) {
             // change text
             console.log("testing middlecheck");
           }
 
+
+
+          if (this._faceCheck("white") == true && this._middleCheck() == true) {
+            if (this._crossCheck("yellow") == false) {
+              if(this._VCheck("white") == true) {
+
+              }
+              else if (this._straightCheck("white") is true) {
+
+              }
+              else { // no yellow edge pieces
+
+              }
+            }
+            else if (this._crossCheck("yellow") == true) {
+              if (this._crossPlusOne("white") == true) {
+
+              }
+              else if (this._crossPlusTw("white") == true) {
+
+              }
+              else { // no corner pieces
+
+              }
+            }
+          }
+
+
+
+
         },
+
+        
         /*
         * We got the first finger/click on the cube
         * Save the position.

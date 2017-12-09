@@ -9,7 +9,7 @@ var myText = 0;
 var scrambleBool=false;
 var counter=0;
 var counterformovement = 0;
-
+// priscella was here
 // testing behaviortree print
 
 function setdisplaystobeblank(){

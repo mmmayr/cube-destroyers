@@ -456,16 +456,20 @@ YUI.add('rubik', function (Y) {
         _behaviorTree: function() {
           if(this._crossCheck()) {
             // change text
+            console.log("testing crosscheck");
           }
           if(this._cornerCheck()) {
             // change text
+             console.log("testing cornercheck");
           }
           if(this._crossCheck() && this._cornerCheck()) {
             this._faceCheck() = true;
             // change text
+             console.log("testing factcheck");
           }
           if(this._middleCheck()) {
             // change text
+            consoloe.log("testing middlecheck");
           }
 
         },

@@ -662,10 +662,6 @@ YUI.add('rubik', function (Y) {
             plane.get('offsetHeight');
             plane.addClass('moving');
             plane.addClass(m.slice +'-'+ m.rotate);
-
-
-              this._behaviorTree();// wasnt sure how to test behaviortree function
-              // just put it in domovment function for now. -anthony december saturday
         },
         _attachToPlane:function (list) {
             this._plane.setContent(list);
@@ -844,6 +840,7 @@ YUI.add('rubik', function (Y) {
             }
             //console.log(new_list);
             //return new_list;
+            this._behaviorTree(); // added by anthony 11:17am december 9
         },
         _getKeyByValue: function(object, value) {
             return Object.keys(object).find(key => object[key] === value);

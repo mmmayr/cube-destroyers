@@ -11,13 +11,38 @@ var counter=0;
 var counterformovement = 0;
 
 // testing behaviortree print
-function setfourtobeblank(){
+function setdisplaystobeblank(){
   var x = document.getElementById("myDIV");
   x.style.display = "none";
+
+  var a = document.getElementById("myDIV1");
+  a.style.display = "none";
+
+  var b = document.getElementById("myDIV2");
+  b.style.display = "none";
+
+  var c = document.getElementById("myDIV3");
+  c.style.display = "none";
 }
 
 function setfourtobetrue(){
   var x = document.getElementById("myDIV");
+  x.style.display =  "block";
+
+}
+
+function setdivonetobetrue(){
+  var x = document.getElementById("myDIV1");
+  x.style.display =  "block";
+
+}
+function setdivtwotobetrue(){
+  var x = document.getElementById("myDIV2");
+  x.style.display =  "block";
+
+}
+function setdivthreetobetrue(){
+  var x = document.getElementById("myDIV3");
   x.style.display =  "block";
 
 }
@@ -491,23 +516,30 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-          // if(4 == 4){
-          //     console.log("4 works. dummy test");
-          //     setfourtobetrue();
-          // }
+          if(4 == 4){
+              console.log("4 works. dummy test");
+              setfourtobetrue();
+           }
           if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
+            setdivonetobetrue();
           }
           if(this._cornerCheck("white",4)) {
             // change text
              console.log("corner check complete");
+             setdivtwotobetrue();
           }
+
           if(this._crossCheck() && this._cornerCheck()) {
             this._faceCheck() = true;
             // change text
              console.log("testing facecheck");
+             setdivthreetobetrue();
           }
+
+
+
           if(this._middleCheck()) {
             // change text
             console.log("testing middlecheck");

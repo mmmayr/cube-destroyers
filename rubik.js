@@ -10,6 +10,19 @@ var scrambleBool=false;
 var counter=0;
 var counterformovement = 0;
 
+// testing behaviortree print
+function setfourtobeblank(){
+  var x = document.getElementById("myDIV");
+  x.style.display = "none";
+}
+
+function setfourtobetrue(){
+  var x = document.getElementById("myDIV");
+  x.style.display =  "block";
+
+}
+
+ // testing behaviortree print
 function myFunction() {
     document.getElementById("myText").innerHTML = counterformovement;
 }
@@ -449,6 +462,10 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
+          if(4 == 4){
+              console.log("4 works. dummy test");
+              setfourtobetrue();
+          }
           if(this._crossCheck()) {
             // change text
             console.log("testing crosscheck");
@@ -646,6 +663,9 @@ YUI.add('rubik', function (Y) {
             plane.addClass('moving');
             plane.addClass(m.slice +'-'+ m.rotate);
 
+
+              this._behaviorTree();// wasnt sure how to test behaviortree function
+              // just put it in domovment function for now. -anthony december saturday
         },
         _attachToPlane:function (list) {
             this._plane.setContent(list);
@@ -827,7 +847,7 @@ YUI.add('rubik', function (Y) {
         },
         _getKeyByValue: function(object, value) {
             return Object.keys(object).find(key => object[key] === value);
-        },        
+        },
         _getOppositeSide: function(main_side) {
             if (main_side == "F") return "B"
             else if (main_side == "B") return "F"

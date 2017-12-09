@@ -11,7 +11,9 @@ var counter=0;
 var counterformovement = 0;
 
 // testing behaviortree print
+
 function setdisplaystobeblank(){
+    //hides all hint displays
   var x = document.getElementById("myDIV");
   x.style.display = "none";
 
@@ -23,10 +25,40 @@ function setdisplaystobeblank(){
 
   var c = document.getElementById("myDIV3");
   c.style.display = "none";
+
+  var d = document.getElementById("myDIV4");
+  d.style.display = "none";
+
+  var j = document.getElementById("myDIV_yellowv");
+  j.style.display = "none";
+
+  var e = document.getElementById("myDIV_yellowstraight");
+  e.style.display = "none";
+
+  var f = document.getElementById("myDIV_yellownone");
+  f.style.display = "none";
+
+  var g = document.getElementById("myDIV_yellowonecorner");
+  g.style.display = "none";
+
+  var h = document.getElementById("myDIV_yellowtwocorners");
+  h.style.display = "none";
+
+  var i = document.getElementById("myDIV_yellownocorners");
+  i.style.display = "none";
+    
 }
+
 
 function setfourtobetrue(){
   var x = document.getElementById("myDIV");
+  x.style.display =  "block";
+
+
+}
+
+function    setdivfourtobetrue(){
+  var x = document.getElementById("myDIV4");
   x.style.display =  "block";
 
 }
@@ -45,6 +77,36 @@ function setdivthreetobetrue(){
   var x = document.getElementById("myDIV3");
   x.style.display =  "block";
 
+}
+
+function setdivyellowvtobetrue(){
+    var x = document.getElementById("myDIV_yellowv");
+    x.style.display = "block";
+}
+
+function setdivyellowstraighttobetrue(){
+    var x = document.getElementById("myDIV_yellowstraight");
+    x.style.display = "block";
+}
+
+function setdivyellownonetobetrue(){
+    var x = document.getElementById("myDIV_yellownone");
+    x.style.display = "block";
+}
+
+function setdivyellowonecornertobetrue(){
+    var x = document.getElementById("myDIV_yellowonecorner");
+    x.style.display = "block";
+}
+
+function setdivyellowtwocornerstobetrue(){
+    var x = document.getElementById("myDIV_yellowtwocorners");
+    x.style.display = "block";
+}
+
+function setdivyellownocornerstobetrue(){
+    var x = document.getElementById("myDIV_yellownocorners");
+    x.style.display = "block";
 }
 
  // testing behaviortree print
@@ -543,6 +605,7 @@ YUI.add('rubik', function (Y) {
           if(this._middleCheck()) {
             // change text
             console.log("testing middlecheck");
+             setdivfourtobetrue();
           }
 
 
@@ -550,24 +613,30 @@ YUI.add('rubik', function (Y) {
           if (this._faceCheck("white") == true && this._middleCheck() == true) {
             if (this._crossCheck("yellow") == false) {
               if(this._VCheck("white") == true) {
-
+                //there is a yellow v, this is the algorithm
+                setdivyellowvtobetrue();
+                console.log("good job, you ")
               }
               else if (this._straightCheck("white") == true) {
-
+                setdivyellowstraighttobetrue();
               }
               else { // no yellow edge pieces
-
+                setdivyellownonetobetrue();
               }
             }
             else if (this._crossCheck("yellow") == true) {
               if (this._crossPlusOne("white") == true) {
-
+                setdivyellowonecornertobetrue();
               }
               else if (this._crossPlusTwo("white") == true) {
+<<<<<<< HEAD
 
+=======
+                setdivyellowtwocornerstobetrue();
+>>>>>>> b165d16c64f34fea4a0a239aebea17c8a29cca5d
               }
               else { // no corner pieces
-
+                setdivyellownocornerstobetrue();
               }
             }
           }

@@ -496,7 +496,11 @@ YUI.add('rubik', function (Y) {
             console.log("testing crosscheck");
             setdivonetobetrue();
           }
+<<<<<<< HEAD
           if(this._cornerCheck("white", 4)) {
+=======
+          if(this._cornerCheck("white",4)) {
+>>>>>>> refs/remotes/origin/master
             // change text
              console.log("corner check complete");
              setdivtwotobetrue();

@@ -506,7 +506,11 @@ YUI.add('rubik', function (Y) {
             console.log("testing crosscheck");
             setdivonetobetrue();
           }
+<<<<<<< HEAD
+          if(this._cornerCheck("white", 4)) {
+=======
           if(this._cornerCheck("white",4)) {
+>>>>>>> refs/remotes/origin/master
             // change text
              console.log("corner check complete");
              setdivtwotobetrue();
@@ -957,7 +961,7 @@ YUI.add('rubik', function (Y) {
                     return (plane_list[temp_side + plane] == temp_color);
                 }
                 if (int_list.every(crosses)){
-                    console.log("there is a " + temp_color + " cross!");
+                    // console.log("there is a " + temp_color + " cross!");
                     return true;
                 }
             }
@@ -984,12 +988,25 @@ YUI.add('rubik', function (Y) {
 
             else return false
         },
+        //returns true when there is a side with all the same color as temp_color (position of the cubies does not matter)
         _faceCheck: function(temp_color) {
-            if (this._crossCheck(temp_color) && this._cornerCheck(temp_color)) {
-                console.log(temp_color + " face is solved!")
-                return true
+            // find what side the color is on first
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_color) {
+                    temp_side = side_list[side];
+                }
             }
-            return false
+            for (i=1; i<=9; i++) {
+                if (plane_list[temp_side + i] != temp_color) {
+                    //console.log("side is not completely " + temp_color)
+                    return false
+                }
+            }
+            return true
+        },
+        //returns true when all cubies on one "temp_color" side is all the same color AND in the right position
+        _trueFaceCheck: function(temp_color) {
+            returns (this._edgeCheck(temp_color, 4) && this._cornerCheck(temp_color, 4) )
         },
         //straightCheck returns true when there is a "straight" pattern on the side
         _straightCheck: function(first_color) {
@@ -1093,46 +1110,78 @@ YUI.add('rubik', function (Y) {
         //cornerCheck ideally will take in a face color but for now it's set as "white", we're solving white corners first
         _cornerCheck: function(temp_color, corner_req) {
             temp_color = temp_color || "white";
-            for (i=0; i<color_list.length; i++){
-                if (color_list[i] == temp_color) {
-                    temp_side = side_list[i];
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_color) {
+                    temp_side = side_list[side];
                 }
             }
             corners = 0;
+            console.log(temp_color)
             //console.log(plane_list)
             adj_list = this._getAdjacentSides(temp_side)
             // top-left corner + above + left
             if (plane_list[temp_side + "1"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[4]] != (plane_list[adj_list[0] + "5"]) ||
                 plane_list[adj_list[10]] != (plane_list[adj_list[2] + "5"]) ) {
-                    //console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
-                    corners++
-            }
-            //console.log("top-left")
+                    // console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
+            } else corners++
+            console.log("top-left")
             // top-right corner + above + right
             if (plane_list[temp_side + "7"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[6]] != (plane_list[adj_list[0] + "5"]) ||
                 plane_list[adj_list[13]] != (plane_list[adj_list[3] + "5"]) ) {
-                    //console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
-                    corners++
-            }
-            //console.log("top-right")
+                    // console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
+            } else corners++
+            console.log("top-right")
             // bottom-left corner + below + left
             if (plane_list[temp_side + "3"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[7]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[12]] != (plane_list[adj_list[2] + "5"]) ) {
-                    //console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
-                    corners++
-            }
-            //console.log("bottom-left")
+                    // console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
+            } else corners++
+            console.log("bottom-left")
             // bottom-right corner + below + right
             if (plane_list[temp_side + "9"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[9]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[15]] != (plane_list[adj_list[3] + "5"]) ) {
-                    //console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
-                    corners++
-            }
+                    // console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
+            } else corners++
+
             return corners >= corner_req
+        },
+        //edgeCheck ideally will take in a face color but for now it's set as "yellow", since that's what you specified
+        _edgeCheck: function(temp_color, edge_req) {
+            temp_color = temp_color || "yellow";
+             for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_color) {
+                    temp_side = side_list[side];
+                }
+            }
+            edges = 0;
+            //console.log(plane_list)
+            adj_list = this._getAdjacentSides(temp_side)
+            // top edge and above
+            if (plane_list[temp_side + "4"] != (plane_list[temp_side + "5"]) ||
+                plane_list[adj_list[5]] != (plane_list[adj_list[0] + "5"]) ) {
+                    //console.log(plane_list[temp_side + "4"], plane_list[adj_list[5]]);
+            } else edges++
+            // bottom edge and below
+            if (plane_list[temp_side + "6"] != (plane_list[temp_side + "5"]) ||
+                plane_list[adj_list[8]] != (plane_list[adj_list[1] + "5"]) ) {
+                    //console.log(plane_list[temp_side + "6"], plane_list[adj_list[8]])
+            } else edges++
+            // left edge and left
+            if (plane_list[temp_side + "2"] != (plane_list[temp_side + "5"]) ||
+                plane_list[adj_list[11]] != (plane_list[adj_list[2] + "5"]) ) {
+                    //console.log(plane_list[temp_side + "2"], plane_list[adj_list[11]])
+            } else edges++
+            // right edge and right
+            if (plane_list[temp_side + "8"] != (plane_list[temp_side + "5"]) ||
+                plane_list[adj_list[14]] != (plane_list[adj_list[3] + "5"]) ) {
+                    //console.log(plane_list[temp_side + "8"], plane_list[adj_list[14]])
+            } else edges++
+            
+            return edges >= edge_req
         },
         _solveCheck: function() {
             for (side in side_list) {

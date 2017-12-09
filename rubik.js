@@ -11,13 +11,38 @@ var counter=0;
 var counterformovement = 0;
 
 // testing behaviortree print
-function setfourtobeblank(){
+function setdisplaystobeblank(){
   var x = document.getElementById("myDIV");
   x.style.display = "none";
+
+  var a = document.getElementById("myDIV1");
+  a.style.display = "none";
+
+  var b = document.getElementById("myDIV2");
+  b.style.display = "none";
+
+  var c = document.getElementById("myDIV3");
+  c.style.display = "none";
 }
 
 function setfourtobetrue(){
   var x = document.getElementById("myDIV");
+  x.style.display =  "block";
+
+}
+
+function setdivonetobetrue(){
+  var x = document.getElementById("myDIV1");
+  x.style.display =  "block";
+
+}
+function setdivtwotobetrue(){
+  var x = document.getElementById("myDIV2");
+  x.style.display =  "block";
+
+}
+function setdivthreetobetrue(){
+  var x = document.getElementById("myDIV3");
   x.style.display =  "block";
 
 }
@@ -452,7 +477,7 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._updatePlaneList();
-                this._crossCheck();
+                // this._crossCheck();
                 this._VCheck();
                 // this._behaviorTree();
                 this._detachToPlane();
@@ -465,20 +490,27 @@ YUI.add('rubik', function (Y) {
           if(4 == 4){
               console.log("4 works. dummy test");
               setfourtobetrue();
-          }
-          if(this._crossCheck()) {
+           }
+          if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
+            setdivonetobetrue();
           }
-          if(this._cornerCheck()) {
+          if(this._cornerCheck("white",4)) {
             // change text
-             console.log("testing cornercheck");
+             console.log("corner check complete");
+             setdivtwotobetrue();
           }
+
           if(this._crossCheck() && this._cornerCheck()) {
             this._faceCheck() = true;
             // change text
              console.log("testing facecheck");
+             setdivthreetobetrue();
           }
+
+
+
           if(this._middleCheck()) {
             // change text
             console.log("testing middlecheck");
@@ -1073,7 +1105,7 @@ YUI.add('rubik', function (Y) {
                     //console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
                     corners++
             }
-            return corners >= corner_req 
+            return corners >= corner_req
         },
         //edgeCheck ideally will take in a face color but for now it's set as "yellow", since that's what you specified
         _edgeCheck: function(temp_color, edge_req) {

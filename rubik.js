@@ -452,7 +452,7 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._updatePlaneList();
-                this._crossCheck();
+                // this._crossCheck();
                 this._VCheck();
                 // this._behaviorTree();
                 this._detachToPlane();
@@ -466,11 +466,11 @@ YUI.add('rubik', function (Y) {
               console.log("4 works. dummy test");
               setfourtobetrue();
           }
-          if(this._crossCheck()) {
+          if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
           }
-          if(this._cornerCheck()) {
+          if(this._cornerCheck("white",4)) {
             // change text
              console.log("testing cornercheck");
           }

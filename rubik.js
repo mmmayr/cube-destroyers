@@ -23,10 +23,20 @@ function setdisplaystobeblank(){
 
   var c = document.getElementById("myDIV3");
   c.style.display = "none";
+
+    var d = document.getElementById("myDIV4");
+    d.style.display = "none";
 }
 
 function setfourtobetrue(){
   var x = document.getElementById("myDIV");
+  x.style.display =  "block";
+
+
+}
+
+function    setdivfourtobetrue(){
+  var x = document.getElementById("myDIV4");
   x.style.display =  "block";
 
 }
@@ -542,6 +552,7 @@ YUI.add('rubik', function (Y) {
           if(this._middleCheck()) {
             // change text
             console.log("testing middlecheck");
+             setdivfourtobetrue();
           }
 
 
@@ -549,7 +560,7 @@ YUI.add('rubik', function (Y) {
           if (this._faceCheck("white") == true && this._middleCheck() == true) {
             if (this._crossCheck("yellow") == false) {
               if(this._VCheck("white") == true) {
-
+                console.log("good job, you ")
               }
               else if (this._straightCheck("white") == true) {
 

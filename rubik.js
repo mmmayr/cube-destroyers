@@ -11,11 +11,8 @@ var counter=0;
 var counterformovement = 0;
 
 function myFunction() {
-  //counterformovement++;
     document.getElementById("myText").innerHTML = counterformovement;
 }
-
-
 
 YUI.add('rubik-queue', function (Y) {
 
@@ -441,12 +438,10 @@ YUI.add('rubik', function (Y) {
                 this._plane.set('className',"");
                 this._reorganizeCubies();
                 this._reorientCubies();
-                this._cubeCheck();
+                this._updatePlaneList();
                 this._crossCheck();
-                this._cornerCheck();
-                this._faceCheck();
-                this._middleCheck();
-                this._solveCheck();
+                this._VCheck();
+                // this._behaviorTree();
                 this._detachToPlane();
                 this._moving = false;
                 this._expectingTransition = false;
@@ -465,7 +460,7 @@ YUI.add('rubik', function (Y) {
           if(this._crossCheck() && this._cornerCheck()) {
             this._faceCheck() = true;
             // change text
-             console.log("testing factcheck");
+             console.log("testing facecheck");
           }
           if(this._middleCheck()) {
             // change text
@@ -618,16 +613,13 @@ YUI.add('rubik', function (Y) {
             evt.halt();
             this._cubeXY.x = this._tempXY.x;
             this._cubeXY.y = this._tempXY.y;
-        } ,
-
-        _testconsoloelog:function () {
-            console.log("fdfew");
         },
         //  var movmentcount =parseInt("10");
         _doMovement:function (m,fromQueue) {
-      this.movementcount++;
-      counterformovement = counterformovement +1  ;
-      myFunction(); // this function updates counterformovement in html
+            this.movementcount++;
+            counterformovement = counterformovement +1  ;
+            myFunction(); // this function updates counterformovement in html
+
             //console.log("doMovement: m: ", m);
             // fromQueue is true when I press undo and redo
             // -> meaning it is undefined when i click on the cube
@@ -800,7 +792,7 @@ YUI.add('rubik', function (Y) {
         },
         // updates positions of all the planes
         // function that makes a list of all the planes and attaches color to them
-        _cubeCheck: function () {
+        _updatePlaneList: function () {
             changed_cubes = this._cube.get('children');
             planes = changed_cubes.get("innerHTML");
             //console.log(planes)
@@ -835,25 +827,14 @@ YUI.add('rubik', function (Y) {
         },
         _getKeyByValue: function(object, value) {
             return Object.keys(object).find(key => object[key] === value);
-        },
-        //returns true if there is a cross in the Rubik's cube
-        _crossCheck: function() {
-            int_list = [2, 4, 5, 6, 8];
-            for (side in side_list) {
-                temp_side = side_list[side];
-                temp_color = plane_list[temp_side + int_list[0]];
-                // function that checks if one side has a cross of all the same colors, returns with the first one found
-                function crosses(plane) {
-                    // return (plane_list[temp_side + plane] == temp_color);
-                    // for now, we can just set it to return if only a WHITE cross is found
-                    return (plane_list[temp_side + plane] == "white");
-                }
-                if (int_list.every(crosses)){
-                    console.log("there is a " + temp_color + " cross!");
-                    return true;
-                }
-            }
-            return false;
+        },        
+        _getOppositeSide: function(main_side) {
+            if (main_side == "F") return "B"
+            else if (main_side == "B") return "F"
+            else if (main_side == "U") return "D"
+            else if (main_side == "D") return "U"
+            else if (main_side == "L") return "R"
+            else if (main_side == "R") return "L"
         },
         // returns a list of adjacent sides in the order of above, below, left, right and planes left to right, top to bottom
         _getAdjacentSides: function(main_side) {
@@ -864,6 +845,55 @@ YUI.add('rubik', function (Y) {
             else if (main_side == "L") adjacent_list = ["U", "D", "B", "F", "U1", "U2", "U3", "D3", "D2", "D1", "B3", "B2", "B1", "F1", "F2", "F3"]
             else if (main_side == "R") adjacent_list = ["U", "D", "F", "B", "U9", "U8", "U7", "D9", "D6", "D3", "F7", "F8", "F9", "B9", "B8", "B7"]
             return adjacent_list
+        },
+        //returns a list of the "middle" layer in the order of above, below, left, right and the LM and RM planes
+        _getMiddleEdges: function(main_side) {
+            // returns a list of adjacent sides in the order of above, below, left, right and planes left to right, top to bottom
+            if (main_side == "F") adjacent_list = ["U", "D", "L", "R", "U8", "U2", "D2", "D8", "L4", "L6", "R6", "R4"]
+            else if (main_side == "B") adjacent_list = ["D", "U", "L", "R", "D6", "D2", "U2", "U6", "L6", "L4", "R4", "R6"]
+            else if (main_side == "U") adjacent_list = ["B", "F", "L", "R", "B8", "B2", "F2", "F8", "L2", "L8", "R8", "R2"]
+            else if (main_side == "D") adjacent_list = ["F", "B", "L", "R", "F8", "F2", "B2", "B8", "L8", "L2", "R2", "R8"]
+            else if (main_side == "L") adjacent_list = ["U", "D", "B", "F", "U6", "U4", "D6", "D4", "B6", "B4", "F6", "F4"]
+            else if (main_side == "R") adjacent_list = ["U", "D", "F", "B", "U4", "U6", "D4", "D6", "F4", "F6", "B4", "B6"]
+            return adjacent_list
+        },
+        //returns true if there is a cross in the Rubik's cube, you can specify the color, to keep
+        _crossCheck: function(temp_color) {
+            int_list = [2, 4, 5, 6, 8];
+            for (side in side_list) {
+                temp_side = side_list[side];
+                temp_color = temp_color || plane_list[temp_side + int_list[0]];
+                // function that checks if one side has a cross of all the same colors, returns with the first one found
+                function crosses(plane) {
+                    return (plane_list[temp_side + plane] == temp_color);
+                }
+                if (int_list.every(crosses)){
+                    console.log("there is a " + temp_color + " cross!");
+                    return true;
+                }
+            }
+            return false;
+        },
+        //returns true if there is a "V" on one of the given side in the Rubik's cube
+        //for now it will be specifically for the yellow side, but I assume it's to be the opposite side of the first solved color
+        _VCheck: function(first_color) {
+            // we have to manually find what's the opposite side
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == first_color) {
+                    temp_side = this._getOppositeSide(side_list[side]);
+                }
+            }
+            temp_color = plane_list[temp_side + "5"];
+            // up and left plane
+            if ( plane_list[temp_side + "4"] == temp_color && plane_list[temp_side + "2"] == temp_color ) return true
+            // up and right plane
+            else if ( plane_list[temp_side + "4"] == temp_color && plane_list[temp_side + "8"] == temp_color ) return true
+            // down and left plane
+            else if ( plane_list[temp_side + "6"] == temp_color && plane_list[temp_side + "2"] == temp_color ) return true
+            // down and right plane
+            else if ( plane_list[temp_side + "6"] == temp_color && plane_list[temp_side + "8"] == temp_color ) return true
+
+            else return false
         },
         //cornerCheck ideally will take in a face color but for now it's set as "white", we're solving white corners first
         _cornerCheck: function() {
@@ -916,16 +946,21 @@ YUI.add('rubik', function (Y) {
             }
             return false
         },
-        //returns a list of the "middle" layer in the order of above, below, left, right and the LM and RM planes
-        _getMiddleEdges: function(main_side) {
-            // returns a list of adjacent sides in the order of above, below, left, right and planes left to right, top to bottom
-            if (main_side == "F") adjacent_list = ["U", "D", "L", "R", "U8", "U2", "D2", "D8", "L4", "L6", "R6", "R4"]
-            else if (main_side == "B") adjacent_list = ["D", "U", "L", "R", "D6", "D2", "U2", "U6", "L6", "L4", "R4", "R6"]
-            else if (main_side == "U") adjacent_list = ["B", "F", "L", "R", "B8", "B2", "F2", "F8", "L2", "L8", "R8", "R2"]
-            else if (main_side == "D") adjacent_list = ["F", "B", "L", "R", "F8", "F2", "B2", "B8", "L8", "L2", "R2", "R8"]
-            else if (main_side == "L") adjacent_list = ["U", "D", "B", "F", "U6", "U4", "D6", "D4", "B6", "B4", "F6", "F4"]
-            else if (main_side == "R") adjacent_list = ["U", "D", "F", "B", "U4", "U6", "D4", "D6", "F4", "F6", "B4", "B6"]
-            return adjacent_list
+        //straightCheck returns true when there is a "straight" pattern on the side
+        _straightCheck: function(first_color) {
+            // we have to manually find what's the opposite side
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == first_color) {
+                    temp_side = this._getOppositeSide(side_list[side]);
+                }
+            }
+            temp_color = plane_list[temp_side + "5"];
+            // horizontal check
+            if ( plane_list[temp_side + "2"] == temp_color && plane_list[temp_side + "8"] == temp_color ) return true
+            // vertical check
+            else if ( plane_list[temp_side + "4"] == temp_color && plane_list[temp_side + "6"] == temp_color ) return true
+
+            else return false
         },
         //middleCheck checks if all the cubes in the middle layer is in the right position
         _middleCheck: function() {
@@ -968,6 +1003,47 @@ YUI.add('rubik', function (Y) {
             }
             console.log("middle layer is complete!");
             return true
+        },
+        //crossPlusOne checks if there is a cross and one corner of the same color, corner doesn't have to be in the right place
+        _crossPlusOne: function(first_color) {
+            // we have to manually find what's the opposite side
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == first_color) {
+                    temp_side = this._getOppositeSide(side_list[side]);
+                }
+            }
+            temp_color = plane_list[temp_side + "5"];
+            // top left corner
+            if ( this._crossCheck(temp_color) && plane_list[temp_side + "1"] == temp_color ) return true
+            // top right corner
+            else if ( this._crossCheck(temp_color) && plane_list[temp_side + "3"] == temp_color ) return true
+            // bottom left corner
+            else if ( this._crossCheck(temp_color) && plane_list[temp_side + "7"] == temp_color ) return true
+            // bottom right corner
+            else if ( this._crossCheck(temp_color) && plane_list[temp_side + "9"] == temp_color ) return true
+
+            else return false
+        },
+        //crossPlusTwo checks if there is a cross and two corners of the same color, corners doesn't have to be in the right place
+        _crossPlusTwo: function(first_color) {
+            // we have to manually find what's the opposite side
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == first_color) {
+                    temp_side = this._getOppositeSide(side_list[side]);
+                }
+            }
+            temp_color = plane_list[temp_side + "5"];
+            corners = 0
+            // top left corner
+            if ( plane_list[temp_side + "1"] == temp_color ) corners++
+            // top right corner
+            if ( plane_list[temp_side + "3"] == temp_color ) corners++
+            // bottom left corner
+            if ( plane_list[temp_side + "7"] == temp_color ) corners++
+            // bottom right corner
+            if ( plane_list[temp_side + "9"] == temp_color ) corners++
+
+            return ( this._crossCheck(temp_color) && corners >= 2 )
         },
         _solveCheck: function() {
             for (side in side_list) {

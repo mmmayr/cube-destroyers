@@ -469,7 +469,7 @@ YUI.add('rubik', function (Y) {
           }
           if(this._middleCheck()) {
             // change text
-            consoloe.log("testing middlecheck");
+            console.log("testing middlecheck");
           }
 
         },

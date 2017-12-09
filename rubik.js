@@ -522,6 +522,7 @@ YUI.add('rubik', function (Y) {
           //     console.log("4 works. dummy test");
           //     setfourtobetrue();
           //  }
+          // video 2 and 3
           if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
@@ -538,14 +539,14 @@ YUI.add('rubik', function (Y) {
              setdivthreetobetrue();
           }
 
-
+          // video 4
           if(this._middleCheck()) {
             // change text
             console.log("testing middlecheck");
           }
 
 
-
+          // video 5
           if (this._faceCheck("white") == true && this._middleCheck() == true) {
             if (this._crossCheck("yellow") == false) {
               if(this._VCheck("white") == true) {
@@ -562,7 +563,7 @@ YUI.add('rubik', function (Y) {
               if (this._crossPlusOne("white") == true) {
 
               }
-              else if (this._crossPlusTw("white") == true) {
+              else if (this._crossPlusTwo("white") == true) {
 
               }
               else { // no corner pieces
@@ -571,7 +572,7 @@ YUI.add('rubik', function (Y) {
             }
           }
 
-
+          // final stage - video 6
 
 
         },

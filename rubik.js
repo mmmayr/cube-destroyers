@@ -1089,25 +1089,25 @@ YUI.add('rubik', function (Y) {
             // top edge and above
             if (plane_list[temp_side + "4"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[5]] != (plane_list[adj_list[0] + "5"]) ) {
-                    //console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
+                    //console.log(plane_list[temp_side + "4"], plane_list[adj_list[5]]);
                     edges++
             }
             // bottom edge and below
-            if (plane_list[temp_side + "7"] != (plane_list[temp_side + "5"]) ||
+            if (plane_list[temp_side + "6"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[8]] != (plane_list[adj_list[1] + "5"]) ) {
-                    //console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
+                    //console.log(plane_list[temp_side + "6"], plane_list[adj_list[8]])
                     edges++
             }
             // left edge and left
-            if (plane_list[temp_side + "3"] != (plane_list[temp_side + "5"]) ||
+            if (plane_list[temp_side + "2"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[11]] != (plane_list[adj_list[2] + "5"]) ) {
-                    //console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
+                    //console.log(plane_list[temp_side + "2"], plane_list[adj_list[11]])
                     edges++
             }
             // right edge and right
-            if (plane_list[temp_side + "9"] != (plane_list[temp_side + "5"]) ||
+            if (plane_list[temp_side + "8"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[14]] != (plane_list[adj_list[3] + "5"]) ) {
-                    //console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
+                    //console.log(plane_list[temp_side + "8"], plane_list[adj_list[14]])
                     edges++
             }
             return edges >= edge_req

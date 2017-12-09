@@ -11,6 +11,7 @@ var counter=0;
 var counterformovement = 0;
 
 // testing behaviortree print
+
 function setdisplaystobeblank(){
     //hides all hint displays
   var x = document.getElementById("myDIV");
@@ -25,8 +26,11 @@ function setdisplaystobeblank(){
   var c = document.getElementById("myDIV3");
   c.style.display = "none";
 
-  var d = document.getElementById("myDIV_yellowv");
+  var d = document.getElementById("myDIV4");
   d.style.display = "none";
+
+  var j = document.getElementById("myDIV_yellowv");
+  j.style.display = "none";
 
   var e = document.getElementById("myDIV_yellowstraight");
   e.style.display = "none";
@@ -42,10 +46,19 @@ function setdisplaystobeblank(){
 
   var i = document.getElementById("myDIV_yellownocorners");
   i.style.display = "none";
+    
 }
+
 
 function setfourtobetrue(){
   var x = document.getElementById("myDIV");
+  x.style.display =  "block";
+
+
+}
+
+function    setdivfourtobetrue(){
+  var x = document.getElementById("myDIV4");
   x.style.display =  "block";
 
 }
@@ -591,6 +604,7 @@ YUI.add('rubik', function (Y) {
           if(this._middleCheck()) {
             // change text
             console.log("testing middlecheck");
+             setdivfourtobetrue();
           }
 
 
@@ -600,6 +614,7 @@ YUI.add('rubik', function (Y) {
               if(this._VCheck("white") == true) {
                 //there is a yellow v, this is the algorithm
                 setdivyellowvtobetrue();
+                console.log("good job, you ")
               }
               else if (this._straightCheck("white") == true) {
                 setdivyellowstraighttobetrue();

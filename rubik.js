@@ -1188,6 +1188,19 @@ YUI.add('rubik', function (Y) {
 
             return ( this._crossCheck(temp_color) && corners >= 2 )
         },
+        //cornersCheck ideally will take in a face color but for now it's set as "white", we're solving white corners first
+        _cornersCheck: function(temp_color, corner_req) {
+            checks = this._cornerCheck(temp_color, corner_req)
+            return checks[0]
+        },
+        _diagCornerCheck: function(temp_color, corner_req = 2) {
+            checks = this._cornerCheck(temp_color, corner_req)
+            return (checks[0] && checks[1] != 1)
+        },
+        _straightCornerCheck: function(temp_color, corner_req = 2) {
+            checks = this._cornerCheck(temp_color, corner_req)
+            return (checks[0] && checks[1] == 1)
+        },
         //cornerCheck ideally will take in a face color but for now it's set as "white", we're solving white corners first
         _cornerCheck: function(temp_color, corner_req) {
             temp_color = temp_color || "white";
@@ -1197,6 +1210,7 @@ YUI.add('rubik', function (Y) {
                 }
             }
             corners = 0;
+            diag = 0;
             console.log(temp_color)
             //console.log(plane_list)
             adj_list = this._getAdjacentSides(temp_side)
@@ -1212,7 +1226,7 @@ YUI.add('rubik', function (Y) {
                 plane_list[adj_list[6]] != (plane_list[adj_list[0] + "5"]) ||
                 plane_list[adj_list[13]] != (plane_list[adj_list[3] + "5"]) ) {
                     // console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
-            } else corners++
+            } else corners++, diag++
             console.log("top-right")
             // bottom-left corner + below + left
             if (plane_list[temp_side + "3"] != (plane_list[temp_side + "5"]) ||
@@ -1226,9 +1240,9 @@ YUI.add('rubik', function (Y) {
                 plane_list[adj_list[9]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[15]] != (plane_list[adj_list[3] + "5"]) ) {
                     // console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
-            } else corners++
+            } else corners++, diag++
 
-            return corners >= corner_req
+            return [corners >= corner_req, diag]
         },
         //edgeCheck ideally will take in a face color but for now it's set as "yellow", since that's what you specified
         _edgeCheck: function(temp_color, edge_req) {
@@ -1263,6 +1277,61 @@ YUI.add('rubik', function (Y) {
             } else edges++
 
             return edges >= edge_req
+        },
+        //returns true if a specific corner cubie is in place
+        _specCornerCheck: function(temp_colorA, temp_colorB, temp_colorC) {
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_colorA) {
+                    temp_side = side_list[side];
+                }
+            }
+            adj_list = this._getMiddleEdges(temp_side)
+            edge_list = [["1", 4, 10], ["7", 6, 13], ["3", 7, 12], ["9", 9, 15]];
+            for (edge in edge_list) {
+                if (plane_list[temp_side + edge[0]] == temp_colorA &&
+                    plane_list[adj_list[edge[1]]] == temp_colorB &&
+                    plane_list[adj_list[edge[1]]] == temp_colorB ) {
+                    console.log(temp_colorA + " " + temp_colorB + " corner cubie is in the right position")
+                    return true
+                    }
+            }          
+            return false
+        },
+        //returns true if a specific edge cubie is in place, this is not for middle edges, temp_colorA is assumed to be the focused side of the cube
+        _specEdgeCheck: function(temp_colorA, temp_colorB) {
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_colorA) {
+                    temp_side = side_list[side];
+                }
+            }
+            adj_list = this._getAdjacentSides(temp_side)
+            edge_list = [["4", 5], ["6", 8], ["2", 11], ["8", 14]];
+            for (edge in edge_list) {
+                if (plane_list[temp_side + edge[0]] == temp_colorA &&
+                    plane_list[adj_list[edge[1]]] == temp_colorB ) {
+                    console.log(temp_colorA + " " + temp_colorB + " edge cubie is in the right position")
+                    return true
+                    }
+            }
+            return false
+        },
+        //returns true if a specific middle edge cubie is in place
+        _specMiddleEdgeCheck: function(temp_colorA, temp_colorB) {
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_colorA) {
+                    temp_side = side_list[side];
+                }
+            }
+            adj_list = this._getMiddleEdges(temp_side)
+            edge_list = [[4, 5], [6, 7], [8, 9], [10, 11]];
+            for (edge in edge_list) {
+                if (plane_list[temp_side + edge[0]] == temp_colorA &&
+                    plane_list[adj_list[edge[1]]] == temp_colorB ) {
+                    console.log(temp_colorA + " " + temp_colorB + " middle cubie is in the right position")
+                    return true
+                    }
+            }
+            return false
         },
         _solveCheck: function() {
             for (side in side_list) {

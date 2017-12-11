@@ -689,7 +689,7 @@ YUI.add('rubik', function (Y) {
             }
             if(this._cornersCheck("yellow", 4) == true) {
               //specEdgeCheck?
-              if(this._specEdgeCheck("yellow," "blue") == true || this._specEdgeCheck("yellow," "red") == true || this._specEdgeCheck("yellow," "green") == true || this._specEdgeCheck("yellow," "orange") == true) {
+              if(this._specEdgeCheck("yellow", "blue") == true || this._specEdgeCheck("yellow", "red") == true || this._specEdgeCheck("yellow", "green") == true || this._specEdgeCheck("yellow", "orange") == true) {
                 //determine whether needs to be clockwise or counterclockwise
                 //if clockwise
                   setdivclockwisetobetrue();
@@ -701,9 +701,8 @@ YUI.add('rubik', function (Y) {
                 setdiveitherclocktobetrue();
               }
             }
-
+          }
         },
-
 
         /*
         * We got the first finger/click on the cube

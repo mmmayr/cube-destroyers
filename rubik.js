@@ -46,6 +46,21 @@ function setdisplaystobeblank(){
 
   var i = document.getElementById("myDIV_yellownocorners");
   i.style.display = "none";
+
+  var k = document.getElementById("myDIV_gettwocorners");
+  k.style.display = "none";
+
+  var l = document.getElementById("myDIV_getfourcorners");
+  l.style.display = "none";
+
+  var m = document.getElementById("myDIV_clockwise");
+  m.style.display = "block";
+
+  var n = document.getElementById("myDIV_counterclockwise");
+  n.style.display = "block";
+
+  var p = document.getElementById("myDIV_eitherclock");
+  p.style.display = "block";
     
 }
 
@@ -57,7 +72,7 @@ function setfourtobetrue(){
 
 }
 
-function    setdivfourtobetrue(){
+function setdivfourtobetrue(){
   var x = document.getElementById("myDIV4");
   x.style.display =  "block";
 
@@ -106,6 +121,31 @@ function setdivyellowtwocornerstobetrue(){
 
 function setdivyellownocornerstobetrue(){
     var x = document.getElementById("myDIV_yellownocorners");
+    x.style.display = "block";
+}
+
+function setdivgettwocornerstobetrue(){
+    var x = document.getElementById("myDIV_gettwocorners");
+    x.style.display = "block";
+}
+
+function setdivgetfourcornerstobetrue(){
+    var x = document.getElementById("myDIV_getfourcorners");
+    x.style.display = "block";
+}
+
+function setdivclockwisetobetrue(){
+    var x = document.getElementById("myDIV_clockwise");
+    x.style.display = "block";
+}
+
+function setdivcounterclockwisetobetrue(){
+    var x = document.getElementById("myDIV_counterclockwise");
+    x.style.display = "block";
+}
+
+function setdiveitherclocktobetrue(){
+    var x = document.getElementById("myDIV_eitherclock");
     x.style.display = "block";
 }
 
@@ -636,8 +676,31 @@ YUI.add('rubik', function (Y) {
             }
           }
 
-
-
+          //step 6
+          if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
+            //turn so that at least two corners are correct
+            if(this._cornersCheck("yellow", 2) == false) {
+              setdivgettwocornerstobetrue();
+            }
+            else {
+              //if together, put the two corners in the back and do the sequence
+              //can differentiate in the hint text
+              setdivgetfourcornerstobetrue();
+            }
+            if(this._cornersCheck("yellow", 4) == true) {
+              //specEdgeCheck?
+              if(this._specEdgeCheck("yellow," "blue") == true || this._specEdgeCheck("yellow," "red") == true || this._specEdgeCheck("yellow," "green") == true || this._specEdgeCheck("yellow," "orange") == true) {
+                //determine whether needs to be clockwise or counterclockwise
+                //if clockwise
+                  setdivclockwisetobetrue();
+                //else
+                  setdivcounterclockwisetobetrue();
+              }
+              else {
+                //no correct edge
+                setdiveitherclocktobetrue();
+              }
+            }
 
         },
 

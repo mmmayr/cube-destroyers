@@ -14,6 +14,7 @@ var whiteCrossCheck=false;
 var whiteCornersCheck=false;
 var middleLayerDone=false;
 var whiteRed=false; var whiteBlue=false; var whiteGreen=false; var whiteOrange=false;
+var orangeBlue=false; var greenOrange=false; var redGreen=false; var blueRed=false;
 var yellowSideDone=false;
 var lastStage=false;
 
@@ -506,7 +507,7 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
 
-                              //                               // white cross
+                              // white cross
                               // {face: "U", slice: "E", rotate: "left"},
                               // {face: "B", slice: "S", rotate: "right"},
                               // {face: "R", slice: "M", rotate: "right"},
@@ -516,7 +517,7 @@ YUI.add('rubik', function (Y) {
                               // {face: "F", slice: "S", rotate: "left"},
                               // {face: "U", slice: "E", rotate: "left"},
                               // {face: "U", slice: "E", rotate: "left"}, // count = 24
-                              //
+
                               // // corners
                               // {face: "L", slice: "M", rotate: "left"},
                               // {face: "D", slice: "E", rotate: "left"},
@@ -759,10 +760,10 @@ YUI.add('rubik', function (Y) {
             if(this._crossCheck("white") == false && whiteCrossCheck==false){
               // console.log("First step");
               // console.log("getting cross");
-              setdisplaystobeblank();
-              setfourtobetrue();
+              // setdisplaystobeblank();
+              // setfourtobetrue();
               if(this._specEdgeCheck("white","red")) {
-                console.log("congrats! you got the white/red edge in!");
+                // console.log("congrats! you got the white/red edge in!");
                 whiteRed=true;
               }
               if(this._specEdgeCheck("white","blue")) {
@@ -780,8 +781,8 @@ YUI.add('rubik', function (Y) {
             // change whiteCrossCheck = true to prevent text box from displaying cross check hints
             if(this._crossCheck("white") == true && whiteCornersCheck==false) {
               // console.log("white cross complete");
-              setdisplaystobeblank();
-              setdivonetobetrue();
+              // setdisplaystobeblank();
+              // setdivonetobetrue();
               whiteCrossCheck=true;
               // console.log("in crossCheck true");
             }
@@ -789,7 +790,7 @@ YUI.add('rubik', function (Y) {
             if(this._cornersCheck("white", 4) == false && whiteCornersCheck==false && whiteCrossCheck==true) {
                // console.log("corner check complete");
                // console.log("getting corners");
-               setdisplaystobeblank();
+               // setdisplaystobeblank();
                // setdivtwotobetrue(); // need to change this
                if(this._specCornerCheck("white","red","green")) {
                  console.log("got corner white red green");
@@ -802,13 +803,13 @@ YUI.add('rubik', function (Y) {
             }
             if(this._crossCheck("white") && this._cornersCheck("white",4) && whiteCornersCheck==true) {
                // console.log("white face done");
-               setdisplaystobeblank();
-               setdivthreetobetrue();
+               // setdisplaystobeblank();
+               // setdivthreetobetrue();
                whiteSideDone=true;
             }
           }
 
-          if(!middleLayerDone) {
+          if(!middleLayerDone && whiteSideDone==true) {
           // video 4
             if(this._specMiddleEdgeCheck("red","green")) {
               console.log("yippee");
@@ -817,8 +818,9 @@ YUI.add('rubik', function (Y) {
               // change text
               // console.log("testing middlecheck");
               middleLayerDone=true;
-              setdisplaystobeblank();
-              setdivfourtobetrue();
+              console.log("middle layer done");
+              // setdisplaystobeblank();
+              // setdivfourtobetrue();
             }
           }
 
@@ -830,34 +832,34 @@ YUI.add('rubik', function (Y) {
               if (this._crossCheck("yellow") == false) {
                 if(this._VCheck("white") == true) {
                   //there is a yellow v, this is the algorithm ; result in yellow cross
-                  setdisplaystobeblank();
-                  setdivyellowvtobetrue();
+                  // setdisplaystobeblank();
+                  // setdivyellowvtobetrue();
                 }
                 else if (this._straightCheck("white") == true) {
                   // algorithm ; result is yellow cross
-                  setdisplaystobeblank();
-                  setdivyellowstraighttobetrue();
+                  // setdisplaystobeblank();
+                  // setdivyellowstraighttobetrue();
                 }
                 else { // no yellow edge pieces
                   // algorithm and after that ; result should have V or line
-                  setdisplaystobeblank();
-                  setdivyellownonetobetrue();
+                  // setdisplaystobeblank();
+                  // setdivyellownonetobetrue();
                 }
               }
               // if there is a yellow cross
               else if (this._crossCheck("yellow") == true) {
                 if (this._crossPlusOne("white") == true) {
                   console.log("cross plus one?");
-                  setdisplaystobeblank();
-                  setdivyellowonecornertobetrue(); //broken - change text
+                  // setdisplaystobeblank();
+                  // setdivyellowonecornertobetrue(); //broken - change text
                   // same algorithm - difference is # of times and cube perspective
                 }
                 else if (this._crossPlusTwo("white") == true) {
                   // same algorithm - difference is # of times and cube perspective
                 }
                 else { // no corner pieces
-                  setdisplaystobeblank();
-                  setdivyellownocornerstobetrue();
+                  // setdisplaystobeblank();
+                  // setdivyellownocornerstobetrue();
                   // same algorithm - difference is # of times and cube perspective
                 }
               }

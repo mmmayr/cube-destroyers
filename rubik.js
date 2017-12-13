@@ -12,10 +12,15 @@ var counterformovement = 0;
 
 // testing behaviortree print
 
-function setdisplaystobeblank(){
-    //hides all hint displays
+function stepOnceShuffled(){
   var instructions = document.getElementById("page0");
   instructions.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side.</h2>";
+
+  var details = document.getElementById("page1");
+  details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color).</h2>"
+
+  var more_details = document.getElementById("page2");
+  more_details.innerHTML = "<h2>The easiest way to solve the cube is to get the said edges in this order: blue, orange, green, red. If there is a situation where the white cross edge and top middle adjacent edge is reversed, do these moves, facing the problematic side: Front inverted, Up, Left, Up Inverted.</h2>"
 }
 
 // function setfourtobetrue(){

@@ -785,10 +785,7 @@ YUI.add('rubik', function (Y) {
                //   console.log("got corner white green red");
                // }
                // console.log("in cornerCheck");
-            }
-            if(this._cornersCheck("white", 4) && scrambleBool == false) {
-                // console.log("all 4 white corners are in place");
-                stepWhiteCorners();
+            }                stepWhiteCorners();
             }
             if(this._faceCheck("white")) {
                 // console.log("the white face is there");

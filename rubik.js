@@ -9,6 +9,14 @@ var myText = 0;
 var scrambleBool= false;
 var counter= 0;
 var counterformovement = 0;
+var whiteSideDone=false;
+var whiteCrossCheck=false;
+var whiteCornersCheck=false;
+var middleLayerDone=false;
+var whiteRed=false; var whiteBlue=false; var whiteGreen=false; var whiteOrange=false;
+var orangeBlue=false; var greenOrange=false; var redGreen=false; var blueRed=false;
+var yellowSideDone=false;
+var lastStage=false;
 
 // test message for extra dynamic-ness
 
@@ -49,7 +57,7 @@ function stepWhiteCorners(){
     more_details.innerHTML = "<h2></h2>"
 }
 function stepWhiteFace(){
-    // yeah like this up, right, up inverted business needs a better way of explaining to the players... 
+    // yeah like this up, right, up inverted business needs a better way of explaining to the players...
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>The white face is now complete, hooray! Now we must solve the middle layer. Flipping the cube upside down so that white is on the bottom, turn the top until it has a vertical line of the same color in the middle column of one of the sides. If all the edge pieces have yellow in them (on top or on the side), do this: up, right, up inverted, right inverted, up inverted, front inverted, up, front. If there is an edge piece without yellow, determine whether it needs to go right or left. If left, do: up inverted, left inverted, up, left, up, front, up inverted, front inverted. If right, do: up, right, up inverted, right inverted, up inverted, front inverted, up, front. Continue this process until the middle layer is all done!</h2>"
 
@@ -62,7 +70,7 @@ function stepWhiteFace(){
 function stepMiddleLayer(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>The middle layer is solved! Great job! The next goal is to get the yellow cross.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
 
@@ -72,7 +80,7 @@ function stepMiddleLayer(){
 function stepYellowV(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>You have a yellow v, and can get to the yellow cross! Do this: front, up, right, up inverted, right inverted, front inverted.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
 
@@ -82,7 +90,7 @@ function stepYellowV(){
 function stepYellowStraight(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>You have a straight line on the yellow face, and can get to the yellow cross! Do this: front, right, up, right inverted, up inverted, front inverted.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
 
@@ -92,56 +100,56 @@ function stepYellowStraight(){
 function stepYellowNone(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>To get to a state in which you can reach the yellow cross, do this: front, up, right, up inverted, right inverted, front inverted.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
-    
+
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"
 }
 function stepYellowCrossPlusOne(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>You have one yellow corner in the right spot, rotate the cube so this corner is in the bottom left corner of the yellow face. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
-    
+
     var more_details = document.getElementById("page2");
-    more_details.innerHTML = "<h2></h2>" 
+    more_details.innerHTML = "<h2></h2>"
 }
 function stepYellowCrossPlusTwo(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>You have two yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the front side. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
-    
+
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"
 }
 function stepNoYellowCorners(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>You have no yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the left side. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
-    
+
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"
 }
 function stepFixTwoCorners(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>Turn the cube to get two corners in the right places.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
-    
+
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"}
 function stepFixFourCorners(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>Rotate the cube so that the correct corners are on the back side or one is on the back side and the other is diagonally on the front side. Then in order to get all four corners correct, do this: right inverted, front, right inverted, back, back, right, front inverted, right inverted, back, back, right, right, up inverted. If there are diagonal corners, you will need to do this again.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
 
@@ -151,10 +159,10 @@ function stepFixFourCorners(){
 function stepClockwise(){
     var instructions = document.getElementById("page0");
     instructions.innerHTML = "<h2>Almost there! The following may need to be done multiple times in order to get a solved cube. Make sure that if there is an edge in the right place, that edge is on the back face, and do this: front, front, up, left, right inverted, front, front, left inverted, right, up, front, front.</h2>"
-    
+
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
-    
+
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"
 }
@@ -504,6 +512,162 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
+
+                              // white cross
+                              // {face: "U", slice: "E", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "right"},
+                              // {face: "U", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "left"},
+                              // {face: "U", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "left"},
+                              // {face: "U", slice: "E", rotate: "left"},
+                              // {face: "U", slice: "E", rotate: "left"}, // count = 24
+
+                              // // corners
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              //
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              //
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              //
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"}, // count = 38
+                              //
+                              // // middle player
+                              // // red blue
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "F", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "R", slice: "M", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"}, //count = 46
+                              // // red green
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "right"}, // count = 54
+                              // // blue orange
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "F", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "F", slice: "S", rotate: "right"}, // count = 63
+                              // // orange green
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "right"}, // count = 70
+                              //
+                              // // final layer
+                              // // get to 3 straight yellows from no yellow edges
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "F", slice: "S", rotate: "left"}, // count = 76
+                              // // now i should have 3 straight yellows
+                              // // yellow cross
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"},
+                              // {face: "R", slice: "M", rotate: "right"}, // count = 82
+                              // // now i should have  a yellow cross with possible corners
+                              // // yellow corners but not correct spot
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "right"}, // iteration 1
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "left"}, // iteration 2
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"}, // iteration 3 , count = 106
+                              // now yellow face should be present (not correct though)
+                              // yellow corners to correct spot
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"}, // count = 119
+                              // // yellow edges to correct spot
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"}, // count = 131
+                              // // not using algorithm in pseudom
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "C", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "C", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"} // count = 141
+
+
+
+
+
+
                             ];
               var move = moveList[counter];
               this._expectingTransition = true;

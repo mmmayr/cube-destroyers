@@ -54,7 +54,7 @@ function setdisplaystobeblank(){
   l.style.display = "none";
 
   var m = document.getElementById("myDIV_clockwise");
-  m.style.display = "block";
+  m.style.display = "none";
 }
 
 

@@ -726,29 +726,54 @@ YUI.add('rubik', function (Y) {
           //  }
           // video 2 and 3
           if(this._crossCheck("white") == false){
+<<<<<<< HEAD
             // console.log("First step");
+=======
+            console.log("First step");
+            setdisplaystobeblank();
+>>>>>>> 1350657a6caa75c076e46cdfc5aef05e3bdb3c67
             setfourtobetrue();
           }
           if(this._crossCheck("white")) {
             // change text
+<<<<<<< HEAD
             // console.log("testing crosscheck");
+=======
+            console.log("testing crosscheck");
+            setdisplaystobeblank();
+>>>>>>> 1350657a6caa75c076e46cdfc5aef05e3bdb3c67
             setdivonetobetrue();
           }
           if(this._cornerCheck("white", 4)) {
             // change text
+<<<<<<< HEAD
              // console.log("corner check complete");
+=======
+             console.log("corner check complete");
+             setdisplaystobeblank();
+>>>>>>> 1350657a6caa75c076e46cdfc5aef05e3bdb3c67
              setdivtwotobetrue();
           }
           if(this._crossCheck("white") && this._cornerCheck("white",4)) {
             // change text
+<<<<<<< HEAD
              // console.log("testing facecheck");
+=======
+             console.log("testing facecheck");
+             setdisplaystobeblank();
+>>>>>>> 1350657a6caa75c076e46cdfc5aef05e3bdb3c67
              setdivthreetobetrue();
           }
 
           // video 4
           if(this._middleCheck()) {
             // change text
+<<<<<<< HEAD
             // console.log("testing middlecheck");
+=======
+            console.log("testing middlecheck");
+            setdisplaystobeblank();
+>>>>>>> 1350657a6caa75c076e46cdfc5aef05e3bdb3c67
              setdivfourtobetrue();
           }
 
@@ -758,24 +783,29 @@ YUI.add('rubik', function (Y) {
             if (this._crossCheck("yellow") == false) {
               if(this._VCheck("white") == true) {
                 //there is a yellow v, this is the algorithm
+                setdisplaystobeblank();
                 setdivyellowvtobetrue();
                 // console.log("good job, you ")
               }
               else if (this._straightCheck("white") == true) {
+                setdisplaystobeblank();
                 setdivyellowstraighttobetrue();
               }
               else { // no yellow edge pieces
+                setdisplaystobeblank();
                 setdivyellownonetobetrue();
               }
             }
             else if (this._crossCheck("yellow") == true) {
               if (this._crossPlusOne("white") == true) {
+                setdisplaystobeblank();
                 setdivyellowonecornertobetrue();
               }
               else if (this._crossPlusTwo("white") == true) {
 
               }
               else { // no corner pieces
+                setdisplaystobeblank();
                 setdivyellownocornerstobetrue();
               }
             }
@@ -788,15 +818,18 @@ YUI.add('rubik', function (Y) {
           if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
             //turn so that at least two corners are correct
             if(this._cornersCheck("yellow", 2) == false) {
+              setdisplaystobeblank();
               setdivgettwocornerstobetrue();
             }
             else {
               //if together, put the two corners in the back and do the sequence
               //can differentiate in the hint text
+              setdisplaystobeblank();
               setdivgetfourcornerstobetrue();
             }
             if(this._cornersCheck("yellow", 4) == true) {
               //specEdgeCheck?
+              setdisplaystobeblank();
               setdivclockwisetobetrue();
             }
           }

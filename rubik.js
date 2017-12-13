@@ -9,6 +9,13 @@ var myText = 0;
 var scrambleBool=false;
 var counter=0;
 var counterformovement = 0;
+var whiteSideDone=false;
+var whiteCrossCheck=false;
+var whiteCornersCheck=false;
+var middleLayerDone=false;
+var whiteRed=false; var whiteBlue=false; var whiteGreen=false; var whiteOrange=false;
+var yellowSideDone=false;
+var lastStage=false;
 
 // testing behaviortree print
 
@@ -472,6 +479,161 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
 
+                                                            // white cross
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "U", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"}, // count = 24
+
+                              // corners
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "right"},
+
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"}, // count = 38
+
+                              // middle player
+                              // red blue
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"}, //count = 46
+                              // red green
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"}, // count = 54
+                              // blue orange
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "right"}, // count = 63
+                              // orange green
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "right"}, // count = 70
+
+                              // final layer
+                              // get to 3 straight yellows from no yellow edges
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "left"}, // count = 76
+                              // now i should have 3 straight yellows
+                              // yellow cross
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "right"}, // count = 82
+                              // now i should have  a yellow cross with possible corners
+                              // yellow corners but not correct spot
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"}, // iteration 1
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"}, // iteration 2
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"}, // iteration 3 , count = 106
+                              // now yellow face should be present (not correct though)
+                              // yellow corners to correct spot
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "B", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "left"}, // count = 119
+                              // // yellow edges to correct spot
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "R", slice: "M", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"},
+                              // {face: "F", slice: "S", rotate: "right"}, // count = 131
+                              // // not using algorithm in pseudom
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "L", slice: "M", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "C", slice: "S", rotate: "left"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "C", slice: "S", rotate: "right"},
+                              // {face: "D", slice: "E", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"},
+                              // {face: "L", slice: "M", rotate: "right"} // count = 141
+
+
+
+
+
+
                             ];
 
               var move = moveList[counter];
@@ -506,7 +668,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==15){
+                if(!m || counter==106){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
@@ -573,88 +735,120 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-          // if(4 == 4){
-          //     console.log("4 works. dummy test");
-          //     setfourtobetrue();
-          //  }
-          // video 2 and 3
-          if(this._crossCheck("white") == false){
-            // console.log("First step");
-            // console.log("First step");
-            setdisplaystobeblank();
-            setfourtobetrue();
-            // console.log("in crossCheck false");
-          }
-          if(this._crossCheck("white") == true) {
-            // change text
-            // console.log("testing crosscheck");
-            // console.log("testing crosscheck");
-            setdisplaystobeblank();
-            setdivonetobetrue();
-            // console.log("in crossCheck true");
-          }
-          if(this._cornersCheck("white", 4)) {
-            // change text
-             // console.log("corner check complete");
-             // console.log("corner check complete");
-             setdisplaystobeblank();
-             setdivtwotobetrue();
-             // console.log("in cornerCheck");
-          }
-          if(this._crossCheck("white") && this._cornerCheck("white",4)) {
-            // change text
-             // console.log("testing facecheck");
-             // console.log("white face done");
-             setdisplaystobeblank();
-             setdivthreetobetrue();
+
+          if(!whiteSideDone) {
+            // while getting white cross
+            if(this._crossCheck("white") == false && whiteCrossCheck==false){
+              // console.log("First step");
+              // console.log("getting cross");
+              setdisplaystobeblank();
+              setfourtobetrue();
+              if(this._specEdgeCheck("white","red")) {
+                console.log("congrats! you got the white/red edge in!");
+                whiteRed=true;
+              }
+              if(this._specEdgeCheck("white","blue")) {
+                console.log("nice! the white/blue edge is in its correct spot.");
+              }
+              if(this._specEdgeCheck("white","orange")) {
+                console.log("great job! the white/orange edge goes right there.")
+              }
+              if(this._specEdgeCheck("white","green")) {
+                console.log("the white/green piece is in plaec!");
+              }
+              // console.log("in crossCheck false");
+            }
+            // while white cross check is complete but corners is not
+            // change whiteCrossCheck = true to prevent text box from displaying cross check hints
+            if(this._crossCheck("white") == true && whiteCornersCheck==false) {
+              // console.log("white cross complete");
+              setdisplaystobeblank();
+              setdivonetobetrue();
+              whiteCrossCheck=true;
+              // console.log("in crossCheck true");
+            }
+            //while getting white corners and white corner checks is false and whitecrosscheck is true
+            if(this._cornersCheck("white", 4) == false && whiteCornersCheck==false && whiteCrossCheck==true) {
+               // console.log("corner check complete");
+               // console.log("getting corners");
+               setdisplaystobeblank();
+               // setdivtwotobetrue(); // need to change this
+               if(this._specCornerCheck("white","red","green")) {
+                 console.log("got corner white red green");
+               }
+
+               // console.log("in cornerCheck");
+            }
+            if(this._cornersCheck("white",4)) {
+              whiteCornersCheck=true;
+            }
+            if(this._crossCheck("white") && this._cornersCheck("white",4) && whiteCornersCheck==true) {
+               // console.log("white face done");
+               setdisplaystobeblank();
+               setdivthreetobetrue();
+               whiteSideDone=true;
+            }
           }
 
+          if(!middleLayerDone) {
           // video 4
-          if(this._middleCheck()) {
-            // change text
-            // console.log("testing middlecheck");
-            console.log("testing middlecheck");
-            setdisplaystobeblank();
-             setdivfourtobetrue();
+            if(this._specMiddleEdgeCheck("red","green")) {
+              console.log("yippee");
+            }
+            if(this._middleCheck()) {
+              // change text
+              // console.log("testing middlecheck");
+              middleLayerDone=true;
+              setdisplaystobeblank();
+              setdivfourtobetrue();
+            }
           }
-
 
           // video 5
-          if (this._faceCheck("white") == true && this._middleCheck() == true) {
-            if (this._crossCheck("yellow") == false) {
-              if(this._VCheck("white") == true) {
-                //there is a yellow v, this is the algorithm
-                setdisplaystobeblank();
-                setdivyellowvtobetrue();
-                // console.log("good job, you ")
+          // if(!yellowSideDone) {
+            // making sure if white side is done and middle layer is done
+            if (this._faceCheck("white") == true && this._middleCheck() == true) {
+              // if there is no yellow cross
+              if (this._crossCheck("yellow") == false) {
+                if(this._VCheck("white") == true) {
+                  //there is a yellow v, this is the algorithm ; result in yellow cross
+                  setdisplaystobeblank();
+                  setdivyellowvtobetrue();
+                }
+                else if (this._straightCheck("white") == true) {
+                  // algorithm ; result is yellow cross
+                  setdisplaystobeblank();
+                  setdivyellowstraighttobetrue();
+                }
+                else { // no yellow edge pieces
+                  // algorithm and after that ; result should have V or line
+                  setdisplaystobeblank();
+                  setdivyellownonetobetrue();
+                }
               }
-              else if (this._straightCheck("white") == true) {
-                setdisplaystobeblank();
-                setdivyellowstraighttobetrue();
-              }
-              else { // no yellow edge pieces
-                setdisplaystobeblank();
-                setdivyellownonetobetrue();
+              // if there is a yellow cross
+              else if (this._crossCheck("yellow") == true) {
+                if (this._crossPlusOne("white") == true) {
+                  console.log("cross plus one?");
+                  setdisplaystobeblank();
+                  setdivyellowonecornertobetrue(); //broken - change text
+                  // same algorithm - difference is # of times and cube perspective
+                }
+                else if (this._crossPlusTwo("white") == true) {
+                  // same algorithm - difference is # of times and cube perspective
+                }
+                else { // no corner pieces
+                  setdisplaystobeblank();
+                  setdivyellownocornerstobetrue();
+                  // same algorithm - difference is # of times and cube perspective
+                }
               }
             }
-            else if (this._crossCheck("yellow") == true) {
-              if (this._crossPlusOne("white") == true) {
-                setdisplaystobeblank();
-                setdivyellowonecornertobetrue();
-              }
-              else if (this._crossPlusTwo("white") == true) {
 
-              }
-              else { // no corner pieces
-                setdisplaystobeblank();
-                setdivyellownocornerstobetrue();
-              }
-            }
-          }
+          // }
+
 
           // final stage - video 6
-
-
           //step 6
           if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
             //turn so that at least two corners are correct

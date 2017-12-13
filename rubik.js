@@ -6,136 +6,90 @@
 *
 */
 var myText = 0;
-var scrambleBool=false;
-var counter=0;
+var scrambleBool= false;
+var counter= 0;
 var counterformovement = 0;
 
 // testing behaviortree print
 
 function setdisplaystobeblank(){
     //hides all hint displays
-  var x = document.getElementById("myDIV");
-  x.style.display = "none";
-
-  var a = document.getElementById("myDIV1");
-  a.style.display = "none";
-
-  var b = document.getElementById("myDIV2");
-  b.style.display = "none";
-
-  var c = document.getElementById("myDIV3");
-  c.style.display = "none";
-
-  var d = document.getElementById("myDIV4");
-  d.style.display = "none";
-
-  var j = document.getElementById("myDIV_yellowv");
-  j.style.display = "none";
-
-  var e = document.getElementById("myDIV_yellowstraight");
-  e.style.display = "none";
-
-  var f = document.getElementById("myDIV_yellownone");
-  f.style.display = "none";
-
-  var g = document.getElementById("myDIV_yellowonecorner");
-  g.style.display = "none";
-
-  var h = document.getElementById("myDIV_yellowtwocorners");
-  h.style.display = "none";
-
-  var i = document.getElementById("myDIV_yellownocorners");
-  i.style.display = "none";
-
-  var k = document.getElementById("myDIV_gettwocorners");
-  k.style.display = "none";
-
-  var l = document.getElementById("myDIV_getfourcorners");
-  l.style.display = "none";
-
-  var m = document.getElementById("myDIV_clockwise");
-  m.style.display = "none";
+  var instructions = document.getElementById("page0");
+  instructions.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side.</h2>";
 }
 
+// function setfourtobetrue(){
+//   var x = document.getElementById("myDIV");
+//   x.style.display =  "block";
+// }
 
-function setfourtobetrue(){
-  var x = document.getElementById("myDIV");
-  x.style.display =  "block";
+// function setdivfourtobetrue(){
+//   var x = document.getElementById("myDIV4");
+//   x.style.display =  "block";
+// }
 
+// function setdivonetobetrue(){
+//   var x = document.getElementById("myDIV1");
+//   x.style.display =  "block";
+// }
+// function setdivtwotobetrue(){
+//   var x = document.getElementById("myDIV2");
+//   x.style.display =  "block";
+// }
+// function setdivthreetobetrue(){
+//   var x = document.getElementById("myDIV3");
+//   x.style.display =  "block";
+// }
 
-}
+// function setdivyellowvtobetrue(){
+//     var x = document.getElementById("myDIV_yellowv");
+//     x.style.display = "block";
+// }
 
-function setdivfourtobetrue(){
-  var x = document.getElementById("myDIV4");
-  x.style.display =  "block";
+// function setdivyellowstraighttobetrue(){
+//     var x = document.getElementById("myDIV_yellowstraight");
+//     x.style.display = "block";
+// }
 
-}
+// function setdivyellownonetobetrue(){
+//     var x = document.getElementById("myDIV_yellownone");
+//     x.style.display = "block";
+// }
 
-function setdivonetobetrue(){
-  var x = document.getElementById("myDIV1");
-  x.style.display =  "block";
+// function setdivyellowonecornertobetrue(){
+//     var x = document.getElementById("myDIV_yellowonecorner");
+//     x.style.display = "block";
+// }
 
-}
-function setdivtwotobetrue(){
-  var x = document.getElementById("myDIV2");
-  x.style.display =  "block";
+// function setdivyellowtwocornerstobetrue(){
+//     var x = document.getElementById("myDIV_yellowtwocorners");
+//     x.style.display = "block";
+// }
 
-}
-function setdivthreetobetrue(){
-  var x = document.getElementById("myDIV3");
-  x.style.display =  "block";
+// function setdivyellownocornerstobetrue(){
+//     var x = document.getElementById("myDIV_yellownocorners");
+//     x.style.display = "block";
+// }
 
-}
+// function setdivgettwocornerstobetrue(){
+//     var x = document.getElementById("myDIV_gettwocorners");
+//     x.style.display = "block";
+// }
 
-function setdivyellowvtobetrue(){
-    var x = document.getElementById("myDIV_yellowv");
-    x.style.display = "block";
-}
+// function setdivgetfourcornerstobetrue(){
+//     var x = document.getElementById("myDIV_getfourcorners");
+//     x.style.display = "block";
+// }
 
-function setdivyellowstraighttobetrue(){
-    var x = document.getElementById("myDIV_yellowstraight");
-    x.style.display = "block";
-}
+// function setdivclockwisetobetrue(){
+//     var x = document.getElementById("myDIV_clockwise");
+//     x.style.display = "block";
+// }
 
-function setdivyellownonetobetrue(){
-    var x = document.getElementById("myDIV_yellownone");
-    x.style.display = "block";
-}
-
-function setdivyellowonecornertobetrue(){
-    var x = document.getElementById("myDIV_yellowonecorner");
-    x.style.display = "block";
-}
-
-function setdivyellowtwocornerstobetrue(){
-    var x = document.getElementById("myDIV_yellowtwocorners");
-    x.style.display = "block";
-}
-
-function setdivyellownocornerstobetrue(){
-    var x = document.getElementById("myDIV_yellownocorners");
-    x.style.display = "block";
-}
-
-function setdivgettwocornerstobetrue(){
-    var x = document.getElementById("myDIV_gettwocorners");
-    x.style.display = "block";
-}
-
-function setdivgetfourcornerstobetrue(){
-    var x = document.getElementById("myDIV_getfourcorners");
-    x.style.display = "block";
-}
-
-function setdivclockwisetobetrue(){
-    var x = document.getElementById("myDIV_clockwise");
-    x.style.display = "block";
-}
-
- // testing behaviortree print
-function myFunction() {
-    document.getElementById("myText").innerHTML = counterformovement;
-}
+//  // testing behaviortree print
+// function myFunction() {
+//     document.getElementById("myText").innerHTML = counterformovement;
+// }
 
 YUI.add('rubik-queue', function (Y) {
 
@@ -555,8 +509,7 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._updatePlaneList();
-                //this._clockwiseCheck();
-                // this._behaviorTree();
+                this._behaviorTree();
                 this._detachToPlane();
                 this._moving = false;
                 this._expectingTransition = false;
@@ -564,10 +517,7 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-          // if(4 == 4){
-          //     console.log("4 works. dummy test");
-          //     setfourtobetrue();
-          //  }
+
           // video 2 and 3
           if(this._crossCheck("white") == false){
             console.log("First step");
@@ -600,7 +550,6 @@ YUI.add('rubik', function (Y) {
             setdisplaystobeblank();
              setdivfourtobetrue();
           }
-
 
           // video 5
           if (this._faceCheck("white") == true && this._middleCheck() == true) {
@@ -636,8 +585,6 @@ YUI.add('rubik', function (Y) {
           }
 
           // final stage - video 6
-
-
           //step 6
           if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
             //turn so that at least two corners are correct
@@ -1012,9 +959,6 @@ YUI.add('rubik', function (Y) {
                 //      new_list[side] = color
                 }
             }
-            //console.log(new_list);
-            //return new_list;
-            this._behaviorTree(); // added by anthony 11:17am december 9
         },
         _getKeyByValue: function(object, value) {
             return Object.keys(object).find(key => object[key] === value);

@@ -676,6 +676,7 @@ YUI.add('rubik', function (Y) {
             if(this._cornersCheck("yellow", 4) == true) {
               //specEdgeCheck?
               setdivclockwisetobetrue();
+            }
           }
         },
 

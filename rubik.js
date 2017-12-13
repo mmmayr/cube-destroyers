@@ -909,7 +909,7 @@ YUI.add('rubik', function (Y) {
                 }
             }
 
-<<<<<<< HEAD
+
           // }
 
             // video 5
@@ -954,8 +954,8 @@ YUI.add('rubik', function (Y) {
             }
             if(this._cornersCheck("yellow", 4) == true) {
               //specEdgeCheck?
+            }
 
-=======
             // video 6
             if ( this._faceCheck("white") && this._middleCheck() && this._faceCheck("yellow")) {
                 //turn so that at least two corners are correct
@@ -971,7 +971,7 @@ YUI.add('rubik', function (Y) {
 
                 stepClockwise();
                 }
->>>>>>> fffd3bae85bb8df7f3c7de02ba692dcc57b9c163
+
             }
         },
 

@@ -24,15 +24,18 @@ var yellowCross=false;
 // updating tutorial text
 function stepOnceScrambled(){
   var instructions = document.getElementById("page0");
-  instructions.innerHTML = "<h2>Please hold, cube is scrambling. The first step is to form a cross on one of the sides, for instance, the white side.</h2>";
+  instructions.innerHTML = "<h2>Please hold, cube is scrambling. >></h2>";
 
   var details = document.getElementById("page1");
-  details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color).</h2>"
+  details.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side.</h2>"
 
   var more_details = document.getElementById("page2");
-  more_details.innerHTML = "<h2>The easiest way to solve the cube is to get the said edges in this order: blue, orange, green, red. If there is a situation where the white cross edge and top middle adjacent edge is reversed, do these moves, facing the problematic side: Front left, Up left, Left up, Up right</h2>"
+  more_details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color).</h2>"
   // I think by now you get the format, each "page" is a slide panel. I prefer if you keep concise instructions on the first page and detailed explanations are on the further pages
   // NOTE, this does not push you back to the first page, so it's still better to keep info on the first panel
+  
+  var more_more_details = document.getElementById("page3";
+  more_more_details.innerHTML = "<h2>The easiest way to solve the cube is to get the said edges in this order: blue, orange, green, red. If there is a situation where the white cross edge and top middle adjacent edge is reversed, do these moves, facing the problematic side: Front left, Up left, Left up, Up right</h2>"
 }
 function stepWhiteCross(){
     // ok so now you guys get the template, I'll leave it to you all to clean up the tutorial text.

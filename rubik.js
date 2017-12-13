@@ -10,9 +10,10 @@ var scrambleBool= false;
 var counter= 0;
 var counterformovement = 0;
 
-// testing behaviortree print
+// test message for extra dynamic-ness
 
-function stepOnceShuffled(){
+// updating tutorial text
+function stepOnceScrambled(){
   var instructions = document.getElementById("page0");
   instructions.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side.</h2>";
 
@@ -21,75 +22,64 @@ function stepOnceShuffled(){
 
   var more_details = document.getElementById("page2");
   more_details.innerHTML = "<h2>The easiest way to solve the cube is to get the said edges in this order: blue, orange, green, red. If there is a situation where the white cross edge and top middle adjacent edge is reversed, do these moves, facing the problematic side: Front inverted, Up, Left, Up Inverted.</h2>"
+  // I think by now you get the format, each "page" is a slide panel. I prefer if you keep concise instructions on the first page and detailed explanations are on the further pages
+  // NOTE, this does not push you back to the first page, so it's still better to keep info on the first panel
 }
-
-// function setfourtobetrue(){
-//   var x = document.getElementById("myDIV");
-//   x.style.display =  "block";
-// }
-
-// function setdivfourtobetrue(){
-//   var x = document.getElementById("myDIV4");
-//   x.style.display =  "block";
-// }
-
-// function setdivonetobetrue(){
-//   var x = document.getElementById("myDIV1");
-//   x.style.display =  "block";
-// }
-// function setdivtwotobetrue(){
-//   var x = document.getElementById("myDIV2");
-//   x.style.display =  "block";
-// }
-// function setdivthreetobetrue(){
-//   var x = document.getElementById("myDIV3");
-//   x.style.display =  "block";
-// }
-
-// function setdivyellowvtobetrue(){
-//     var x = document.getElementById("myDIV_yellowv");
-//     x.style.display = "block";
-// }
-
-// function setdivyellowstraighttobetrue(){
-//     var x = document.getElementById("myDIV_yellowstraight");
-//     x.style.display = "block";
-// }
-
-// function setdivyellownonetobetrue(){
-//     var x = document.getElementById("myDIV_yellownone");
-//     x.style.display = "block";
-// }
-
-// function setdivyellowonecornertobetrue(){
-//     var x = document.getElementById("myDIV_yellowonecorner");
-//     x.style.display = "block";
-// }
-
-// function setdivyellowtwocornerstobetrue(){
-//     var x = document.getElementById("myDIV_yellowtwocorners");
-//     x.style.display = "block";
-// }
-
-// function setdivyellownocornerstobetrue(){
-//     var x = document.getElementById("myDIV_yellownocorners");
-//     x.style.display = "block";
-// }
-
-// function setdivgettwocornerstobetrue(){
-//     var x = document.getElementById("myDIV_gettwocorners");
-//     x.style.display = "block";
-// }
-
-// function setdivgetfourcornerstobetrue(){
-//     var x = document.getElementById("myDIV_getfourcorners");
-//     x.style.display = "block";
-// }
-
-// function setdivclockwisetobetrue(){
-//     var x = document.getElementById("myDIV_clockwise");
-//     x.style.display = "block";
-// }
+function stepWhiteCross(){
+    // ok so now you guys get the template, I'll leave it to you all to clean up the tutorial text.
+    // like, yeah I'm begging you please split these instructions up
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You've completed the white cross, well done! Now it's time to move the white corners into the right positions. Staying with the perspective of white as the top face, find a white corner piece, and see what colors are on its other side. The goal is to get the corner piece into the bottom corner of the cube, on the edge between the two colors. If the corner piece you're focused on is already on the bottom layer, rotate the bottom until it's in the right place. If it's on the top layer, rotate the cube so the corner is on the right face perspective, then do: right inverted, down inverted, right. Then rotate the bottom until it's in the correct place. Once the corner is in the correct place, rotate the cube, so the corner is on the bottom right perspective, then do: right inverted, down inverted, right, down. Do those steps until the white corner is in the correct spot. Repeat for the other three corners.</h2>"
+}
+function stepWhiteCorners(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You got all 4 white corners in. Good job!</h2>"
+}
+function stepWhiteFace(){
+    // yeah like this up, right, up inverted business needs a better way of explaining to the players... 
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>The white face is now complete, hooray! Now we must solve the middle layer. Flipping the cube upside down so that white is on the bottom, turn the top until it has a vertical line of the same color in the middle column of one of the sides. If all the edge pieces have yellow in them (on top or on the side), do this: up, right, up inverted, right inverted, up inverted, front inverted, up, front. If there is an edge piece without yellow, determine whether it needs to go right or left. If left, do: up inverted, left inverted, up, left, up, front, up inverted, front inverted. If right, do: up, right, up inverted, right inverted, up inverted, front inverted, up, front. Continue this process until the middle layer is all done!</h2>"
+}
+function stepMiddleLayer(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>The middle layer is solved! Great job! The next goal is to get the yellow cross.</h2>"
+}
+function stepYellowV(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have a yellow v, and can get to the yellow cross! Do this: front, up, right, up inverted, right inverted, front inverted.</h2>"
+}
+function stepYellowStraight(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have a straight line on the yellow face, and can get to the yellow cross! Do this: front, right, up, right inverted, up inverted, front inverted.</h2>"
+}
+function stepYellowNone(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>To get to a state in which you can reach the yellow cross, do this: front, up, right, up inverted, right inverted, front inverted.</h2>"
+}
+function stepYellowCrossPlusOne(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have one yellow corner in the right spot, rotate the cube so this corner is in the bottom left corner of the yellow face. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
+ }
+function stepYellowCrossPlusTwo(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have two yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the front side. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
+}
+function stepNoYellowCorners(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have no yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the left side. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
+}
+function stepFixTwoCorners(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>Turn the cube to get two corners in the right places.</h2>"
+}
+function stepFixFourCorners(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>Rotate the cube so that the correct corners are on the back side or one is on the back side and the other is diagonally on the front side. Then in order to get all four corners correct, do this: right inverted, front, right inverted, back, back, right, front inverted, right inverted, back, back, right, right, up inverted. If there are diagonal corners, you will need to do this again.</h2>"
+}
+function stepClockwise(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>Almost there! The following may need to be done multiple times in order to get a solved cube. Make sure that if there is an edge in the right place, that edge is on the back face, and do this: front, front, up, left, right inverted, front, front, left inverted, right, up, front, front.</h2>"
+}
 
 //  // testing behaviortree print
 // function myFunction() {
@@ -430,9 +420,7 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
-
                             ];
-
               var move = moveList[counter];
               this._expectingTransition = true;
               move && this._doMovement(move, false);
@@ -525,100 +513,74 @@ YUI.add('rubik', function (Y) {
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
 
-          // video 2 and 3
-          if(this._crossCheck("white") == false){
-            // console.log("First step");
-            // console.log("First step");
-            setdisplaystobeblank();
-            setfourtobetrue();
-            // console.log("in crossCheck false");
-          }
-          if(this._crossCheck("white") == true) {
-            // change text
-            // console.log("testing crosscheck");
-            // console.log("testing crosscheck");
-            setdisplaystobeblank();
-            setdivonetobetrue();
-            // console.log("in crossCheck true");
-          }
-          if(this._cornersCheck("white", 4)) {
-            // change text
-             // console.log("corner check complete");
-             // console.log("corner check complete");
-             setdisplaystobeblank();
-             setdivtwotobetrue();
-             // console.log("in cornerCheck");
-          }
-          if(this._crossCheck("white") && this._cornerCheck("white",4)) {
-            // change text
-             // console.log("testing facecheck");
-             // console.log("white face done");
-             setdisplaystobeblank();
-             setdivthreetobetrue();
-          }
+            // first step
+            if( scrambleBool ){
+                stepOnceScrambled();
+            }
 
-          // video 4
-          if(this._middleCheck()) {
-            // change text
-            // console.log("testing middlecheck");
-            console.log("testing middlecheck");
-            setdisplaystobeblank();
-             setdivfourtobetrue();
-          }
+            // video 2 and 3
+            if( this._crossCheck("white")) {
+                console.log("there is a white cross");
+                stepWhiteCross();
+            }
+            if( this._cornerCheck("white", 4)) {
+                console.log("all 4 white corners are in place");
+                stepWhiteCorners();
+            }
+            if( this._faceCheck("white")) {
+                console.log("the white face is there");
+                stepWhiteFace();
+            }
 
-          // video 5
-          if (this._faceCheck("white") == true && this._middleCheck() == true) {
-            if (this._crossCheck("yellow") == false) {
-              if(this._VCheck("white") == true) {
-                //there is a yellow v, this is the algorithm
-                setdisplaystobeblank();
-                setdivyellowvtobetrue();
-                // console.log("good job, you ")
-              }
-              else if (this._straightCheck("white") == true) {
-                setdisplaystobeblank();
-                setdivyellowstraighttobetrue();
-              }
-              else { // no yellow edge pieces
-                setdisplaystobeblank();
-                setdivyellownonetobetrue();
-              }
+            // video 4
+            if( this._middleCheck()) {
+                console.log("the middle layer is solved");
+                stepMiddleLayer();
             }
-            else if (this._crossCheck("yellow") == true) {
-              if (this._crossPlusOne("white") == true) {
-                setdisplaystobeblank();
-                setdivyellowonecornertobetrue();
-              }
-              else if (this._crossPlusTwo("white") == true) {
 
-              }
-              else { // no corner pieces
-                setdisplaystobeblank();
-                setdivyellownocornerstobetrue();
-              }
+            // video 5
+            if( this._faceCheck("white") && this._middleCheck()) {
+                if ( !(this._crossCheck("yellow"))) {
+                    if( this._VCheck("white")) {
+                        console.log("there is a yellow V")
+                        stepYellowV();
+                    }else if ( this._straightCheck("white")) {
+                        console.log("there is a yellow line/straight")
+                        stepYellowStraight();
+                    }else {
+                        console.log("there is no yellow edge pieces")
+                        stepYellowNone();
+                    }
+                }else if ( this._crossCheck("yellow")) {
+                    if ( this._crossPlusOne("white")) {
+                        console.log("there is a yellow cross and one yellow corner in place")
+                        stepYellowCrossPlusOne();
+                    }else if (this._crossPlusTwo("white") == true) {
+                        console.log("there is a yellow cross and two yellow corners in place")
+                        stepYellowCrossPlusTwo();
+                    }else {
+                        // no corner pieces
+                        stepNoYellowCorners();
+                    }
+                }
             }
-          }
 
-          // final stage - video 6
-          //step 6
-          if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
-            //turn so that at least two corners are correct
-            if(this._cornersCheck("yellow", 2) == false) {
-              setdisplaystobeblank();
-              setdivgettwocornerstobetrue();
+            // video 6
+            if ( this._faceCheck("white") && this._middleCheck() && this._faceCheck("yellow")) {
+                //turn so that at least two corners are correct
+                if( !(this._cornersCheck("yellow", 2))) {
+                    stepFixTwoCorners();
+                }else {
+                //if together, put the two corners in the back and do the sequence
+                //can differentiate in the hint text
+                    stepFixFourCorners();
+                }
+                if( this._cornersCheck("yellow", 4)) {
+                //specEdgeCheck?
+                
+                stepClockwise();
+                }
             }
-            else {
-              //if together, put the two corners in the back and do the sequence
-              //can differentiate in the hint text
-              setdisplaystobeblank();
-              setdivgetfourcornerstobetrue();
-            }
-            if(this._cornersCheck("yellow", 4) == true) {
-              //specEdgeCheck?
-              setdisplaystobeblank();
-              setdivclockwisetobetrue();
-            }
-          }
         },
 
         /*
@@ -771,7 +733,7 @@ YUI.add('rubik', function (Y) {
         _doMovement:function (m,fromQueue) {
             this.movementcount++;
             counterformovement = counterformovement +1  ;
-            myFunction(); // this function updates counterformovement in html
+            //myFunction(); // this function updates counterformovement in html
 
             //console.log("doMovement: m: ", m);
             // fromQueue is true when I press undo and redo

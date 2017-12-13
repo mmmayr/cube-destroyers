@@ -578,7 +578,7 @@ YUI.add('rubik', function (Y) {
           // video 2 and 3
           if(this._crossCheck("white") == false){
             console.log("First step");
-            setdisplaystobeblank()
+            setdisplaystobeblank();
             setfourtobetrue();
           }
           if(this._crossCheck("white")) {

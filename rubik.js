@@ -789,20 +789,20 @@ YUI.add('rubik', function (Y) {
             //while getting white corners and white corner checks is false and whitecrosscheck is true
             if(this._cornersCheck("white", 4) == false && whiteCornersCheck==false && whiteCrossCheck==true) {
                // console.log("getting corners");
-               // setdisplaystobeblank();
                // setdivtwotobetrue(); // need to change this
                // if(this._specCornerCheck("white","green","red")) {
                //   console.log("got corner white green red");
                // }
                // console.log("in cornerCheck");
             }                stepWhiteCorners();
-            }
+
             if(this._faceCheck("white")) {
                 // console.log("the white face is there");
                 stepWhiteFace();
             }
-
           }
+
+
 
 
             // video 4
@@ -1687,10 +1687,4 @@ Y.Rubik = Rubik;
 
 
 /*
-
-
-
-
-
-
 */

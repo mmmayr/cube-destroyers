@@ -46,7 +46,7 @@ function setdisplaystobeblank(){
 
   var i = document.getElementById("myDIV_yellownocorners");
   i.style.display = "none";
-    
+
 }
 
 
@@ -629,11 +629,7 @@ YUI.add('rubik', function (Y) {
                 setdivyellowonecornertobetrue();
               }
               else if (this._crossPlusTwo("white") == true) {
-<<<<<<< HEAD
 
-=======
-                setdivyellowtwocornerstobetrue();
->>>>>>> b165d16c64f34fea4a0a239aebea17c8a29cca5d
               }
               else { // no corner pieces
                 setdivyellownocornerstobetrue();

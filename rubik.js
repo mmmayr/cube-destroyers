@@ -764,6 +764,7 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._updatePlaneList();
+                this._trueFaceCheck("white");
                 this._behaviorTree();
                 this._detachToPlane();
                 this._moving = false;

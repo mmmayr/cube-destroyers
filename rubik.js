@@ -47,8 +47,6 @@ function setdisplaystobeblank(){
   var i = document.getElementById("myDIV_yellownocorners");
   i.style.display = "none";
 
-<<<<<<< HEAD
-=======
   var k = document.getElementById("myDIV_gettwocorners");
   k.style.display = "none";
 
@@ -57,7 +55,6 @@ function setdisplaystobeblank(){
 
   var m = document.getElementById("myDIV_clockwise");
   m.style.display = "block";
->>>>>>> 5192a4c339e9cfb3a6b312e32c37f341b58c2e26
 }
 
 
@@ -609,14 +606,11 @@ YUI.add('rubik', function (Y) {
           //     console.log("4 works. dummy test");
           //     setfourtobetrue();
           //  }
-<<<<<<< HEAD
           // video 2 and 3
-=======
           if(this._crossCheck("white") == false){
             console.log("First step");
             setfourtobetrue();
           }
->>>>>>> 5192a4c339e9cfb3a6b312e32c37f341b58c2e26
           if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
@@ -669,11 +663,9 @@ YUI.add('rubik', function (Y) {
             }
           }
 
-<<<<<<< HEAD
           // final stage - video 6
 
 
-=======
           //step 6
           if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
             //turn so that at least two corners are correct
@@ -688,8 +680,8 @@ YUI.add('rubik', function (Y) {
             if(this._cornersCheck("yellow", 4) == true) {
               //specEdgeCheck?
               setdivclockwisetobetrue();
+            }
           }
->>>>>>> 5192a4c339e9cfb3a6b312e32c37f341b58c2e26
         },
 
         /*
@@ -1344,7 +1336,7 @@ YUI.add('rubik', function (Y) {
                     console.log(temp_colorA + " " + temp_colorB + " corner cubie is in the right position")
                     return true
                     }
-            }          
+            }
             return false
         },
         //returns true if a specific edge cubie is in place, this is not for middle edges, temp_colorA is assumed to be the focused side of the cube

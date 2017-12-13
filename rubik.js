@@ -47,6 +47,17 @@ function setdisplaystobeblank(){
   var i = document.getElementById("myDIV_yellownocorners");
   i.style.display = "none";
 
+<<<<<<< HEAD
+=======
+  var k = document.getElementById("myDIV_gettwocorners");
+  k.style.display = "none";
+
+  var l = document.getElementById("myDIV_getfourcorners");
+  l.style.display = "none";
+
+  var m = document.getElementById("myDIV_clockwise");
+  m.style.display = "block";
+>>>>>>> 5192a4c339e9cfb3a6b312e32c37f341b58c2e26
 }
 
 
@@ -57,7 +68,7 @@ function setfourtobetrue(){
 
 }
 
-function    setdivfourtobetrue(){
+function setdivfourtobetrue(){
   var x = document.getElementById("myDIV4");
   x.style.display =  "block";
 
@@ -106,6 +117,21 @@ function setdivyellowtwocornerstobetrue(){
 
 function setdivyellownocornerstobetrue(){
     var x = document.getElementById("myDIV_yellownocorners");
+    x.style.display = "block";
+}
+
+function setdivgettwocornerstobetrue(){
+    var x = document.getElementById("myDIV_gettwocorners");
+    x.style.display = "block";
+}
+
+function setdivgetfourcornerstobetrue(){
+    var x = document.getElementById("myDIV_getfourcorners");
+    x.style.display = "block";
+}
+
+function setdivclockwisetobetrue(){
+    var x = document.getElementById("myDIV_clockwise");
     x.style.display = "block";
 }
 
@@ -570,8 +596,7 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._updatePlaneList();
-                // this._crossCheck();
-                this._VCheck();
+                //this._clockwiseCheck();
                 // this._behaviorTree();
                 this._detachToPlane();
                 this._moving = false;
@@ -584,7 +609,14 @@ YUI.add('rubik', function (Y) {
           //     console.log("4 works. dummy test");
           //     setfourtobetrue();
           //  }
+<<<<<<< HEAD
           // video 2 and 3
+=======
+          if(this._crossCheck("white") == false){
+            console.log("First step");
+            setfourtobetrue();
+          }
+>>>>>>> 5192a4c339e9cfb3a6b312e32c37f341b58c2e26
           if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
@@ -637,11 +669,28 @@ YUI.add('rubik', function (Y) {
             }
           }
 
+<<<<<<< HEAD
           // final stage - video 6
 
 
+=======
+          //step 6
+          if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
+            //turn so that at least two corners are correct
+            if(this._cornersCheck("yellow", 2) == false) {
+              setdivgettwocornerstobetrue();
+            }
+            else {
+              //if together, put the two corners in the back and do the sequence
+              //can differentiate in the hint text
+              setdivgetfourcornerstobetrue();
+            }
+            if(this._cornersCheck("yellow", 4) == true) {
+              //specEdgeCheck?
+              setdivclockwisetobetrue();
+          }
+>>>>>>> 5192a4c339e9cfb3a6b312e32c37f341b58c2e26
         },
-
 
         /*
         * We got the first finger/click on the cube
@@ -1110,9 +1159,9 @@ YUI.add('rubik', function (Y) {
         _middleCheck: function() {
             //white is still assumed to be the first side to be finished but you can change this
             temp_color = "white";
-            for (i=0; i<color_list.length; i++){
-                if (color_list[i] == temp_color) {
-                    temp_side = side_list[i];
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_color) {
+                    temp_side = side_list[side];
                 }
             }
             //console.log(plane_list)
@@ -1128,24 +1177,24 @@ YUI.add('rubik', function (Y) {
             // side below: left edge + right edge
             if (plane_list[middle_list [6]] != (plane_list[middle_list [1] + "5"]) ||
                 plane_list[middle_list [7]] != (plane_list[middle_list [1] + "5"]) ) {
-                    console.log(plane_list[middle_list [6]], plane_list[middle_list [7]]);
+                    //console.log(plane_list[middle_list [6]], plane_list[middle_list [7]]);
                     return false
             }
             //console.log("side below")
             // side left left edge + right edge
             if (plane_list[middle_list [8]] != (plane_list[middle_list [2] + "5"]) ||
                 plane_list[middle_list [9]] != (plane_list[middle_list [2] + "5"]) ) {
-                    console.log(plane_list[middle_list [8]], plane_list[middle_list [9]]);
+                    //console.log(plane_list[middle_list [8]], plane_list[middle_list [9]]);
                     return false
             }
             //console.log("side left")
             // side right: left edge + right edge
             if (plane_list[middle_list [10]] != (plane_list[middle_list [3] + "5"]) ||
                 plane_list[middle_list [11]] != (plane_list[middle_list [3] + "5"]) ) {
-                    console.log(plane_list[middle_list [10]], plane_list[middle_list [11]]);
+                    //console.log(plane_list[middle_list [10]], plane_list[middle_list [11]]);
                     return false
             }
-            console.log("middle layer is complete!");
+            //console.log("middle layer is complete!");
             return true
         },
         //crossPlusOne checks if there is a cross and one corner of the same color, corner doesn't have to be in the right place
@@ -1189,6 +1238,19 @@ YUI.add('rubik', function (Y) {
 
             return ( this._crossCheck(temp_color) && corners >= 2 )
         },
+        //cornersCheck ideally will take in a face color but for now it's set as "white", we're solving white corners first
+        _cornersCheck: function(temp_color, corner_req) {
+            checks = this._cornerCheck(temp_color, corner_req)
+            return checks[0]
+        },
+        _diagCornerCheck: function(temp_color, corner_req = 2) {
+            checks = this._cornerCheck(temp_color, corner_req)
+            return (checks[0] && checks[1] != 1)
+        },
+        _straightCornerCheck: function(temp_color, corner_req = 2) {
+            checks = this._cornerCheck(temp_color, corner_req)
+            return (checks[0] && checks[1] == 1)
+        },
         //cornerCheck ideally will take in a face color but for now it's set as "white", we're solving white corners first
         _cornerCheck: function(temp_color, corner_req) {
             temp_color = temp_color || "white";
@@ -1198,7 +1260,8 @@ YUI.add('rubik', function (Y) {
                 }
             }
             corners = 0;
-            console.log(temp_color)
+            diag = 0;
+            //console.log(temp_color)
             //console.log(plane_list)
             adj_list = this._getAdjacentSides(temp_side)
             // top-left corner + above + left
@@ -1207,29 +1270,29 @@ YUI.add('rubik', function (Y) {
                 plane_list[adj_list[10]] != (plane_list[adj_list[2] + "5"]) ) {
                     // console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
             } else corners++
-            console.log("top-left")
+            //console.log("top-left")
             // top-right corner + above + right
             if (plane_list[temp_side + "7"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[6]] != (plane_list[adj_list[0] + "5"]) ||
                 plane_list[adj_list[13]] != (plane_list[adj_list[3] + "5"]) ) {
                     // console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
-            } else corners++
-            console.log("top-right")
+            } else corners++, diag++
+            //console.log("top-right")
             // bottom-left corner + below + left
             if (plane_list[temp_side + "3"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[7]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[12]] != (plane_list[adj_list[2] + "5"]) ) {
                     // console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
             } else corners++
-            console.log("bottom-left")
+            //console.log("bottom-left")
             // bottom-right corner + below + right
             if (plane_list[temp_side + "9"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[9]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[15]] != (plane_list[adj_list[3] + "5"]) ) {
                     // console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
-            } else corners++
+            } else corners++, diag++
 
-            return corners >= corner_req
+            return [corners >= corner_req, diag]
         },
         //edgeCheck ideally will take in a face color but for now it's set as "yellow", since that's what you specified
         _edgeCheck: function(temp_color, edge_req) {
@@ -1264,6 +1327,79 @@ YUI.add('rubik', function (Y) {
             } else edges++
 
             return edges >= edge_req
+        },
+        //returns true if a specific corner cubie is in place
+        _specCornerCheck: function(temp_colorA, temp_colorB, temp_colorC) {
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_colorA) {
+                    temp_side = side_list[side];
+                }
+            }
+            adj_list = this._getMiddleEdges(temp_side)
+            edge_list = [["1", 4, 10], ["7", 6, 13], ["3", 7, 12], ["9", 9, 15]];
+            for (edge in edge_list) {
+                if (plane_list[temp_side + edge[0]] == temp_colorA &&
+                    plane_list[adj_list[edge[1]]] == temp_colorB &&
+                    plane_list[adj_list[edge[1]]] == temp_colorB ) {
+                    console.log(temp_colorA + " " + temp_colorB + " corner cubie is in the right position")
+                    return true
+                    }
+            }          
+            return false
+        },
+        //returns true if a specific edge cubie is in place, this is not for middle edges, temp_colorA is assumed to be the focused side of the cube
+        _specEdgeCheck: function(temp_colorA, temp_colorB) {
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_colorA) {
+                    temp_side = side_list[side];
+                }
+            }
+            adj_list = this._getAdjacentSides(temp_side)
+            edge_list = [["4", 5], ["6", 8], ["2", 11], ["8", 14]];
+            for (edge in edge_list) {
+                if (plane_list[temp_side + edge[0]] == temp_colorA &&
+                    plane_list[adj_list[edge[1]]] == temp_colorB ) {
+                    console.log(temp_colorA + " " + temp_colorB + " edge cubie is in the right position")
+                    return true
+                    }
+            }
+            return false
+        },
+        //returns true if a specific middle edge cubie is in place
+        _specMiddleEdgeCheck: function(temp_colorA, temp_colorB) {
+            for (side in side_list) {
+                if (plane_list[side_list[side] + "5"] == temp_colorA) {
+                    temp_side = side_list[side];
+                }
+            }
+            adj_list = this._getMiddleEdges(temp_side)
+            edge_list = [[4, 5], [6, 7], [8, 9], [10, 11]];
+            for (edge in edge_list) {
+                if (plane_list[temp_side + edge[0]] == temp_colorA &&
+                    plane_list[adj_list[edge[1]]] == temp_colorB ) {
+                    console.log(temp_colorA + " " + temp_colorB + " middle cubie is in the right position")
+                    return true
+                    }
+            }
+            return false
+        },
+        // returns true if certain edge cubies need to move clockwise
+        // this is too funky of a function for me to write in the time we have left, so I'm going to take a shortcut and only write for the "yellow" side
+        // ok nvm this function does not work
+        _clockwiseCheck: function() {
+            adj_list = this._getAdjacentSides(temp_side)
+            edge_list = [["4", 5], ["6", 8], ["2", 11], ["8", 14]];
+            color_list = ["blue", "red", "green", "orange"];
+            side_list = ["F", "B", "L", "R",]
+            for (color in color_list) {
+                if ( !(this._specEdgeCheck("yellow", color_list[color])) ) {
+                    side = parseInt(color) + 1
+                    if ( plane_list[side_list[side] + "5"] == color_list[color] ) {
+                        console.log("clockwise")
+                        return true
+                    }
+                }
+            }
         },
         _solveCheck: function() {
             for (side in side_list) {

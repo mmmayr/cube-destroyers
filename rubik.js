@@ -430,7 +430,9 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
+
                             ];
+
               var move = moveList[counter];
               this._expectingTransition = true;
               move && this._doMovement(move, false);
@@ -525,25 +527,32 @@ YUI.add('rubik', function (Y) {
 
           // video 2 and 3
           if(this._crossCheck("white") == false){
-            console.log("First step");
-            setdisplaystobeblank()
+            // console.log("First step");
+            // console.log("First step");
+            setdisplaystobeblank();
             setfourtobetrue();
+            // console.log("in crossCheck false");
           }
-          if(this._crossCheck("white")) {
+          if(this._crossCheck("white") == true) {
             // change text
-            console.log("testing crosscheck");
+            // console.log("testing crosscheck");
+            // console.log("testing crosscheck");
             setdisplaystobeblank();
             setdivonetobetrue();
+            // console.log("in crossCheck true");
           }
-          if(this._cornerCheck("white", 4)) {
+          if(this._cornersCheck("white", 4)) {
             // change text
-             console.log("corner check complete");
+             // console.log("corner check complete");
+             // console.log("corner check complete");
              setdisplaystobeblank();
              setdivtwotobetrue();
+             // console.log("in cornerCheck");
           }
           if(this._crossCheck("white") && this._cornerCheck("white",4)) {
             // change text
-             console.log("testing facecheck");
+             // console.log("testing facecheck");
+             // console.log("white face done");
              setdisplaystobeblank();
              setdivthreetobetrue();
           }
@@ -551,6 +560,7 @@ YUI.add('rubik', function (Y) {
           // video 4
           if(this._middleCheck()) {
             // change text
+            // console.log("testing middlecheck");
             console.log("testing middlecheck");
             setdisplaystobeblank();
              setdivfourtobetrue();
@@ -563,7 +573,7 @@ YUI.add('rubik', function (Y) {
                 //there is a yellow v, this is the algorithm
                 setdisplaystobeblank();
                 setdivyellowvtobetrue();
-                console.log("good job, you ")
+                // console.log("good job, you ")
               }
               else if (this._straightCheck("white") == true) {
                 setdisplaystobeblank();

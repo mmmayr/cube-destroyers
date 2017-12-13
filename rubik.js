@@ -778,78 +778,11 @@ YUI.add('rubik', function (Y) {
           if(!whiteSideDone) {
             // while getting white cross
             if(this._crossCheck("white") == false && whiteCrossCheck==false){
-              // console.log("getting cross");
-              // setdisplaystobeblank();
-              // setfourtobetrue();
-              // var whiteRed=false; var whiteBlue=false; var whiteGreen=false; var whiteOrange=false;
-              // if(this._specEdgeCheck("white","red") && scrambleBool==false) {
-              //   console.log("congrats! you got the white/red edge in!");
-              //   whiteRed=true;
-              // }
-              // if(this._specEdgeCheck("white","blue") && scrambleBool==false) {
-              //   console.log("nice! the white/blue edge is in its correct spot.");
-              //   whiteBlue=true;
-              // }
-              // if(this._specEdgeCheck("white","orange") && scrambleBool==false) {
-              //   console.log("great job! the white/orange edge goes right there.");
-              //   whiteOrange=true;
-              // }
-              // if(this._specEdgeCheck("white","green") && scrambleBool==false) {
-              //   console.log("the white/green piece is in place!");
-              //   whiteGreen=true;
-              // }
-              //
-              // // red blue orange green
-              // if(whiteRed==true && whiteBlue==false && whiteOrange==false && whiteGreen==false) {
-              //   console.log("Nice! Got the white and red edge in its correct spot, 3 more to go!");
-              //   if(whiteRed==true && whiteBlue==true && whiteOrange==false && whiteGreen==false) {
-              //     console.log("Looks great so far! You got the white and blue edge in place.");
-              //     if(whiteRed==true && whiteBlue==true && whiteOrange==true && whiteGreen==false) {
-              //       console.log("The white and orange one is in. You're almost there! One last one to go!");
-              //       if(whiteRed==true && whiteBlue==true && whiteOrange==true && whiteGreen==true) {
-              //         console.log("Awesome! You got them all!");
-              //       }
-              //     }
-              //   }
-              //   // red blue green orange
-              //   if(whiteRed==true && whiteBlue==false && whiteOrange==true && whiteGreen==false) {
-              //     console.log("Looks great so far! You got the white and orange edge in place.");
-              //     if(whiteRed==true && whiteBlue==true && whiteOrange==false && whiteGreen==true) {
-              //       console.log("Looks great so far! You got the white and blue edge in place.");
-              //     }
-              //   }
-              //   // red green blue orange?
-              //   if(whiteRed==true && whiteBlue==false && whiteOrange==false && whiteGreen==true) {
-              //     console.log("Looks great so far! You got the white and green edge in place.");
-              //   }
-              // }
-              // // blue orange green red
-              // if(whiteRed==false && whiteBlue==true && whiteOrange==false && whiteGreen==false) {
-              //   console.log("Nice! Got the white and blue edge in its correct spot, 3 more to go!");
-              //   if(whiteRed==false && whiteBlue==true && whiteOrange==true && whiteGreen==false) {
-              //     console.log("Looks great so far! You got the white and orange edge in place.");
-              //     if(whiteRed==false && whiteBlue==true && whiteOrange==true && whiteGreen==true) {
-              //       console.log("The white and green edge is in You're almost there! One last one to go!");
-              //       if(whiteRed==true && whiteBlue==true && whiteOrange==true && whiteGreen==true) {
-              //         console.log("Awesome! You got them all!");
-              //       }
-              //     }
-              //   }
-              // }
-              // if(whiteRed==false && whiteBlue==false && whiteOrange==true && whiteGreen==false) {
-              //   console.log("Nice! Got the white and orange edge in its correct spot, 3 more to go!");
-              // }
-              // if(whiteRed==false && whiteBlue==false && whiteOrange==false && whiteGreen==true) {
-              //   console.log("Nice! Got the white and green edge in its correct spot, 3 more to go!");
-              // }
-              //
-
-
-              // console.log("in crossCheck false");
+     
             }
             // while white cross check is complete but corners is not
             // change whiteCrossCheck = true to prevent text box from displaying cross check hints
-            if(this._crossCheck("white") == true && whiteCornersCheck==false) {
+            if( this._crossCheck("white")&& !(whiteCornersCheck)) {
               // console.log("white cross complete");
               // setdisplaystobeblank();
               // setdivonetobetrue();
@@ -857,7 +790,7 @@ YUI.add('rubik', function (Y) {
               // console.log("in crossCheck true");
             }
             //while getting white corners and white corner checks is false and whitecrosscheck is true
-            if(this._cornersCheck("white", 4) == false && whiteCornersCheck==false && whiteCrossCheck==true) {
+            if( !(this._cornersCheck("white", 4)) && whiteCornersCheck==false && whiteCrossCheck==true) {
                // console.log("getting corners");
                // setdisplaystobeblank();
                // setdivtwotobetrue(); // need to change this
@@ -867,7 +800,7 @@ YUI.add('rubik', function (Y) {
 
                // console.log("in cornerCheck");
             }
-            if( this._cornerCheck("white", 4) && scrambleBool == false) {
+            if( this._cornersCheck("white", 4) && scrambleBool == false) {
                 console.log("all 4 white corners are in place");
                 stepWhiteCorners();
             }

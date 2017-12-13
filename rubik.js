@@ -55,13 +55,6 @@ function setdisplaystobeblank(){
 
   var m = document.getElementById("myDIV_clockwise");
   m.style.display = "block";
-
-  var n = document.getElementById("myDIV_counterclockwise");
-  n.style.display = "block";
-
-  var p = document.getElementById("myDIV_eitherclock");
-  p.style.display = "block";
-    
 }
 
 
@@ -136,16 +129,6 @@ function setdivgetfourcornerstobetrue(){
 
 function setdivclockwisetobetrue(){
     var x = document.getElementById("myDIV_clockwise");
-    x.style.display = "block";
-}
-
-function setdivcounterclockwisetobetrue(){
-    var x = document.getElementById("myDIV_counterclockwise");
-    x.style.display = "block";
-}
-
-function setdiveitherclocktobetrue(){
-    var x = document.getElementById("myDIV_eitherclock");
     x.style.display = "block";
 }
 
@@ -623,6 +606,10 @@ YUI.add('rubik', function (Y) {
           //     console.log("4 works. dummy test");
           //     setfourtobetrue();
           //  }
+          if(this._crossCheck("white") == false){
+            console.log("First step");
+            setfourtobetrue();
+          }
           if(this._crossCheck("white")) {
             // change text
             console.log("testing crosscheck");
@@ -688,18 +675,7 @@ YUI.add('rubik', function (Y) {
             }
             if(this._cornersCheck("yellow", 4) == true) {
               //specEdgeCheck?
-              if(this._specEdgeCheck("yellow", "blue") == true || this._specEdgeCheck("yellow", "red") == true || this._specEdgeCheck("yellow", "green") == true || this._specEdgeCheck("yellow", "orange") == true) {
-                //determine whether needs to be clockwise or counterclockwise
-                //if clockwise
-                  setdivclockwisetobetrue();
-                //else
-                  setdivcounterclockwisetobetrue();
-              }
-              else {
-                //no correct edge
-                setdiveitherclocktobetrue();
-              }
-            }
+              setdivclockwisetobetrue();
           }
         },
 

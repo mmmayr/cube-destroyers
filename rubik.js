@@ -471,7 +471,156 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
+
+                              // white cross
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "U", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"}, // count = 24
+
+                              // corners
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "right"},
+
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"}, // count = 38
+
+                              // middle player
+                              // red blue
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"}, //count = 46
+                              // red green
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"}, // count = 54
+                              // blue orange
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "right"}, // count = 63
+                              // orange green
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "right"}, // count = 70
+
+                              // final layer
+                              // get to 3 straight yellows from no yellow edges
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "left"}, // count = 76
+                              // yellow cross
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "right"}, // count = 82
+                              // yellow corners but not correct spot
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"}, // iteration 1
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"}, // iteration 2
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"}, // iteration 3 , count = 106
+                              // yellow corners to correct spot
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"}, // count = 119
+                              // yellow edges to correct spot
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"}, // count = 131
+                              // not using algorithm in pseudom
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "C", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "C", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"} // count = 141
+
                             ];
+
               var move = moveList[counter];
               this._expectingTransition = true;
               move && this._doMovement(move, false);
@@ -577,29 +726,29 @@ YUI.add('rubik', function (Y) {
           //  }
           // video 2 and 3
           if(this._crossCheck("white") == false){
-            console.log("First step");
+            // console.log("First step");
             setfourtobetrue();
           }
           if(this._crossCheck("white")) {
             // change text
-            console.log("testing crosscheck");
+            // console.log("testing crosscheck");
             setdivonetobetrue();
           }
           if(this._cornerCheck("white", 4)) {
             // change text
-             console.log("corner check complete");
+             // console.log("corner check complete");
              setdivtwotobetrue();
           }
           if(this._crossCheck("white") && this._cornerCheck("white",4)) {
             // change text
-             console.log("testing facecheck");
+             // console.log("testing facecheck");
              setdivthreetobetrue();
           }
 
           // video 4
           if(this._middleCheck()) {
             // change text
-            console.log("testing middlecheck");
+            // console.log("testing middlecheck");
              setdivfourtobetrue();
           }
 
@@ -610,7 +759,7 @@ YUI.add('rubik', function (Y) {
               if(this._VCheck("white") == true) {
                 //there is a yellow v, this is the algorithm
                 setdivyellowvtobetrue();
-                console.log("good job, you ")
+                // console.log("good job, you ")
               }
               else if (this._straightCheck("white") == true) {
                 setdivyellowstraighttobetrue();

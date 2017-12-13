@@ -206,6 +206,12 @@ YUI.add('rubik-queue', function (Y) {
                 return m;
             }
         },
+        last: function () {
+          // returns last movement without ruining the queue
+            var m = this._queue[this.current];
+            //m.rotate = m.rotate === 'left'? 'right' : 'left';
+            return m;
+        },
         redo: function () {
             if (this.current + 1 < this.size){
                 var m = this._queue[++this.current];
@@ -755,6 +761,20 @@ YUI.add('rubik', function (Y) {
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
 
+            // if( this._specEdgeCheck("blue", "yellow")){
+            //     step_list = [{face: "L", slice: "M", rotate: "right"},
+            //                   {face: "L", slice: "M", rotate: "left"},
+            //                   {face: "L", slice: "M", rotate: "left"},
+            //                   {face: "B", slice: "S", rotate: "left"}]
+            //     console.log(this._queue.last());
+            //     console.log(step_list[0])
+            //     if ( this._queue.last() == step_list[0]){
+            //         console.log("i'm so tired but hey it works")
+            //     }else{
+            //         console.log("foolish")
+            //         m = this._undoMove();
+            //     }
+
           if(!whiteSideDone) {
             // while getting white cross
             if(this._crossCheck("white") == false && whiteCrossCheck==false){
@@ -847,73 +867,49 @@ YUI.add('rubik', function (Y) {
 
                // console.log("in cornerCheck");
             }
-            if(this._cornersCheck("white",4)) {
-              whiteCornersCheck=true;
+            if( this._cornerCheck("white", 4)) {
+                console.log("all 4 white corners are in place");
+                stepWhiteCorners();
             }
-            if(this._crossCheck("white") && this._cornersCheck("white",4) && whiteCornersCheck==true) {
-               // console.log("white face done");
-               // setdisplaystobeblank();
-               // setdivthreetobetrue();
-               whiteSideDone=true;
-            }
-          }
-
-          if(!middleLayerDone && whiteSideDone==true) {
-          // video 4
-            if(this._specMiddleEdgeCheck("red","green")) {
-              console.log("yippee");
-            }
-            if(this._middleCheck()) {
-              // change text
-              // console.log("testing middlecheck");
-              middleLayerDone=true;
-              console.log("middle layer done");
-              // setdisplaystobeblank();
-              // setdivfourtobetrue();
-            }
-          }
-
-          // video 5
-          // if(!yellowSideDone) {
-            // making sure if white side is done and middle layer is done
-            if (this._faceCheck("white") == true && this._middleCheck() == true) {
-              // if there is no yellow cross
-              if (this._crossCheck("yellow") == false) {
-                if(this._VCheck("white") == true) {
-                  //there is a yellow v, this is the algorithm ; result in yellow cross
-                  // setdisplaystobeblank();
-                  // setdivyellowvtobetrue();
-                }
-                else if (this._straightCheck("white") == true) {
-                  // algorithm ; result is yellow cross
-                  // setdisplaystobeblank();
-                  // setdivyellowstraighttobetrue();
-                }
-                else { // no yellow edge pieces
-                  // algorithm and after that ; result should have V or line
-                  // setdisplaystobeblank();
-                  // setdivyellownonetobetrue();
-                }
-              }
-              // if there is a yellow cross
-              else if (this._crossCheck("yellow") == true) {
-                if (this._crossPlusOne("white") == true) {
-                  console.log("cross plus one?");
-                  // setdisplaystobeblank();
-                  // setdivyellowonecornertobetrue(); //broken - change text
-                  // same algorithm - difference is # of times and cube perspective
-                }
-                else if (this._crossPlusTwo("white") == true) {
-                  // same algorithm - difference is # of times and cube perspective
-                }
-                else { // no corner pieces
-                  // setdisplaystobeblank();
-                  // setdivyellownocornerstobetrue();
-                  // same algorithm - difference is # of times and cube perspective
-                }
-              }
+            if( this._faceCheck("white")) {
+                console.log("the white face is there");
+                stepWhiteFace();
             }
 
+            // video 4
+            if( this._middleCheck()) {
+                console.log("the middle layer is solved");
+                stepMiddleLayer();
+            }
+
+            // video 5
+            if( this._faceCheck("white") && this._middleCheck()) {
+                if ( !(this._crossCheck("yellow"))) {
+                    if( this._VCheck("white")) {
+                        console.log("there is a yellow V")
+                        stepYellowV();
+                    }else if ( this._straightCheck("white")) {
+                        console.log("there is a yellow line/straight")
+                        stepYellowStraight();
+                    }else {
+                        console.log("there is no yellow edge pieces")
+                        stepYellowNone();
+                    }
+                }else if ( this._crossCheck("yellow")) {
+                    if ( this._crossPlusOne("white")) {
+                        console.log("there is a yellow cross and one yellow corner in place")
+                        stepYellowCrossPlusOne();
+                    }else if (this._crossPlusTwo("white") == true) {
+                        console.log("there is a yellow cross and two yellow corners in place")
+                        stepYellowCrossPlusTwo();
+                    }else {
+                        // no corner pieces
+                        stepNoYellowCorners();
+                    }
+                }
+            }
+
+<<<<<<< HEAD
           // }
 
             // video 5
@@ -959,8 +955,24 @@ YUI.add('rubik', function (Y) {
             if(this._cornersCheck("yellow", 4) == true) {
               //specEdgeCheck?
 
+=======
+            // video 6
+            if ( this._faceCheck("white") && this._middleCheck() && this._faceCheck("yellow")) {
+                //turn so that at least two corners are correct
+                if( !(this._cornersCheck("yellow", 2))) {
+                    stepFixTwoCorners();
+                }else {
+                //if together, put the two corners in the back and do the sequence
+                //can differentiate in the hint text
+                    stepFixFourCorners();
+                }
+                if( this._cornersCheck("yellow", 4)) {
+                //specEdgeCheck?
+
+                stepClockwise();
+                }
+>>>>>>> fffd3bae85bb8df7f3c7de02ba692dcc57b9c163
             }
-          }
         },
 
         /*

@@ -513,7 +513,7 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
 
-                              // white cross
+                              // // white cross
                               // {face: "U", slice: "E", rotate: "left"},
                               // {face: "B", slice: "S", rotate: "right"},
                               // {face: "R", slice: "M", rotate: "right"},
@@ -694,7 +694,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==15){
+                if(!m || counter==24){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
@@ -760,7 +760,7 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
-            
+
             // if( this._specEdgeCheck("blue", "yellow")){
             //     step_list = [{face: "L", slice: "M", rotate: "right"},
             //                   {face: "L", slice: "M", rotate: "left"},
@@ -775,20 +775,32 @@ YUI.add('rubik', function (Y) {
             //         m = this._undoMove();
             //     }
 
-            // }else{
-            //     console.log(this._edgeCheck("blue", "yellow"))
-            // }
-            // first step
-            if( scrambleBool ){
-                stepOnceScrambled();
+          if(!whiteSideDone) {
+            // while getting white cross
+            if(this._crossCheck("white") == false && whiteCrossCheck==false){
+     
             }
+            // while white cross check is complete but corners is not
+            // change whiteCrossCheck = true to prevent text box from displaying cross check hints
+            if( this._crossCheck("white")&& !(whiteCornersCheck)) {
+              // console.log("white cross complete");
+              // setdisplaystobeblank();
+              // setdivonetobetrue();
+              whiteCrossCheck=true;
+              // console.log("in crossCheck true");
+            }
+            //while getting white corners and white corner checks is false and whitecrosscheck is true
+            if( !(this._cornersCheck("white", 4)) && whiteCornersCheck==false && whiteCrossCheck==true) {
+               // console.log("getting corners");
+               // setdisplaystobeblank();
+               // setdivtwotobetrue(); // need to change this
+               if(this._specCornerCheck("white","green","red")) {
+                 console.log("got corner white green red");
+               }
 
-            // video 2 and 3
-            if( this._crossCheck("white")) {
-                console.log("there is a white cross");
-                stepWhiteCross();
+               // console.log("in cornerCheck");
             }
-            if( this._cornerCheck("white", 4)) {
+            if( this._cornersCheck("white", 4) && scrambleBool == false) {
                 console.log("all 4 white corners are in place");
                 stepWhiteCorners();
             }
@@ -796,6 +808,7 @@ YUI.add('rubik', function (Y) {
                 console.log("the white face is there");
                 stepWhiteFace();
             }
+          }
 
             // video 4
             if( this._middleCheck()) {
@@ -842,9 +855,10 @@ YUI.add('rubik', function (Y) {
                 }
                 if( this._cornersCheck("yellow", 4)) {
                 //specEdgeCheck?
-                
-                stepClockwise();
+
+                  stepClockwise();
                 }
+
             }
         },
 

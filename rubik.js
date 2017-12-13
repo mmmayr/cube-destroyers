@@ -166,6 +166,16 @@ function stepClockwise(){
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"
 }
+function stepDone(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You solved it, yay! Now do it without my help, you pansy.</h2>"
+
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
+
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
 
 //  // testing behaviortree print
 // function myFunction() {
@@ -844,6 +854,9 @@ YUI.add('rubik', function (Y) {
                   stepClockwise();
                 }
 
+            }
+            if(this._solveCheck() == true) {
+                stepDone();
             }
         },
 

@@ -867,7 +867,7 @@ YUI.add('rubik', function (Y) {
 
                // console.log("in cornerCheck");
             }
-            if( this._cornerCheck("white", 4)) {
+            if( this._cornerCheck("white", 4) && scrambleBool == false) {
                 console.log("all 4 white corners are in place");
                 stepWhiteCorners();
             }
@@ -875,6 +875,7 @@ YUI.add('rubik', function (Y) {
                 console.log("the white face is there");
                 stepWhiteFace();
             }
+          }
 
             // video 4
             if( this._middleCheck()) {
@@ -909,53 +910,6 @@ YUI.add('rubik', function (Y) {
                 }
             }
 
-
-          // }
-
-            // video 5
-            if( this._faceCheck("white") && this._middleCheck()) {
-                if ( !(this._crossCheck("yellow"))) {
-                    if( this._VCheck("white")) {
-                        console.log("there is a yellow V")
-                        stepYellowV();
-                    }else if ( this._straightCheck("white")) {
-                        console.log("there is a yellow line/straight")
-                        stepYellowStraight();
-                    }else {
-                        console.log("there is no yellow edge pieces")
-                        stepYellowNone();
-                    }
-                }else if ( this._crossCheck("yellow")) {
-                    if ( this._crossPlusOne("white")) {
-                        console.log("there is a yellow cross and one yellow corner in place")
-                        stepYellowCrossPlusOne();
-                    }else if (this._crossPlusTwo("white") == true) {
-                        console.log("there is a yellow cross and two yellow corners in place")
-                        stepYellowCrossPlusTwo();
-                    }else {
-                        // no corner pieces
-                        stepNoYellowCorners();
-                    }
-                }
-            }
-
-          // final stage - video 6
-          //step 6
-          if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
-            //turn so that at least two corners are correct
-            if(this._cornersCheck("yellow", 2) == false) {
-              setdisplaystobeblank();
-              setdivgettwocornerstobetrue();
-            }
-            else {
-              //if together, put the two corners in the back and do the sequence
-              //can differentiate in the hint text
-
-            }
-            if(this._cornersCheck("yellow", 4) == true) {
-              //specEdgeCheck?
-            }
-
             // video 6
             if ( this._faceCheck("white") && this._middleCheck() && this._faceCheck("yellow")) {
                 //turn so that at least two corners are correct
@@ -969,7 +923,7 @@ YUI.add('rubik', function (Y) {
                 if( this._cornersCheck("yellow", 4)) {
                 //specEdgeCheck?
 
-                stepClockwise();
+                  stepClockwise();
                 }
 
             }

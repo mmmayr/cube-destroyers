@@ -34,7 +34,7 @@ function stepOnceScrambled(){
   // I think by now you get the format, each "page" is a slide panel. I prefer if you keep concise instructions on the first page and detailed explanations are on the further pages
   // NOTE, this does not push you back to the first page, so it's still better to keep info on the first panel
   
-  var more_more_details = document.getElementById("page3";
+  var more_more_details = document.getElementById("page3");
   more_more_details.innerHTML = "<h2>The easiest way to solve the cube is to get the said edges in this order: blue, orange, green, red. If there is a situation where the white cross edge and top middle adjacent edge is reversed, do these moves, facing the problematic side: Front left, Up left, Left up, Up right</h2>"
 }
 function stepWhiteCross(){

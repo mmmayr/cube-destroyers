@@ -870,7 +870,7 @@ YUI.add('rubik', function (Y) {
                 }
 
             }
-            if(this._solveCheck() == true) {
+            if( this._solveCheck()) {
                 stepDone();
             }
         },
@@ -1448,31 +1448,31 @@ YUI.add('rubik', function (Y) {
             if (plane_list[temp_side + "1"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[4]] != (plane_list[adj_list[0] + "5"]) ||
                 plane_list[adj_list[10]] != (plane_list[adj_list[2] + "5"]) ) {
-                    // console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
+                    console.log(plane_list[temp_side + "1"], plane_list[adj_list[4]], plane_list[adj_list[10]]);
             } else corners++
             //console.log("top-left")
             // top-right corner + above + right
             if (plane_list[temp_side + "7"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[6]] != (plane_list[adj_list[0] + "5"]) ||
                 plane_list[adj_list[13]] != (plane_list[adj_list[3] + "5"]) ) {
-                    // console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
+                    console.log(plane_list[temp_side + "7"], plane_list[adj_list[6]], plane_list[adj_list[13]])
             } else corners++, diag++
             //console.log("top-right")
             // bottom-left corner + below + left
             if (plane_list[temp_side + "3"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[7]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[12]] != (plane_list[adj_list[2] + "5"]) ) {
-                    // console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
+                    console.log(plane_list[temp_side + "3"], plane_list[adj_list[7]], plane_list[adj_list[12]])
             } else corners++
             //console.log("bottom-left")
             // bottom-right corner + below + right
             if (plane_list[temp_side + "9"] != (plane_list[temp_side + "5"]) ||
                 plane_list[adj_list[9]] != (plane_list[adj_list[1] + "5"]) ||
                 plane_list[adj_list[15]] != (plane_list[adj_list[3] + "5"]) ) {
-                    // console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
+                    console.log(plane_list[temp_side + "9"], plane_list[adj_list[9]], plane_list[adj_list[15]])
             } else corners++, diag++
 
-            return [corners >= corner_req, diag]
+            return [corners == corner_req, diag]
         },
         //edgeCheck ideally will take in a face color but for now it's set as "yellow", since that's what you specified
         _edgeCheck: function(temp_color, edge_req) {
@@ -1521,8 +1521,8 @@ YUI.add('rubik', function (Y) {
                 edge = edge_list[i]
                 if (plane_list[temp_side + edge[0]] == temp_colorA &&
                     plane_list[adj_list[edge[1]]] == temp_colorB &&
-                    plane_list[adj_list[edge[1]]] == temp_colorB ) {
-                    console.log(temp_colorA + " " + temp_colorB + " corner cubie is in the right position")
+                    plane_list[adj_list[edge[2]]] == temp_colorC ) {
+                    console.log(temp_colorA + " " + temp_colorB + " " + temp_colorC + " corner cubie is in the right position")
                     return true
                     }
             }

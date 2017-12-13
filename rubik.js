@@ -23,7 +23,7 @@ var lastStage=false;
 // updating tutorial text
 function stepOnceScrambled(){
   var instructions = document.getElementById("page0");
-  instructions.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side.</h2>";
+  instructions.innerHTML = "<h2>The cube is currently scrambling. When it's finished, the first step is to form a cross on one of the sides, for instance, the white side.</h2>";
 
   var details = document.getElementById("page1");
   details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color).</h2>"
@@ -514,73 +514,73 @@ YUI.add('rubik', function (Y) {
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
 
                               // // white cross
-                              // {face: "U", slice: "E", rotate: "left"},
-                              // {face: "B", slice: "S", rotate: "right"},
-                              // {face: "R", slice: "M", rotate: "right"},
-                              // {face: "U", slice: "E", rotate: "right"},
-                              // {face: "F", slice: "S", rotate: "left"},
-                              // {face: "U", slice: "E", rotate: "right"},
-                              // {face: "F", slice: "S", rotate: "left"},
-                              // {face: "U", slice: "E", rotate: "left"},
-                              // {face: "U", slice: "E", rotate: "left"}, // count = 24
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "U", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"},
+                              {face: "U", slice: "E", rotate: "left"}, // count = 24
+                              //
+                              // // // corners
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "right"},
 
-                              // // corners
-                              // {face: "L", slice: "M", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "L", slice: "M", rotate: "right"},
-                              //
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "B", slice: "S", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "B", slice: "S", rotate: "left"},
-                              //
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "L", slice: "M", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "L", slice: "M", rotate: "left"},
-                              //
-                              // {face: "B", slice: "S", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "B", slice: "S", rotate: "right"}, // count = 38
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"}, // count = 38
                               //
                               // // middle player
                               // // red blue
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "F", slice: "S", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "F", slice: "S", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "R", slice: "M", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "R", slice: "M", rotate: "left"}, //count = 46
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "F", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "R", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"}, //count = 46
                               // // red green
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "B", slice: "S", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "B", slice: "S", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "R", slice: "M", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "R", slice: "M", rotate: "right"}, // count = 54
-                              // // blue orange
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "L", slice: "M", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "L", slice: "M", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "F", slice: "S", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "F", slice: "S", rotate: "right"}, // count = 63
-                              // // orange green
-                              // {face: "B", slice: "S", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "right"},
-                              // {face: "B", slice: "S", rotate: "right"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "L", slice: "M", rotate: "left"},
-                              // {face: "D", slice: "E", rotate: "left"},
-                              // {face: "L", slice: "M", rotate: "right"}, // count = 70
-                              //
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "R", slice: "M", rotate: "right"}, // count = 54
+                              // blue orange
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "F", slice: "S", rotate: "right"}, // count = 63
+                              // orange green
+                              {face: "B", slice: "S", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "right"},
+                              {face: "B", slice: "S", rotate: "right"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "D", slice: "E", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "right"}, // count = 70
+
                               // // final layer
                               // // get to 3 straight yellows from no yellow edges
                               // {face: "F", slice: "S", rotate: "right"},
@@ -694,12 +694,13 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==24){
+                if(!m || counter==70){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
                 }
             },null,true);
+            stepOnceScrambled();
         },
         _changeOrientation: function (evt) {
             this._setScroll();
@@ -761,99 +762,18 @@ YUI.add('rubik', function (Y) {
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
 
-            // if( this._specEdgeCheck("blue", "yellow")){
-            //     step_list = [{face: "L", slice: "M", rotate: "right"},
-            //                   {face: "L", slice: "M", rotate: "left"},
-            //                   {face: "L", slice: "M", rotate: "left"},
-            //                   {face: "B", slice: "S", rotate: "left"}]
-            //     console.log(this._queue.last());
-            //     console.log(step_list[0])
-            //     if ( this._queue.last() == step_list[0]){
-            //         console.log("i'm so tired but hey it works")
-            //     }else{
-            //         console.log("foolish")
-            //         m = this._undoMove();
-            //     }
-
           if(!whiteSideDone) {
             // while getting white cross
-            if(this._crossCheck("white") == false && whiteCrossCheck==false){
+            if(this._crossCheck("white") == false && whiteCrossCheck==false && scrambleBool==false) {
               // console.log("getting cross");
-              // setdisplaystobeblank();
-              // setfourtobetrue();
-              // var whiteRed=false; var whiteBlue=false; var whiteGreen=false; var whiteOrange=false;
-              // if(this._specEdgeCheck("white","red") && scrambleBool==false) {
-              //   console.log("congrats! you got the white/red edge in!");
-              //   whiteRed=true;
-              // }
-              // if(this._specEdgeCheck("white","blue") && scrambleBool==false) {
-              //   console.log("nice! the white/blue edge is in its correct spot.");
-              //   whiteBlue=true;
-              // }
-              // if(this._specEdgeCheck("white","orange") && scrambleBool==false) {
-              //   console.log("great job! the white/orange edge goes right there.");
-              //   whiteOrange=true;
-              // }
-              // if(this._specEdgeCheck("white","green") && scrambleBool==false) {
-              //   console.log("the white/green piece is in place!");
-              //   whiteGreen=true;
-              // }
-              //
-              // // red blue orange green
-              // if(whiteRed==true && whiteBlue==false && whiteOrange==false && whiteGreen==false) {
-              //   console.log("Nice! Got the white and red edge in its correct spot, 3 more to go!");
-              //   if(whiteRed==true && whiteBlue==true && whiteOrange==false && whiteGreen==false) {
-              //     console.log("Looks great so far! You got the white and blue edge in place.");
-              //     if(whiteRed==true && whiteBlue==true && whiteOrange==true && whiteGreen==false) {
-              //       console.log("The white and orange one is in. You're almost there! One last one to go!");
-              //       if(whiteRed==true && whiteBlue==true && whiteOrange==true && whiteGreen==true) {
-              //         console.log("Awesome! You got them all!");
-              //       }
-              //     }
-              //   }
-              //   // red blue green orange
-              //   if(whiteRed==true && whiteBlue==false && whiteOrange==true && whiteGreen==false) {
-              //     console.log("Looks great so far! You got the white and orange edge in place.");
-              //     if(whiteRed==true && whiteBlue==true && whiteOrange==false && whiteGreen==true) {
-              //       console.log("Looks great so far! You got the white and blue edge in place.");
-              //     }
-              //   }
-              //   // red green blue orange?
-              //   if(whiteRed==true && whiteBlue==false && whiteOrange==false && whiteGreen==true) {
-              //     console.log("Looks great so far! You got the white and green edge in place.");
-              //   }
-              // }
-              // // blue orange green red
-              // if(whiteRed==false && whiteBlue==true && whiteOrange==false && whiteGreen==false) {
-              //   console.log("Nice! Got the white and blue edge in its correct spot, 3 more to go!");
-              //   if(whiteRed==false && whiteBlue==true && whiteOrange==true && whiteGreen==false) {
-              //     console.log("Looks great so far! You got the white and orange edge in place.");
-              //     if(whiteRed==false && whiteBlue==true && whiteOrange==true && whiteGreen==true) {
-              //       console.log("The white and green edge is in You're almost there! One last one to go!");
-              //       if(whiteRed==true && whiteBlue==true && whiteOrange==true && whiteGreen==true) {
-              //         console.log("Awesome! You got them all!");
-              //       }
-              //     }
-              //   }
-              // }
-              // if(whiteRed==false && whiteBlue==false && whiteOrange==true && whiteGreen==false) {
-              //   console.log("Nice! Got the white and orange edge in its correct spot, 3 more to go!");
-              // }
-              // if(whiteRed==false && whiteBlue==false && whiteOrange==false && whiteGreen==true) {
-              //   console.log("Nice! Got the white and green edge in its correct spot, 3 more to go!");
-              // }
-              //
-
-
               // console.log("in crossCheck false");
             }
             // while white cross check is complete but corners is not
             // change whiteCrossCheck = true to prevent text box from displaying cross check hints
             if(this._crossCheck("white") == true && whiteCornersCheck==false) {
               // console.log("white cross complete");
-              // setdisplaystobeblank();
-              // setdivonetobetrue();
               whiteCrossCheck=true;
+              stepWhiteCross();
               // console.log("in crossCheck true");
             }
             //while getting white corners and white corner checks is false and whitecrosscheck is true
@@ -861,21 +781,22 @@ YUI.add('rubik', function (Y) {
                // console.log("getting corners");
                // setdisplaystobeblank();
                // setdivtwotobetrue(); // need to change this
-               if(this._specCornerCheck("white","green","red")) {
-                 console.log("got corner white green red");
-               }
-
+               // if(this._specCornerCheck("white","green","red")) {
+               //   console.log("got corner white green red");
+               // }
                // console.log("in cornerCheck");
             }
-            if( this._cornerCheck("white", 4) && scrambleBool == false) {
-                console.log("all 4 white corners are in place");
+            if(this._cornersCheck("white", 4) && scrambleBool == false) {
+                // console.log("all 4 white corners are in place");
                 stepWhiteCorners();
             }
-            if( this._faceCheck("white")) {
-                console.log("the white face is there");
+            if(this._faceCheck("white")) {
+                // console.log("the white face is there");
                 stepWhiteFace();
             }
+
           }
+
 
             // video 4
             if( this._middleCheck()) {
@@ -1576,7 +1497,7 @@ YUI.add('rubik', function (Y) {
                 if (plane_list[temp_side + edge[0]] == temp_colorA &&
                     plane_list[adj_list[edge[1]]] == temp_colorB &&
                     plane_list[adj_list[edge[1]]] == temp_colorB ) {
-                    console.log(temp_colorA + " " + temp_colorB + " corner cubie is in the right position")
+                    // console.log(temp_colorA + " " + temp_colorB + " corner cubie is in the right position")
                     return true
                     }
             }
@@ -1614,7 +1535,7 @@ YUI.add('rubik', function (Y) {
                 edge = edge_list[i]
                 if (plane_list[temp_side + edge[0]] == temp_colorA &&
                     plane_list[adj_list[edge[1]]] == temp_colorB ) {
-                    console.log(temp_colorA + " " + temp_colorB + " middle cubie is in the right position")
+                    // console.log(temp_colorA + " " + temp_colorB + " middle cubie is in the right position")
                     return true
                     }
             }

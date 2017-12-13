@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-
-
-
-
-
-<body onload="setdisplaystobeblank()">
-
-</body>
-
-
 <head>
     <title>HTML5 Rubik's cube (CSS3 + JS)</title>
     <meta property="og:title" content="3D HTML5 Rubik&#039;s Cube" />
@@ -51,8 +41,9 @@
     </ul>
 
     <div class="populate">
-        <div class="panel" data-pos="0">
+        <div class="panel" id="page0" data-pos="0">
             <hgroup>
+<<<<<<< HEAD
                 <h1>CMPM 146 Rubik's Cube Project</h1>
 
 
@@ -115,10 +106,14 @@
                 </html>
 
 
+=======
+                <h1>CMPM 146 Rubik's Cube Project<br></h1>
+                <h2>Hello to the Rubik's Cube Tutorial! Click on the rightmost (shuffle) button to begin.</h2>
+>>>>>>> 11fe09979b588a6ef1e86d3c3e37260d62336bad
             </hgroup>
         </div>
 
-        <div class="panel" data-pos="1">
+        <div class="panel" id="page1" data-pos="1">
             <hgroup>
                 <h1>Let's see how to play with the cube...</h1>
                 <h2>Don't forget to give it a try in you tablet or your phone!</h2>
@@ -126,7 +121,7 @@
             </hgroup>
         </div>
 
-        <div class="panel" data-pos="2">
+        <div class="panel" id="page2" data-pos="2">
             <hgroup>
                 <h1>Movements and rotation</h1>
                 <h2>Flick over the cube to do the movements.
@@ -134,7 +129,7 @@
                 </h2>
         </hgroup>
         </div>
-        <div class="panel" data-pos="3">
+        <div class="panel" id="page3" data-pos="3">
             <hgroup>
                 <h1>Solving the cube</h1>
                 <h2>Tap in the rubik's button to solve the cube. Note that the real algorithm is not implemented yet so if just going to be a multiple undo.
@@ -142,12 +137,10 @@
             </hgroup>
         </div>
 
-        <div class="panel" data-pos="4">
-           <hgroup>
-                <h1>Cube history</h1>
-                <h2>Press the undo or redo blue  arrow buttons
-                    to go back and forward off the rubik's movement</h2>
-        </hgroup>
+        <div class="panel" id="page4" data-pos="4">
+            <hgroup>
+                
+            </hgroup>
         </div>
     </div>
 </div>
@@ -261,9 +254,9 @@
                 <li>
                     <div class="redo"></div>
                 </li>
-                <li>
+                <!--<li>
                     <div  class="solve"></div>
-                </li>
+                </li>-->
                 <li id="rotation">
                     <div class="rotate"></div>
                 </li>

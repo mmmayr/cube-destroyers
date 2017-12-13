@@ -6,8 +6,8 @@
 *
 */
 var myText = 0;
-var scrambleBool=false;
-var counter=0;
+var scrambleBool= false;
+var counter= 0;
 var counterformovement = 0;
 var whiteSideDone=false;
 var whiteCrossCheck=false;
@@ -17,132 +17,159 @@ var whiteRed=false; var whiteBlue=false; var whiteGreen=false; var whiteOrange=f
 var yellowSideDone=false;
 var lastStage=false;
 
-// testing behaviortree print
+// test message for extra dynamic-ness
 
-function setdisplaystobeblank(){
-    //hides all hint displays
-  var x = document.getElementById("myDIV");
-  x.style.display = "none";
+// updating tutorial text
+function stepOnceScrambled(){
+  var instructions = document.getElementById("page0");
+  instructions.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side.</h2>";
 
-  var a = document.getElementById("myDIV1");
-  a.style.display = "none";
+  var details = document.getElementById("page1");
+  details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color).</h2>"
 
-  var b = document.getElementById("myDIV2");
-  b.style.display = "none";
+  var more_details = document.getElementById("page2");
+  more_details.innerHTML = "<h2>The easiest way to solve the cube is to get the said edges in this order: blue, orange, green, red. If there is a situation where the white cross edge and top middle adjacent edge is reversed, do these moves, facing the problematic side: Front inverted, Up, Left, Up Inverted.</h2>"
+  // I think by now you get the format, each "page" is a slide panel. I prefer if you keep concise instructions on the first page and detailed explanations are on the further pages
+  // NOTE, this does not push you back to the first page, so it's still better to keep info on the first panel
+}
+function stepWhiteCross(){
+    // ok so now you guys get the template, I'll leave it to you all to clean up the tutorial text.
+    // like, yeah I'm begging you please split these instructions up
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You've completed the white cross, well done! Now it's time to move the white corners into the right positions. Staying with the perspective of white as the top face, find a white corner piece, and see what colors are on its other side. The goal is to get the corner piece into the bottom corner of the cube, on the edge between the two colors. If the corner piece you're focused on is already on the bottom layer, rotate the bottom until it's in the right place. If it's on the top layer, rotate the cube so the corner is on the right face perspective, then do: right inverted, down inverted, right. Then rotate the bottom until it's in the correct place. Once the corner is in the correct place, rotate the cube, so the corner is on the bottom right perspective, then do: right inverted, down inverted, right, down. Do those steps until the white corner is in the correct spot. Repeat for the other three corners.</h2>"
 
-  var c = document.getElementById("myDIV3");
-  c.style.display = "none";
+    // even if you don't need to add extra text, keep these so the panels remain blank
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
 
-  var d = document.getElementById("myDIV4");
-  d.style.display = "none";
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepWhiteCorners(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You got all 4 white corners in. Good job!</h2>"
 
-  var j = document.getElementById("myDIV_yellowv");
-  j.style.display = "none";
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
 
-  var e = document.getElementById("myDIV_yellowstraight");
-  e.style.display = "none";
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepWhiteFace(){
+    // yeah like this up, right, up inverted business needs a better way of explaining to the players... 
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>The white face is now complete, hooray! Now we must solve the middle layer. Flipping the cube upside down so that white is on the bottom, turn the top until it has a vertical line of the same color in the middle column of one of the sides. If all the edge pieces have yellow in them (on top or on the side), do this: up, right, up inverted, right inverted, up inverted, front inverted, up, front. If there is an edge piece without yellow, determine whether it needs to go right or left. If left, do: up inverted, left inverted, up, left, up, front, up inverted, front inverted. If right, do: up, right, up inverted, right inverted, up inverted, front inverted, up, front. Continue this process until the middle layer is all done!</h2>"
 
-  var f = document.getElementById("myDIV_yellownone");
-  f.style.display = "none";
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
 
-  var g = document.getElementById("myDIV_yellowonecorner");
-  g.style.display = "none";
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepMiddleLayer(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>The middle layer is solved! Great job! The next goal is to get the yellow cross.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
 
-  var h = document.getElementById("myDIV_yellowtwocorners");
-  h.style.display = "none";
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepYellowV(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have a yellow v, and can get to the yellow cross! Do this: front, up, right, up inverted, right inverted, front inverted.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
 
-  var i = document.getElementById("myDIV_yellownocorners");
-  i.style.display = "none";
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepYellowStraight(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have a straight line on the yellow face, and can get to the yellow cross! Do this: front, right, up, right inverted, up inverted, front inverted.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
 
-  var k = document.getElementById("myDIV_gettwocorners");
-  k.style.display = "none";
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepYellowNone(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>To get to a state in which you can reach the yellow cross, do this: front, up, right, up inverted, right inverted, front inverted.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
+    
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepYellowCrossPlusOne(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have one yellow corner in the right spot, rotate the cube so this corner is in the bottom left corner of the yellow face. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
+    
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>" 
+}
+function stepYellowCrossPlusTwo(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have two yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the front side. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
+    
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepNoYellowCorners(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>You have no yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the left side. Then do: right, up, right inverted, up, right, up, up, right inverted. This may need to be done multiple times.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
+    
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepFixTwoCorners(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>Turn the cube to get two corners in the right places.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
+    
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"}
+function stepFixFourCorners(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>Rotate the cube so that the correct corners are on the back side or one is on the back side and the other is diagonally on the front side. Then in order to get all four corners correct, do this: right inverted, front, right inverted, back, back, right, front inverted, right inverted, back, back, right, right, up inverted. If there are diagonal corners, you will need to do this again.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
 
-  var l = document.getElementById("myDIV_getfourcorners");
-  l.style.display = "none";
-
-  var m = document.getElementById("myDIV_clockwise");
-  m.style.display = "none";
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
+}
+function stepClockwise(){
+    var instructions = document.getElementById("page0");
+    instructions.innerHTML = "<h2>Almost there! The following may need to be done multiple times in order to get a solved cube. Make sure that if there is an edge in the right place, that edge is on the back face, and do this: front, front, up, left, right inverted, front, front, left inverted, right, up, front, front.</h2>"
+    
+    var details = document.getElementById("page1");
+    details.innerHTML = "<h2></h2>"
+    
+    var more_details = document.getElementById("page2");
+    more_details.innerHTML = "<h2></h2>"
 }
 
-
-function setfourtobetrue(){
-  var x = document.getElementById("myDIV");
-  x.style.display =  "block";
-
-
-}
-
-function setdivfourtobetrue(){
-  var x = document.getElementById("myDIV4");
-  x.style.display =  "block";
-
-}
-
-function setdivonetobetrue(){
-  var x = document.getElementById("myDIV1");
-  x.style.display =  "block";
-
-}
-function setdivtwotobetrue(){
-  var x = document.getElementById("myDIV2");
-  x.style.display =  "block";
-
-}
-function setdivthreetobetrue(){
-  var x = document.getElementById("myDIV3");
-  x.style.display =  "block";
-
-}
-
-function setdivyellowvtobetrue(){
-    var x = document.getElementById("myDIV_yellowv");
-    x.style.display = "block";
-}
-
-function setdivyellowstraighttobetrue(){
-    var x = document.getElementById("myDIV_yellowstraight");
-    x.style.display = "block";
-}
-
-function setdivyellownonetobetrue(){
-    var x = document.getElementById("myDIV_yellownone");
-    x.style.display = "block";
-}
-
-function setdivyellowonecornertobetrue(){
-    var x = document.getElementById("myDIV_yellowonecorner");
-    x.style.display = "block";
-}
-
-function setdivyellowtwocornerstobetrue(){
-    var x = document.getElementById("myDIV_yellowtwocorners");
-    x.style.display = "block";
-}
-
-function setdivyellownocornerstobetrue(){
-    var x = document.getElementById("myDIV_yellownocorners");
-    x.style.display = "block";
-}
-
-function setdivgettwocornerstobetrue(){
-    var x = document.getElementById("myDIV_gettwocorners");
-    x.style.display = "block";
-}
-
-function setdivgetfourcornerstobetrue(){
-    var x = document.getElementById("myDIV_getfourcorners");
-    x.style.display = "block";
-}
-
-function setdivclockwisetobetrue(){
-    var x = document.getElementById("myDIV_clockwise");
-    x.style.display = "block";
-}
-
- // testing behaviortree print
-function myFunction() {
-    document.getElementById("myText").innerHTML = counterformovement;
-}
+//  // testing behaviortree print
+// function myFunction() {
+//     document.getElementById("myText").innerHTML = counterformovement;
+// }
 
 YUI.add('rubik-queue', function (Y) {
 
@@ -401,7 +428,7 @@ YUI.add('rubik', function (Y) {
             this._rotation = Y.one(cfg.controls || '#rotation');
             this._messages = Y.one(cfg.messages || '#messages');
             this._tutorial = Y.one(cfg.messages || '#tutorial');
-            this._solve = Y.one(cfg.solve || '.solve');
+            // this._solve = Y.one(cfg.solve || '.solve');
             this._undo = Y.one(cfg.undo || '.undo');
             this._redo = Y.one(cfg.redo || '.redo');
             this._scramble = Y.one(cfg.scramble || '.scramble');
@@ -427,7 +454,7 @@ YUI.add('rubik', function (Y) {
            this._container.on('gesturechange',this._multiTouchMove,this);
            this._container.on('gestureend',this._multiTouchEnd,this);
 
-           this._solve.on('gesturemovestart',this._solveFake,{preventDefault:true},this);
+        //    this._solve.on('gesturemovestart',this._solveFake,{preventDefault:true},this);
            this._undo.on('gesturemovestart',this._undoMove,{preventDefault:true},this);
            this._redo.on('gesturemovestart',this._redoMove,{preventDefault:true},this);
            this._scramble.on('gesturemovestart',this._scrambleCube,{preventDefault:true},this);
@@ -478,6 +505,7 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
+<<<<<<< HEAD
 
                                                             // white cross
                               {face: "U", slice: "E", rotate: "left"},
@@ -634,35 +662,29 @@ YUI.add('rubik', function (Y) {
 
 
 
+=======
+>>>>>>> 11fe09979b588a6ef1e86d3c3e37260d62336bad
                             ];
-
               var move = moveList[counter];
               this._expectingTransition = true;
               move && this._doMovement(move, false);
               return move;
             }
         },
-
-
-      //  function myFunction() {
-      //      var number = 77;
-        //    document.getElementById("myText").innerHTML = number;
-      //  }
         _redoMove: function (e) {
             if (this._moving)return;
             var movement = this._queue.redo();
             this._expectingTransition = true;
             movement && this._doMovement(movement, true);
         },
-
-        _solveFake: function (){
-          this._solving = Y.later(350,this,function (){
-            var m = this._undoMove();
-          if(!m){
-            this._solving.cancel();
-           }
-          },null,true);
-        },
+        // _solveFake: function (){
+        //   this._solving = Y.later(350,this,function (){
+        //     var m = this._undoMove();
+        //   if(!m){
+        //     this._solving.cancel();
+        //    }
+        //   },null,true);
+        // },
         _scrambleCube: function() {
             scrambleBool = true;
             this._solving = Y.later(350,this,function (){
@@ -726,8 +748,7 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._updatePlaneList();
-                //this._clockwiseCheck();
-                // this._behaviorTree();
+                this._behaviorTree();
                 this._detachToPlane();
                 this._moving = false;
                 this._expectingTransition = false;
@@ -735,6 +756,7 @@ YUI.add('rubik', function (Y) {
         },
         // AI portion, we do checks and call functions here
         _behaviorTree: function() {
+<<<<<<< HEAD
 
           if(!whiteSideDone) {
             // while getting white cross
@@ -846,8 +868,78 @@ YUI.add('rubik', function (Y) {
             }
 
           // }
+=======
+            
+            if( this._specEdgeCheck("blue", "yellow")){
+                step_list = [{face: "L", slice: "M", rotate: "right"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "L", slice: "M", rotate: "left"},
+                              {face: "B", slice: "S", rotate: "left"}]
+                if ( this._queue.undo() == step_list[0] ){
+                    console.log("right move!")
+                    this._queue.redo()
+                 }else{
+                    console.log("error")
+                    console.log(this._queue);
+                    this._undoMove();
+                }
+            }else{
+                console.log(this._edgeCheck("blue", "yellow"))
+            }
+            // // first step
+            // if( scrambleBool ){
+            //     stepOnceScrambled();
+            // }
 
+            // // video 2 and 3
+            // if( this._crossCheck("white")) {
+            //     console.log("there is a white cross");
+            //     stepWhiteCross();
+            // }
+            // if( this._cornerCheck("white", 4)) {
+            //     console.log("all 4 white corners are in place");
+            //     stepWhiteCorners();
+            // }
+            // if( this._faceCheck("white")) {
+            //     console.log("the white face is there");
+            //     stepWhiteFace();
+            // }
 
+            // // video 4
+            // if( this._middleCheck()) {
+            //     console.log("the middle layer is solved");
+            //     stepMiddleLayer();
+            // }
+>>>>>>> 11fe09979b588a6ef1e86d3c3e37260d62336bad
+
+            // // video 5
+            // if( this._faceCheck("white") && this._middleCheck()) {
+            //     if ( !(this._crossCheck("yellow"))) {
+            //         if( this._VCheck("white")) {
+            //             console.log("there is a yellow V")
+            //             stepYellowV();
+            //         }else if ( this._straightCheck("white")) {
+            //             console.log("there is a yellow line/straight")
+            //             stepYellowStraight();
+            //         }else {
+            //             console.log("there is no yellow edge pieces")
+            //             stepYellowNone();
+            //         }
+            //     }else if ( this._crossCheck("yellow")) {
+            //         if ( this._crossPlusOne("white")) {
+            //             console.log("there is a yellow cross and one yellow corner in place")
+            //             stepYellowCrossPlusOne();
+            //         }else if (this._crossPlusTwo("white") == true) {
+            //             console.log("there is a yellow cross and two yellow corners in place")
+            //             stepYellowCrossPlusTwo();
+            //         }else {
+            //             // no corner pieces
+            //             stepNoYellowCorners();
+            //         }
+            //     }
+            // }
+
+<<<<<<< HEAD
           // final stage - video 6
           //step 6
           if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
@@ -868,6 +960,24 @@ YUI.add('rubik', function (Y) {
               setdivclockwisetobetrue();
             }
           }
+=======
+            // // video 6
+            // if ( this._faceCheck("white") && this._middleCheck() && this._faceCheck("yellow")) {
+            //     //turn so that at least two corners are correct
+            //     if( !(this._cornersCheck("yellow", 2))) {
+            //         stepFixTwoCorners();
+            //     }else {
+            //     //if together, put the two corners in the back and do the sequence
+            //     //can differentiate in the hint text
+            //         stepFixFourCorners();
+            //     }
+            //     if( this._cornersCheck("yellow", 4)) {
+            //     //specEdgeCheck?
+                
+            //     stepClockwise();
+            //     }
+            //}
+>>>>>>> 11fe09979b588a6ef1e86d3c3e37260d62336bad
         },
 
         /*
@@ -1020,7 +1130,7 @@ YUI.add('rubik', function (Y) {
         _doMovement:function (m,fromQueue) {
             this.movementcount++;
             counterformovement = counterformovement +1  ;
-            myFunction(); // this function updates counterformovement in html
+            //myFunction(); // this function updates counterformovement in html
 
             //console.log("doMovement: m: ", m);
             // fromQueue is true when I press undo and redo
@@ -1223,9 +1333,6 @@ YUI.add('rubik', function (Y) {
                 //      new_list[side] = color
                 }
             }
-            //console.log(new_list);
-            //return new_list;
-            this._behaviorTree(); // added by anthony 11:17am december 9
         },
         _getKeyByValue: function(object, value) {
             return Object.keys(object).find(key => object[key] === value);
@@ -1515,7 +1622,8 @@ YUI.add('rubik', function (Y) {
             }
             adj_list = this._getMiddleEdges(temp_side)
             edge_list = [["1", 4, 10], ["7", 6, 13], ["3", 7, 12], ["9", 9, 15]];
-            for (edge in edge_list) {
+            for (i in edge_list) {
+                edge = edge_list[i]
                 if (plane_list[temp_side + edge[0]] == temp_colorA &&
                     plane_list[adj_list[edge[1]]] == temp_colorB &&
                     plane_list[adj_list[edge[1]]] == temp_colorB ) {
@@ -1534,10 +1642,11 @@ YUI.add('rubik', function (Y) {
             }
             adj_list = this._getAdjacentSides(temp_side)
             edge_list = [["4", 5], ["6", 8], ["2", 11], ["8", 14]];
-            for (edge in edge_list) {
+            for (i in edge_list) {
+                edge = edge_list[i]
                 if (plane_list[temp_side + edge[0]] == temp_colorA &&
                     plane_list[adj_list[edge[1]]] == temp_colorB ) {
-                    console.log(temp_colorA + " " + temp_colorB + " edge cubie is in the right position")
+                    //console.log(temp_colorA + " " + temp_colorB + " edge cubie is in the right position")
                     return true
                     }
             }
@@ -1552,7 +1661,8 @@ YUI.add('rubik', function (Y) {
             }
             adj_list = this._getMiddleEdges(temp_side)
             edge_list = [[4, 5], [6, 7], [8, 9], [10, 11]];
-            for (edge in edge_list) {
+            for (i in edge_list) {
+                edge = edge_list[i]
                 if (plane_list[temp_side + edge[0]] == temp_colorA &&
                     plane_list[adj_list[edge[1]]] == temp_colorB ) {
                     console.log(temp_colorA + " " + temp_colorB + " middle cubie is in the right position")
@@ -1591,7 +1701,7 @@ YUI.add('rubik', function (Y) {
                     }
                 }
             }
-            console.log("solved!");
+            //console.log("solved!");
             return true
         },
         _startRotationMode: function () {

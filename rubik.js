@@ -54,7 +54,7 @@ function setdisplaystobeblank(){
   l.style.display = "none";
 
   var m = document.getElementById("myDIV_clockwise");
-  m.style.display = "block";
+  m.style.display = "none";
 }
 
 
@@ -471,37 +471,6 @@ YUI.add('rubik', function (Y) {
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "B", slice: "S", rotate: "right"},
                               {face: "U", slice: "E", rotate: "left"}, // count = 15
-
-                              // white cross
-                              {face: "U", slice: "E", rotate: "left"},
-                              {face: "B", slice: "S", rotate: "right"},
-                              {face: "R", slice: "M", rotate: "right"},
-                              {face: "U", slice: "E", rotate: "right"},
-                              {face: "F", slice: "S", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "right"},
-                              {face: "F", slice: "S", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "left"},
-                              {face: "U", slice: "E", rotate: "left"}, // count = 24
-
-                              // corners
-                              {face: "L", slice: "M", rotate: "left"},
-                              {face: "D", slice: "E", rotate: "left"},
-                              {face: "L", slice: "M", rotate: "right"},
-
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "B", slice: "S", rotate: "right"},
-                              {face: "D", slice: "E", rotate: "left"},
-                              {face: "B", slice: "S", rotate: "left"},
-
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "L", slice: "M", rotate: "right"},
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "L", slice: "M", rotate: "left"},
-
-                              {face: "B", slice: "S", rotate: "left"},
-                              {face: "D", slice: "E", rotate: "right"},
-                              {face: "B", slice: "S", rotate: "right"} // count = 38
-
                             ];
               var move = moveList[counter];
               this._expectingTransition = true;
@@ -535,7 +504,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(350,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==38){
+                if(!m || counter==15){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
@@ -606,6 +575,7 @@ YUI.add('rubik', function (Y) {
           //     console.log("4 works. dummy test");
           //     setfourtobetrue();
           //  }
+          // video 2 and 3
           if(this._crossCheck("white") == false){
             console.log("First step");
             setfourtobetrue();
@@ -626,7 +596,7 @@ YUI.add('rubik', function (Y) {
              setdivthreetobetrue();
           }
 
-
+          // video 4
           if(this._middleCheck()) {
             // change text
             console.log("testing middlecheck");
@@ -634,7 +604,7 @@ YUI.add('rubik', function (Y) {
           }
 
 
-
+          // video 5
           if (this._faceCheck("white") == true && this._middleCheck() == true) {
             if (this._crossCheck("yellow") == false) {
               if(this._VCheck("white") == true) {
@@ -654,13 +624,16 @@ YUI.add('rubik', function (Y) {
                 setdivyellowonecornertobetrue();
               }
               else if (this._crossPlusTwo("white") == true) {
-                setdivyellowtwocornerstobetrue();
+
               }
               else { // no corner pieces
                 setdivyellownocornerstobetrue();
               }
             }
           }
+
+          // final stage - video 6
+
 
           //step 6
           if (this._faceCheck("white") == true && this._middleCheck() == true && this._faceCheck("yellow") == true) {
@@ -1332,7 +1305,7 @@ YUI.add('rubik', function (Y) {
                     console.log(temp_colorA + " " + temp_colorB + " corner cubie is in the right position")
                     return true
                     }
-            }          
+            }
             return false
         },
         //returns true if a specific edge cubie is in place, this is not for middle edges, temp_colorA is assumed to be the focused side of the cube

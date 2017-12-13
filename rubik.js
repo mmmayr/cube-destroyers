@@ -394,7 +394,7 @@ YUI.add('rubik', function (Y) {
             this._rotation = Y.one(cfg.controls || '#rotation');
             this._messages = Y.one(cfg.messages || '#messages');
             this._tutorial = Y.one(cfg.messages || '#tutorial');
-            this._solve = Y.one(cfg.solve || '.solve');
+            // this._solve = Y.one(cfg.solve || '.solve');
             this._undo = Y.one(cfg.undo || '.undo');
             this._redo = Y.one(cfg.redo || '.redo');
             this._scramble = Y.one(cfg.scramble || '.scramble');
@@ -420,7 +420,7 @@ YUI.add('rubik', function (Y) {
            this._container.on('gesturechange',this._multiTouchMove,this);
            this._container.on('gestureend',this._multiTouchEnd,this);
 
-           this._solve.on('gesturemovestart',this._solveFake,{preventDefault:true},this);
+        //    this._solve.on('gesturemovestart',this._solveFake,{preventDefault:true},this);
            this._undo.on('gesturemovestart',this._undoMove,{preventDefault:true},this);
            this._redo.on('gesturemovestart',this._redoMove,{preventDefault:true},this);
            this._scramble.on('gesturemovestart',this._scrambleCube,{preventDefault:true},this);
@@ -478,27 +478,20 @@ YUI.add('rubik', function (Y) {
               return move;
             }
         },
-
-
-      //  function myFunction() {
-      //      var number = 77;
-        //    document.getElementById("myText").innerHTML = number;
-      //  }
         _redoMove: function (e) {
             if (this._moving)return;
             var movement = this._queue.redo();
             this._expectingTransition = true;
             movement && this._doMovement(movement, true);
         },
-
-        _solveFake: function (){
-          this._solving = Y.later(350,this,function (){
-            var m = this._undoMove();
-          if(!m){
-            this._solving.cancel();
-           }
-          },null,true);
-        },
+        // _solveFake: function (){
+        //   this._solving = Y.later(350,this,function (){
+        //     var m = this._undoMove();
+        //   if(!m){
+        //     this._solving.cancel();
+        //    }
+        //   },null,true);
+        // },
         _scrambleCube: function() {
             scrambleBool = true;
             this._solving = Y.later(350,this,function (){
@@ -1387,7 +1380,7 @@ YUI.add('rubik', function (Y) {
                     }
                 }
             }
-            console.log("solved!");
+            //console.log("solved!");
             return true
         },
         _startRotationMode: function () {

@@ -763,6 +763,7 @@ YUI.add('rubik', function (Y) {
                 this._reorganizeCubies();
                 this._reorientCubies();
                 this._updatePlaneList();
+                this._trueFaceCheck("white");
                 this._behaviorTree();
                 this._detachToPlane();
                 this._moving = false;
@@ -802,9 +803,6 @@ YUI.add('rubik', function (Y) {
                 stepWhiteFace();
             }
           }
-
-
-
 
             // video 4
             if( this._middleCheck()) {
@@ -1303,7 +1301,7 @@ YUI.add('rubik', function (Y) {
         },
         //returns true when all cubies on one "temp_color" side is all the same color AND in the right position
         _trueFaceCheck: function(temp_color) {
-            returns (this._edgeCheck(temp_color, 4) && this._cornerCheck(temp_color, 4) )
+            return (this._edgeCheck(temp_color, 4) && this._cornersCheck(temp_color, 4) )
         },
         //straightCheck returns true when there is a "straight" pattern on the side
         _straightCheck: function(first_color) {
@@ -1507,7 +1505,7 @@ YUI.add('rubik', function (Y) {
                 edge = edge_list[i]
                 if (plane_list[temp_side + edge[0]] == temp_colorA &&
                     plane_list[adj_list[edge[1]]] == temp_colorB &&
-                    plane_list[adj_list[edge[1]]] == temp_colorB ) {
+                    plane_list[adj_list[edge[2]]] == temp_colorC ) {
                     // console.log(temp_colorA + " " + temp_colorB + " corner cubie is in the right position")
                     return true
                     }

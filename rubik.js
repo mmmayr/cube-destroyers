@@ -17,7 +17,6 @@ var whiteRed=false; var whiteBlue=false; var whiteGreen=false; var whiteOrange=f
 var orangeBlue=false; var greenOrange=false; var redGreen=false; var blueRed=false;
 var yellowSideDone=false;
 var lastStage=false;
-var middleLayerDone=false;
 
 // test message for extra dynamic-ness
 

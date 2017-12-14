@@ -45,7 +45,7 @@ function stepWhiteCross(){
 
     // even if you don't need to add extra text, keep these so the panels remain blank
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>The goal is to get the corner piece into the bottom corner of the cube, on the edge between the two colors. <br> If the corner piece you're focused on is already on the bottom layer, rotate the bottom until it's in the right place. <br/> <br> If it's on the top layer, rotate the cube so the corner is on the right face perspective, then do: right down, down right, right up. <br/> Then rotate the bottom until it's in the correct place. <br>>><br/><br><<<br/></h2>"
+    details.innerHTML = "<h2>The goal is to get the corner piece into the bottom corner of the cube, on the edge between the two colors. <br> If the corner piece you're focused on is already on the bottom layer, rotate the bottom until it's in the right place. <br/> If it's on the top layer, rotate the cube so the corner is on the right face perspective, then do: right down, down right, right up. Then rotate the bottom until it's in the correct place. <br>>><br/><br><<<br/></h2>"
 
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2> Once the corner is in the correct place, rotate the cube, so the corner is on the bottom right perspective, then do: right down, down right, right up, down left. <br> Do those steps until the white corner is in the correct spot. Repeat for the other three corners. <br/> <br><<<br/></h2>"
@@ -710,7 +710,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(400,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==15){
+                if(!m || counter==24){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
@@ -1030,7 +1030,6 @@ YUI.add('rubik', function (Y) {
         _doMovement:function (m,fromQueue) {
             this.movementcount++;
             counterformovement = counterformovement +1  ;
-            console.log("m: ",m);
             //myFunction(); // this function updates counterformovement in html
 
             //console.log("doMovement: m: ", m);

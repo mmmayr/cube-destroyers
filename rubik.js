@@ -156,7 +156,7 @@ function stepFixFourCorners(){
     instructions.innerHTML = "<h2>Rotate the cube so that the correct corners are on the back side or one is on the back side and the other is diagonally on the front side. <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>Then in order to get all four corners correct, do this: right down, front left, right down, back left, back left, right up, front right, right down, back left, back left, right up, right up, up right. <br> >>    <<</h2>"
+    details.innerHTML = "<h2>Then in order to get all four corners correct, do this: right down, front left, right down, back left, back left, right up, front right, right down, back left, back left, right up, right up, up right. <br> <<    >> </h2>"
 
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2>If there are diagonal corners, you will need to do this again.<br> << </h2>"

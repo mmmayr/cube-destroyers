@@ -24,31 +24,31 @@ var yellowCross=false;
 // updating tutorial text
 function stepOnceScrambled(){
   var instructions = document.getElementById("page0");
-  instructions.innerHTML = "<h2>Please hold, cube is scrambling. <br>>><br/></h2>";
+  instructions.innerHTML = "<h2>Please hold, cube is scrambling. <br> >> </h2>";
 
   var details = document.getElementById("page1");
-  details.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side. <br>>><br/><br><<<br/></h2>"
+  details.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side. <br> >>   << </h2>"
 
   var more_details = document.getElementById("page2");
-  more_details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color). <br>>><br/><br><<<br/></h2>"
+  more_details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color). <br> >>   << </h2>"
   // I think by now you get the format, each "page" is a slide panel. I prefer if you keep concise instructions on the first page and detailed explanations are on the further pages
   // NOTE, this does not push you back to the first page, so it's still better to keep info on the first panel
 
   var more_more_details = document.getElementById("page3");
-  more_more_details.innerHTML = "<h2>The easiest way to solve the cube is to get the said edges in this order: blue, orange, green, red. If there is a situation where the white cross edge and top middle adjacent edge is reversed, do these moves, facing the problematic side: Front left, Up left, Left up, Up right <br><<<br/></h2>"
+  more_more_details.innerHTML = "<h2>The easiest way to solve the cube is to get the said edges in this order: blue, orange, green, red. If there is a situation where the white cross edge and top middle adjacent edge is reversed, do these moves, facing the problematic side: Front left, Up left, Left up, Up right <br> << </h2>"
 }
 function stepWhiteCross(){
     // ok so now you guys get the template, I'll leave it to you all to clean up the tutorial text.
     // like, yeah I'm begging you please split these instructions up
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>You've completed the white cross, well done! <br> Now it's time to move the white corners into the right positions. <br/> Staying with the perspective of white as the top face, find a white corner piece, and see what colors are on its other side. <br>>><br/></h2>"
+    instructions.innerHTML = "<h2>You've completed the white cross, well done! <br> Now it's time to move the white corners into the right positions. Staying with the perspective of white as the top face, find a white corner piece, and see what colors are on its other side. <br> >> </h2>"
 
     // even if you don't need to add extra text, keep these so the panels remain blank
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>The goal is to get the corner piece into the bottom corner of the cube, on the edge between the two colors. <br> If the corner piece you're focused on is already on the bottom layer, rotate the bottom until it's in the right place. <br/> If it's on the top layer, rotate the cube so the corner is on the right face perspective, then do: right down, down right, right up. Then rotate the bottom until it's in the correct place. <br>>><br/><br><<<br/></h2>"
+    details.innerHTML = "<h2>The goal is to get the corner piece into the bottom corner of the cube, on the edge between the two colors. <br> If the corner piece you're focused on is already on the bottom layer, rotate the bottom until it's in the right place. If it's on the top layer, rotate the cube so the corner is on the right face perspective, then do: right down, down right, right up. Then rotate the bottom until it's in the correct place. <br> >>   << </h2>"
 
     var more_details = document.getElementById("page2");
-    more_details.innerHTML = "<h2> Once the corner is in the correct place, rotate the cube, so the corner is on the bottom right perspective, then do: right down, down right, right up, down left. <br> Do those steps until the white corner is in the correct spot. Repeat for the other three corners. <br/> <br><<<br/></h2>"
+    more_details.innerHTML = "<h2> Once the corner is in the correct place, rotate the cube, so the corner is on the bottom right perspective, then do: right down, down right, right up, down left. <br><br> Do those steps until the white corner is in the correct spot. Repeat for the other three corners. <br> << </h2>"
 }
 function stepWhiteCorners(){
     var instructions = document.getElementById("page0");
@@ -63,18 +63,18 @@ function stepWhiteCorners(){
 function stepWhiteFace(){
     // yeah like this up, right, up inverted business needs a better way of explaining to the players...
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>The white face is now complete, hooray! <br> Now we must solve the middle layer. <br/> <br> Flipping the cube upside down so that white is on the bottom, turn the top until it has a vertical line of the same color in the middle column of one of the sides. <br/> If all the edge pieces have yellow in them (on top or on the side), do this: <br>>><br/></h2>"
+    instructions.innerHTML = "<h2>The white face is now complete, hooray! <br> Now we must solve the middle layer. <br> Flipping the cube upside down so that white is on the bottom, turn the top until it has a vertical line of the same color in the middle column of one of the sides. If all the edge pieces have yellow in them (on top or on the side), do this: <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>up left, right up, up right, right down, up right, front right, up left, front left. <br> If there is an edge piece without yellow, determine whether it needs to go right or left. <br/> <br>>><br/><br><<<br/></h2>"
+    details.innerHTML = "<h2>up left, right up, up right, right down, up right, front right, up left, front left. <br> If there is an edge piece without yellow, determine whether it needs to go right or left. <br> >>   << </h2>"
 
     var more_details = document.getElementById("page2");
-    more_details.innerHTML = "<h2>If left, do: up right, left down, up left, left up, up left, front left, up right, front right. <br>If right, do: up left, right up, up right, right down, up right, front right, up left, front left. <br/> Continue this process until the middle layer is all done! <br><<<br/></h2>"
+    more_details.innerHTML = "<h2>If left, do: up right, left down, up left, left up, up left, front left, up right, front right. <br> If right, do: up left, right up, up right, right down, up right, front right, up left, front left. Continue this process until the middle layer is all done! <br> << </h2>"
 }
 function stepMiddleLayer(){
   // console.log("IN HEERRERRERER");
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>The middle layer is solved! Great job! <br>The next goal is to get the yellow cross.<br/></h2>"
+    instructions.innerHTML = "<h2>The middle layer is solved! Great job! <br> The next goal is to get the yellow cross. </h2>"
 
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
@@ -84,7 +84,7 @@ function stepMiddleLayer(){
 }
 function stepYellowV(){
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>The middle layer is solved! Onto the next step! <br> You have a yellow v, and can get to the yellow cross! <br/> Do this: front left, up left, right up, up right, right down, front right.</h2>"
+    instructions.innerHTML = "<h2>The middle layer is solved! Onto the next step! <br> You have a yellow v, and can get to the yellow cross! Do this: front left, up left, right up, up right, right down, front right.</h2>"
 
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
@@ -94,7 +94,7 @@ function stepYellowV(){
 }
 function stepYellowStraight(){
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>The middle layer is solved! Onto the next step! <br> You have a straight line on the yellow face, and can get to the yellow cross! <br/> <br> Do this: front left, right up, up left, right down, up right, front right.<br/></h2>"
+    instructions.innerHTML = "<h2>The middle layer is solved! Onto the next step! <br> You have a straight line on the yellow face, and can get to the yellow cross! <br> Do this: front left, right up, up left, right down, up right, front right.</h2>"
 
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
@@ -104,7 +104,7 @@ function stepYellowStraight(){
 }
 function stepYellowNone(){
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>The middle layer is solved! Onto the next step! <br> To get to a state in which you can reach the yellow cross, do this: front left, up left, right up, up right, right down, front right. <br/></h2>"
+    instructions.innerHTML = "<h2>The middle layer is solved! Onto the next step! <br> To get to a state in which you can reach the yellow cross, do this: front left, up left, right up, up right, right down, front right. </h2>"
 
     var details = document.getElementById("page1");
     details.innerHTML = "<h2></h2>"
@@ -114,30 +114,30 @@ function stepYellowNone(){
 }
 function stepYellowCrossPlusOne(){
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>You have one yellow corner in the right spot, rotate the cube so this corner is in the bottom left corner of the yellow face. <br>>><br/></h2>"
+    instructions.innerHTML = "<h2>You have one yellow corner in the right spot, rotate the cube so this corner is in the bottom left corner of the yellow face. <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>Then do: right up, up left, right down, up left, right up, up left, up left, right down. This may need to be done multiple times. <br><<<br/></h2>"
+    details.innerHTML = "<h2>Then do: right up, up left, right down, up left, right up, up left, up left, right down. This may need to be done multiple times. <br> << </h2>"
 
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"
 }
 function stepYellowCrossPlusTwo(){
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>You have two yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the front side. <br>>><br/></h2>"
+    instructions.innerHTML = "<h2>You have two yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the front side. <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>Then do: right up, up left, right down, up left, right up, up left, up left, right down. <br>This may need to be done multiple times. <br/><br><<<br/></h2>"
+    details.innerHTML = "<h2>Then do: right up, up left, right down, up left, right up, up left, up left, right down. <br>This may need to be done multiple times. <br> << </h2>"
 
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"
 }
 function stepNoYellowCorners(){
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>You have no yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the left side. <br>>><br/></h2>"
+    instructions.innerHTML = "<h2>You have no yellow corners in the right place, so find a yellow corner on the side, and rotate the cube so that corner is on the left side. <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>Then do: right up, up left, right down, up left, right up, up left, up left, right down. <br>This may need to be done multiple times. <br/><br><<<br/></h2>"
+    details.innerHTML = "<h2>Then do: right up, up left, right down, up left, right up, up left, up left, right down. <br>This may need to be done multiple times. <br> << </h2>"
 
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2></h2>"
@@ -153,23 +153,23 @@ function stepFixTwoCorners(){
     more_details.innerHTML = "<h2></h2>"}
 function stepFixFourCorners(){
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>Rotate the cube so that the correct corners are on the back side or one is on the back side and the other is diagonally on the front side. <br>>><br/></h2>"
+    instructions.innerHTML = "<h2>Rotate the cube so that the correct corners are on the back side or one is on the back side and the other is diagonally on the front side. <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>Then in order to get all four corners correct, do this: right down, front left, right down, back left, back left, right up, front right, right down, back left, back left, right up, right up, up right. <br>>><br/><br><<<br/></h2>"
+    details.innerHTML = "<h2>Then in order to get all four corners correct, do this: right down, front left, right down, back left, back left, right up, front right, right down, back left, back left, right up, right up, up right. <br> >>    <<</h2>"
 
     var more_details = document.getElementById("page2");
-    more_details.innerHTML = "<h2>If there are diagonal corners, you will need to do this again.<br><<<br/></h2>"
+    more_details.innerHTML = "<h2>If there are diagonal corners, you will need to do this again.<br> << </h2>"
 }
 function stepClockwise(){
     var instructions = document.getElementById("page0");
-    instructions.innerHTML = "<h2>Almost there! <br>The following may need to be done multiple times in order to get a solved cube. <br/> Make sure that if there is an edge in the right place and that edge is on the back face. <br>>><br/></h2>"
+    instructions.innerHTML = "<h2>Almost there! <br> The following may need to be done multiple times in order to get a solved cube. Make sure that if there is an edge in the right place and that edge is on the back face. <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>If there is not a edge in the right place, it doesn't matter which way you have the cube rotated yet. <br>>><br/><br><<<br/></h2>"
+    details.innerHTML = "<h2>If there is not a edge in the right place, it doesn't matter which way you have the cube rotated yet. <br> >>   << </h2>"
 
     var more_details = document.getElementById("page2");
-    more_details.innerHTML = "<h2>Do this: front left, front left, up left, left up, right down, front left, front left, left down, right up, up left, front left, front left. <br><<<br/></h2>"
+    more_details.innerHTML = "<h2>Do this: front left, front left, up left, left up, right down, front left, front left, left down, right up, up left, front left, front left. <br> << </h2>"
 }
 function stepDone(){
     var instructions = document.getElementById("page0");
@@ -710,7 +710,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(400,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==24){
+                if(!m || counter==15){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;

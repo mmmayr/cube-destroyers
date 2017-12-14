@@ -27,10 +27,10 @@ function stepOnceScrambled(){
   instructions.innerHTML = "<h2>Please hold, cube is scrambling. <br> >> </h2>";
 
   var details = document.getElementById("page1");
-  details.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side. <br> >>   << </h2>"
+  details.innerHTML = "<h2>The first step is to form a cross on one of the sides, for instance, the white side. <br> <<   >> </h2>"
 
   var more_details = document.getElementById("page2");
-  more_details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color). <br> >>   << </h2>"
+  more_details.innerHTML = "<h2>With the white side on top of the cube, note how in a solved white cross, each top middle edge on the adjacent sides (orange, blue, green, and red) are in the correct spot (matching the middle color). <br> <<   >> </h2>"
   // I think by now you get the format, each "page" is a slide panel. I prefer if you keep concise instructions on the first page and detailed explanations are on the further pages
   // NOTE, this does not push you back to the first page, so it's still better to keep info on the first panel
 
@@ -45,7 +45,7 @@ function stepWhiteCross(){
 
     // even if you don't need to add extra text, keep these so the panels remain blank
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>The goal is to get the corner piece into the bottom corner of the cube, on the edge between the two colors. <br> If the corner piece you're focused on is already on the bottom layer, rotate the bottom until it's in the right place. If it's on the top layer, rotate the cube so the corner is on the right face perspective, then do: right down, down right, right up. Then rotate the bottom until it's in the correct place. <br> >>   << </h2>"
+    details.innerHTML = "<h2>The goal is to get the corner piece into the bottom corner of the cube, on the edge between the two colors. <br> If the corner piece you're focused on is already on the bottom layer, rotate the bottom until it's in the right place. If it's on the top layer, rotate the cube so the corner is on the right face perspective, then do: right down, down right, right up. Then rotate the bottom until it's in the correct place. <br> <<   >> </h2>"
 
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2> Once the corner is in the correct place, rotate the cube, so the corner is on the bottom right perspective, then do: right down, down right, right up, down left. <br><br> Do those steps until the white corner is in the correct spot. Repeat for the other three corners. <br> << </h2>"
@@ -66,7 +66,7 @@ function stepWhiteFace(){
     instructions.innerHTML = "<h2>The white face is now complete, hooray! <br> Now we must solve the middle layer. <br> Flipping the cube upside down so that white is on the bottom, turn the top until it has a vertical line of the same color in the middle column of one of the sides. If all the edge pieces have yellow in them (on top or on the side), do this: <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>up left, right up, up right, right down, up right, front right, up left, front left. <br> If there is an edge piece without yellow, determine whether it needs to go right or left. <br> >>   << </h2>"
+    details.innerHTML = "<h2>up left, right up, up right, right down, up right, front right, up left, front left. <br> If there is an edge piece without yellow, determine whether it needs to go right or left. <br> <<   >> </h2>"
 
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2>If left, do: up right, left down, up left, left up, up left, front left, up right, front right. <br> If right, do: up left, right up, up right, right down, up right, front right, up left, front left. Continue this process until the middle layer is all done! <br> << </h2>"
@@ -166,7 +166,7 @@ function stepClockwise(){
     instructions.innerHTML = "<h2>Almost there! <br> The following may need to be done multiple times in order to get a solved cube. Make sure that if there is an edge in the right place and that edge is on the back face. <br> >> </h2>"
 
     var details = document.getElementById("page1");
-    details.innerHTML = "<h2>If there is not a edge in the right place, it doesn't matter which way you have the cube rotated yet. <br> >>   << </h2>"
+    details.innerHTML = "<h2>If there is not a edge in the right place, it doesn't matter which way you have the cube rotated yet. <br> <<   >> </h2>"
 
     var more_details = document.getElementById("page2");
     more_details.innerHTML = "<h2>Do this: front left, front left, up left, left up, right down, front left, front left, left down, right up, up left, front left, front left. <br> << </h2>"
@@ -710,7 +710,7 @@ YUI.add('rubik', function (Y) {
             this._solving = Y.later(400,this,function (){
                 var m = this._undoMove();
                 counter++;
-                if(!m || counter==15){
+                if(!m || counter==24){
                     scrambleBool=false;
                     this._solving.cancel();
                     counter=0;
